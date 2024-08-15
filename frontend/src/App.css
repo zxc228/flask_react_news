@@ -1,0 +1,294 @@
+body, html, #root, .App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.App-header {
+  position: absolute;
+  width: 60%;
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  border-bottom: 0.5px solid #999999;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center; /* Выравниваем логотип по центру вертикально */
+  justify-content: flex-start; /* Логотип будет максимально слева */
+}
+
+.logo {
+  max-height: 50px;
+  margin-right: 0; /* Убираем лишний отступ справа */
+}
+
+
+.navigation {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navigation ul {
+  list-style-type: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0px; /* Adjust this value as needed */
+}
+
+
+.navigation a {
+  text-decoration: none;
+  color: #E3E3E3;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 0px; /* Adjust this value as needed */
+}
+
+.language-switch {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.language-switch .fa-globe {
+  margin-right: 5px;
+}
+
+.language-switch span {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.App-main {
+  height: 100vh;
+  background: url('/public/back.jpeg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  background-attachment: scroll; /* Теперь фон будет прокручиваться вместе с текстом */
+  justify-content: center;
+  position: relative;
+}
+
+
+.App-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.overlay {
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2; /* Отрегулированная высота строки */
+  text-align: left;
+  position: absolute; /* Позволяет точно позиционировать текст */
+  left: -540px; /* Расположение слева */
+  top: -200px;  /* Расположение сверху */
+  max-width: 500px; /* Ограничение ширины контейнера для переноса текста на две строки */
+  color: #ffffff; /* Розовый цвет текста */
+  z-index: 20; /* Установить z-index выше, чем у затемняющего слоя */
+}
+.learn-more-button {
+  padding: 10px 20px;
+  width: 400%; /* Кнопка занимает 50% от ширины родительского элемента */
+  height: auto; /* Высота автоматически подстраивается под содержимое */
+  font-size: 16px;
+  background-color: transparent; /* Прозрачный фон */
+  color: white; /* Белый текст */
+  border: 2px solid white; /* Белая рамка вокруг кнопки */
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; /* Позволяет точно позиционировать кнопку */
+  top: -90px; /* Регулирует положение кнопки сверху относительно элемента-родителя */
+  left:  -460px; /* Регулирует положение кнопки слева */
+  transform: translateX(-50%);
+  z-index: 20; /* Устанавливаем z-index, чтобы кнопка была выше затемняющего слоя */
+}
+
+.learn-more-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Легкий белый фон при наведении */
+  color: white; /* Белый цвет текста при наведении */
+  border-color: white; /* Белая рамка сохраняется при наведении */
+}
+
+.App-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1; /* Убедитесь, что затемнение имеет более низкий z-index */
+}
+
+.overlay {
+  position: relative;
+  z-index: 10; /* Установите z-index ниже, чем у h1 */
+}
+
+
+
+
+.news-section {
+  background-color: #fff;
+  padding: 0px 0;
+  min-height: 100vh;
+  width: 100%;
+  display: block;
+}
+
+.news-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.news-title {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 3rem !important;
+}
+
+.all-news-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.all-news-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #064588;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.all-news-button::after {
+  content: '→';
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.all-news-button:hover {
+  background-color: #064588;
+}
+
+.all-news-button:hover::after {
+  transform: translateX(5px);
+}
+
+.news-list-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.news-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.about-us-section {
+  position: relative;
+  background-color: #f4f4f4;
+  background-image: url('/public/back2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 60vh;
+  padding: 0px 0;
+  min-height: 100vh;
+  width: 100%;
+  display: block;
+}
+
+.about-us-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.about-us-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us-title {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+}
+
+.about-us-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  text-align: center;
+  color: white;
+}

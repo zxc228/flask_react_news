@@ -1,0 +1,110 @@
+.news-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.news-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.news-item-enter {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.news-item-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1500ms ease-in-out, transform 1500ms ease-in-out;
+}
+
+.news-item-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.news-item-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 1500ms ease-in-out, transform 1500ms ease-in-out;
+}
+
+
+
+.news-item {
+    background-color: #eaeaea;
+    border-radius: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(33.33% - 20px);
+    min-height: 420px; /* Задание минимальной высоты */
+    box-sizing: border-box;
+    transition: transform 0.2s;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Разместить элементы вертикально с равномерным распределением */
+}
+
+.news-item:hover {
+    transform: translateY(-5px);
+}
+
+.news-date {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.news-title-section {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.news-content {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Контент растягивается, занимая доступное пространство */
+}
+
+.news-link {
+    display: inline-block;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    align-self: flex-end; /* Кнопка выравнивается по низу */
+}
+
+.news-link:hover {
+    text-decoration: underline;
+}
+
+.pagination-dots {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.pagination-dots span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination-dots .active {
+    background-color: #007bff;
+}
