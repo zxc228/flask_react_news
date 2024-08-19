@@ -22,10 +22,11 @@ def create_app():
     migrate.init_app(app, db)
 
     from backend.api.routes import api
+    from backend.admin.routes import admin
     print('Registering blueprints...')
 
     app.register_blueprint(api)
-
+    app.register_blueprint(admin)
 
     print("Application created successfully!")
 

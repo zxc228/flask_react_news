@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ news.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ news.title }}</h1>
+        <p><strong>Дата:</strong> {{ news.date.strftime('%d %B %Y') }}</p>
+        <p>{{ news.content }}</p>
+        <a href="{{ url_for('admin.admin_edit_news', id=news.id) }}" class="btn_edit">Редактировать</a>
+        <form action="{{ url_for('admin.admin_delete_news', id=news.id) }}" method="POST">
+            <button type="submit" class="btn_delete">Удалить</button>
+        </form>
+        <a href="{{ url_for('admin.admin_news') }}" class="btn_back">Назад к новостям</a>
+    </div>
+</body>
+</html>

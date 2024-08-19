@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать вакансию</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Редактировать вакансию</h1>
+        <form action="{{ url_for('admin.admin_edit_vacancy', id=vacancy.id) }}" method="POST">
+            <label for="title">Заголовок:</label>
+            <input type="text" name="title" value="{{ vacancy.title }}" required>
+            <br>
+            <label for="content">Описание:</label>
+            <textarea name="content" required>{{ vacancy.content }}</textarea>
+            <br>
+            <label for="salary">Зарплата:</label>
+            <input type="text" name="salary" value="{{ vacancy.salary }}">
+            <br>
+            <label for="status">Статус:</label>
+            <input type="checkbox" name="status" {% if vacancy.status %}checked{% endif %}> Активна
+            <br>
+            <label for="date">Дата:</label>
+            <input type="date" name="date" value="{{ vacancy.date.strftime('%Y-%m-%d') }}" required>
+            <br>
+            <button type="submit">Сохранить изменения</button>
+        </form>
+        <a href="{{ url_for('admin.admin_vacancies') }}" class="btn_back">Назад к вакансиям</a>
+    </div>
+</body>
+</html>

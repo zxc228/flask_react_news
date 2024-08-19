@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать новость</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Редактировать новость</h1>
+        <form action="{{ url_for('admin.admin_edit_news', id=news.id) }}" method="POST">
+            <label for="title">Заголовок:</label>
+            <input type="text" name="title" value="{{ news.title }}" required>
+            <br>
+            <label for="content">Содержание:</label>
+            <textarea name="content" required>{{ news.content }}</textarea>
+            <br>
+            <label for="date">Дата:</label>
+            <input type="date" name="date" value="{{ news.date.strftime('%Y-%m-%d') }}" required>
+            <br>
+            <button type="submit">Сохранить изменения</button>
+        </form>
+        <a href="{{ url_for('admin.admin_news') }}" class="btn_back">Назад к новостям</a>
+    </div>
+</body>
+</html>
