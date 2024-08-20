@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import './NewsList.css';
+import './App.css';
 
 const NewsList = () => {
     const [news, setNews] = useState([]);

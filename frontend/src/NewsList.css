@@ -5,7 +5,11 @@
     gap: 20px;
     padding: 0;
     margin: 0;
+    overflow: hidden; /* Скрыть переполнение */
+    max-height: 430px; /* Ограничение по высоте */
+    transition: max-height 0.6s ease-in-out; /* Плавный переход */
 }
+
 
 .news-list {
     display: flex;
@@ -24,7 +28,7 @@
 .news-item-enter-active {
     opacity: 1;
     transform: translateX(0);
-    transition: opacity 1500ms ease-in-out, transform 1500ms ease-in-out;
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
 }
 
 .news-item-exit {
@@ -35,7 +39,7 @@
 .news-item-exit-active {
     opacity: 0;
     transform: translateX(-100%);
-    transition: opacity 1500ms ease-in-out, transform 1500ms ease-in-out;
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
 }
 
 
