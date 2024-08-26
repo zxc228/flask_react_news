@@ -50,10 +50,11 @@
     min-height: 420px; /* Задание минимальной высоты */
     box-sizing: border-box;
     transition: transform 0.2s;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Разместить элементы вертикально с равномерным распределением */
+    
 }
 
 .news-item:hover {
@@ -74,6 +75,10 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Добавляет многоточие */
+    white-space: nowrap; /* Запрещает перенос строк */
+    max-width: 100%; /* Убедитесь, что контейнер не превышает ширину родителя */
 }
 
 .news-content {
@@ -81,19 +86,32 @@
     color: #333;
     margin-bottom: 15px;
     flex-grow: 1; /* Контент растягивается, занимая доступное пространство */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Добавляет многоточие */
+    white-space: nowrap; /* Запрещает перенос строк */
+    max-width: 100%; /* Убедитесь, что контейнер не превышает ширину родителя */
 }
 
-.news-link {
+
+.news-link button {
     display: inline-block;
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    align-self: flex-end; /* Кнопка выравнивается по низу */
+    color: #ffffff !important; /* Цвет текста */
+    background-color: #007bff !important; /* Цвет фона кнопки */
+    text-decoration: none !important;
+    font-weight: bold !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    border: none !important; /* Убираем границу */
+    transition: background-color 0.3s ease, transform 0.2s ease !important;
 }
 
 .news-link:hover {
-    text-decoration: underline;
+    background-color: #0056b3 !important; /* Цвет фона при наведении */
+    transform: translateY(-3px) !important; /* Легкий подъем кнопки при наведении */
+    text-decoration: none !important;
 }
+
 
 .pagination-dots {
     text-align: center;

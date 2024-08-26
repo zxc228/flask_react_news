@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import '../styles/App.css'; // В Services.jsx или любом другом компоненте
+import { useNavigate } from 'react-router-dom';  // Импортируем hook для навигации
+import '../styles/App.css'; 
+
 const NewsList = () => {
     const [news, setNews] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const newsPerPage = 3;
+    const navigate = useNavigate();  // Инициализируем hook навигации
 
     useEffect(() => {
         fetch('http://127.0.0.1:5001/api/news')
@@ -23,6 +26,15 @@ const NewsList = () => {
     const indexOfFirstNews = indexOfLastNews - newsPerPage;
     const currentNews = news.slice(indexOfFirstNews, indexOfLastNews);
 
+    // Функция для обрезки текста
+    const truncateText = (text, maxLength) => {
+        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    };
+
+    const handleReadMoreClick = (id) => {
+        navigate(`/news/${id}`);  // Перенаправляем пользователя на страницу новости
+    };
+
     return (
         <div>
             <div className="news-container">
@@ -35,9 +47,17 @@ const NewsList = () => {
                         >
                             <li className="news-item">
                                 <h3 className="news-date">{item.date}</h3>
-                                <h2 className="news-title-section">{item.title}</h2>
-                                <p className="news-content">{item.content}</p>
-                                <a href="#" className="news-link">Подробнее</a>
+                                <h2 className="news-title-section">
+                                    {truncateText(item.title, 100)} {/* Обрезка до 50 символов */}
+                                </h2>
+                                <p className="news-content">
+                                    {truncateText(item.content, 300)} {/* Обрезка до 100 символов */}
+                                </p>
+                                <button 
+                                    className="news-link" 
+                                    onClick={() => handleReadMoreClick(item.id)}>
+                                    Подробнее
+                                </button>
                             </li>
                         </CSSTransition>
                     ))}

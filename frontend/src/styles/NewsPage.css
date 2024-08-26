@@ -43,6 +43,10 @@
   margin-bottom: 5px;
   margin-left: 300px;
   color: #666;
+  overflow-wrap: break-word; /* Переносит слова, чтобы они не выходили за границы контейнера */
+    word-wrap: break-word; /* Поддержка для более старых браузеров */
+    white-space: normal; /* Разрешает перенос строк */
+    max-width: 100%; /* Убедитесь, что контейнер не превышает ширину родителя */
 }
 
 .news-date-container {
@@ -61,6 +65,10 @@
   margin-top: 0px;
   margin-bottom: 5px;
   margin-left: 300px;
+  overflow-wrap: break-word; /* Переносит слова, чтобы они не выходили за границы контейнера */
+    word-wrap: break-word; /* Поддержка для более старых браузеров */
+    white-space: normal; /* Разрешает перенос строк */
+    max-width: 100%; /* Убедитесь, что контейнер не превышает ширину родителя */
 }
 
 .news-title-container:hover {
