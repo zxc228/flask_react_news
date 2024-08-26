@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать сотрудника</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Редактировать сотрудника</h1>
+        <form action="{{ url_for('admin.admin_edit_employee', id=employee.id) }}" method="POST" enctype="multipart/form-data">
+            <label for="name">Имя:</label>
+            <input type="text" name="name" value="{{ employee.name }}" required>
+            <br>
+            <label for="surname">Фамилия:</label>
+            <input type="text" name="surname" value="{{ employee.surname }}" required>
+            <br>
+            <label for="patronymic">Отчество:</label>
+            <input type="text" name="patronymic" value="{{ employee.patronymic }}" required>
+            <br>
+            <label for="vacancy">Вакансия:</label>
+            <input type="text" name="vacancy" value="{{ employee.vacancy }}" required>
+            <br>
+            <label for="photo">Фото:</label>
+            <input type="file" name="photo">
+            {% if employee.photo %}
+                <br>
+                <img src="{{ url_for('static', filename=employee.photo) }}" alt="Фото сотрудника">
+            {% endif %}
+            <br>
+            <button type="submit">Сохранить изменения</button>
+        </form>
+        <a href="{{ url_for('admin.admin_employees') }}" class="btn_back">Назад к сотрудникам</a>
+    </div>
+</body>
+</html>
