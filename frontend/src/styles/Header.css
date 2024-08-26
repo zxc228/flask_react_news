@@ -9,8 +9,6 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgba(0, 0, 0, 0); /* Прозрачный хедер */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Полоска под хедером */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Небольшая тень для хедера */
 }
 
 .logo-container {
