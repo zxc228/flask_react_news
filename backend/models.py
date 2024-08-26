@@ -22,3 +22,12 @@ class Vacancy(db.Model):
 
     def __repr__(self):
         return f"<Vacancy {self.title} - {self.date.strftime('%d %B %Y')}, Status: {'Active' if self.status else 'Inactive'}>"
+    
+
+class Employee(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    surname = db.Column(db.String(255), nullable=False)
+    patronymic = db.Column(db.String(255), nullable=False)
+    vacancy = db.Column(db.String(255), nullable=False)
+    photo = db.Column(db.String(255), nullable=True)
