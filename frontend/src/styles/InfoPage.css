@@ -1,0 +1,198 @@
+.breadcrumb {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: absolute;
+  left: 140px;
+  top: 451px;
+}
+
+.breadcrumb-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.breadcrumb-icon {
+  font-size: 20px;
+  color: #007bff;
+  margin-right: 5px;
+}
+
+.breadcrumb-text {
+  color: #007bff;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.breadcrumb-text:hover {
+  text-decoration: underline;
+}
+
+.info-page {
+  padding-top: 0;
+}
+
+.info-header {
+  text-align: center;
+  position: relative;
+}
+
+.header-image {
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.info-header h1 {
+  position: absolute;
+  top: 42%;
+  left: 17%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 40px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 28px;
+  z-index: 2;
+}
+
+.info-content {
+  max-width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.paragraph-large {
+  font-family: 'Inter', semi-bold;
+  font-weight: 600;
+  font-size: 24px !important;
+  line-height: 28px !important;
+  color: #000000 !important;
+  margin-bottom: 20px;
+  max-width: 900px;
+}
+
+.paragraph-normal {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 18px !important;
+  line-height: 28px !important;
+  color: #000000;
+  margin-bottom: 20px;
+  max-width: 1000px;
+}
+
+.paragraph-small {
+  font-family: 'Inter', Medium;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  line-height: 28px !important;
+  color: #000000;
+  margin-bottom: 20px;
+  max-width: 1000px;
+}
+
+.styled-list {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 18px !important;
+  line-height: 28px !important;
+  color: #000000;
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+
+.styled-list li {
+  margin-bottom: 10px;
+}
+
+.info-carousel {
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+  text-align: center;
+}
+
+.info-carousel h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.carousel-container {
+  display: flex;
+  overflow-x: hidden;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 20px 0;
+  position: relative;
+  width: 100%;
+}
+
+.carousel-arrow {
+  cursor: pointer;
+  font-size: 24px;
+  user-select: none;
+  position: absolute;
+  top: 204%;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #000;
+  background-color: transparent;
+  border-radius: 0%;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+
+.carousel-arrow.left {
+  left: 100px;
+}
+
+.carousel-arrow.right {
+  right: 100px;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  background-color: #d9d9d9;
+  scroll-snap-align: center;
+  border-radius: 8px;
+  padding: 38px;
+  width: 200px;
+  text-align: center;
+}
+
+.carousel-photo {
+  width: 100%;
+  height: 150px;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-weight: bold;
+}
+
+.carousel-text p {
+  margin: 5px 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+/* Добавляем стиль для текста под каруселью */
+.project-text {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: #000000;
+  margin-bottom: 100px;
+  max-width: 770px;
+}

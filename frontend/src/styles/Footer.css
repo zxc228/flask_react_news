@@ -1,0 +1,88 @@
+.App-footer {
+    background-color: #000000; /* Черный фон */
+    color: #ffffff; /* Белый текст */
+    padding: 60px 0; /* Отступы сверху и снизу */
+  }
+  
+  .footer-logo img {
+    max-height: 62px;
+    max-width: 146px;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Выравнивание по верхнему краю */
+    padding: 20px;
+    border-top: 1px solid #999999; /* Линия сверху */
+  }
+  
+  .footer-links-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+  }
+  
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Три столбца */
+    grid-gap: 15px 0px; /* Сокращаем пространство между строками и столбцами */
+  }
+  
+  .footer-contact-info {
+    margin-left: -80px; /* Увеличиваем отступ слева для сдвига блока вправо */
+    text-align: left;
+    margin-top: -20px;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+    max-width: 400px;
+    word-wrap: break-word;
+  }
+  
+  .footer-contact-info p {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .footer-contact-info p i {
+    margin-right: 20px; /* Отступ между иконкой и текстом */
+  }
+  
+  .footer-links a {
+    color: #828282;
+    text-decoration: none;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+    color: #ffffff;
+  }
+  
+  .footer-bottom {
+    display: flex; /* Создаем flex-контейнер */
+    justify-content: space-between; /* Выравниваем элементы по краям */
+    align-items: center; /* Выравниваем элементы по вертикали */
+    padding: 20px; /* Добавляем отступы */
+    background-color: #000000; /* Черный фон */
+    color: #ffffff; /* Белый текст */
+    margin-left: 98px;
+    margin-top: -100px;
+  }
+  
+  .footer-company p {
+    margin: 0;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+  
