@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/InfoPage.css';
+import config from '../config';
 
 const InfoPage = () => {
   const carouselRef = useRef(null);
@@ -8,7 +9,8 @@ const InfoPage = () => {
 
   useEffect(() => {
     // Запрос к API для получения данных о сотрудниках
-    fetch('http://127.0.0.1:5001/api/employees')
+    fetch(`${config.apiUrl}/employees`)
+    
       .then(response => response.json())
       .then(data => setEmployees(data))
       .catch(error => console.error('Ошибка при получении данных сотрудников:', error));

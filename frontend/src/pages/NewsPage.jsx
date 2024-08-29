@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Импортируем Link
 import '../styles/NewsPage.css';
+import config from '../config';
 
 const NewsPage = () => {
   const [news, setNews] = useState([]);
@@ -8,7 +9,8 @@ const NewsPage = () => {
   const newsPerPage = 5;
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5001/api/news')
+    console.log('API URL being used:', config.apiUrl);  // Логируем API URL
+    fetch(`${config.apiUrl}/news`)
       .then(response => response.json())
       .then(data => setNews(data))
       .catch(error => console.log('Fetching error: ', error));

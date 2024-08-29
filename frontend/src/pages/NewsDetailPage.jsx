@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import '../styles/NewsDetailPage.css';
+import config from '../config';
 
 const NewsDetailPage = () => {
   const { id } = useParams(); // Получаем ID новости из URL
   const [newsItem, setNewsItem] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5001/api/news/${id}`)
+    fetch(`${config.apiUrl}/news/${id}`)
       .then(response => response.json())
       .then(data => setNewsItem(data))
       .catch(error => console.log('Fetching error: ', error));

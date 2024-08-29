@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Импортируем useNavigate
 import '../styles/VacancyDetailPage.css';
 import { Link } from 'react-router-dom';
+import config from '../config';
 
 function VacancyDetailsPage() {
   const { id } = useParams();
@@ -9,7 +10,7 @@ function VacancyDetailsPage() {
   const navigate = useNavigate(); // Инициализируем useNavigate
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5001/api/vacancies/${id}`)
+    fetch(`${config.apiUrl}/vacancies/${id}`)
       .then(response => response.json())
       .then(data => setVacancy(data))
       .catch(error => console.error('Error fetching vacancy details:', error));

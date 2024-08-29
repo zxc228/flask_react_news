@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useNavigate } from 'react-router-dom';  // Импортируем hook для навигации
 import '../styles/App.css'; 
+import config from '../config';
 
 const NewsList = () => {
     const [news, setNews] = useState([]);
@@ -10,7 +11,7 @@ const NewsList = () => {
     const navigate = useNavigate();  // Инициализируем hook навигации
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5001/api/news')
+        fetch(`${config.apiUrl}/news`)
             .then(response => response.json())
             .then(data => setNews(data))
             .catch(error => console.log('Fetching error: ', error));

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/VacancyPage.css';
+import config from '../config';
 
 function VacancyPage() {
   const [vacancies, setVacancies] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5001/api/vacancies') // Убедитесь, что этот URL соответствует вашему API
+    fetch(`${config.apiUrl}/vacancies`)
       .then(response => response.json())
       .then(data => setVacancies(data))
       .catch(error => console.log('Error fetching vacancies:', error));
