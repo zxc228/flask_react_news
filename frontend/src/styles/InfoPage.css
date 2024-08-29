@@ -112,16 +112,12 @@
 }
 
 .info-carousel {
+  position: relative; /* Убедитесь, что этот контейнер является позиционированным элементом */
   background-color: rgb(255, 255, 255);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
   text-align: center;
-}
-
-.info-carousel h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
 }
 
 .carousel-container {
@@ -132,6 +128,7 @@
   padding: 20px 0;
   position: relative;
   width: 100%;
+  margin: 0 auto;
 }
 
 .carousel-arrow {
@@ -139,22 +136,22 @@
   font-size: 24px;
   user-select: none;
   position: absolute;
-  top: 204%;
+  top: 50%; /* Центрируем стрелки по вертикали относительно контейнера */
   transform: translateY(-50%);
   z-index: 2;
   color: #000;
   background-color: transparent;
-  border-radius: 0%;
+  border-radius: 50%;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .carousel-arrow.left {
-  left: 100px;
+  left: -20px; /* Позиционируем относительно левой границы контейнера */
 }
 
 .carousel-arrow.right {
-  right: 100px;
+  right: -20px; /* Позиционируем относительно правой границы контейнера */
 }
 
 .carousel-item {

@@ -64,27 +64,26 @@ const InfoPage = () => {
 
         {/* Карусель сотрудников */}
         <div className="info-carousel">
-          <div className="carousel-arrow left" onClick={scrollLeft}>&lt;</div>
-          <div className="carousel-container" ref={carouselRef}>
-            {employees.map((employee, index) => (
-              <div className="carousel-item" key={index}>
-                <div className="carousel-photo">
-                  <img 
-                    src={`http://127.0.0.1:5001/static/${employee.photo}`} // Проверьте правильность пути к изображению
-                    alt={`${employee.surname} ${employee.name}`} 
-                    onError={(e) => { e.target.onerror = null; e.target.src="/default-photo.png" }} // Фотография по умолчанию в случае ошибки
-                  />
-                </div>
-                <div className="carousel-text">
-                  <p>{`${employee.surname} ${employee.name} ${employee.patronymic || ''}`}</p>
-                  <p>{employee.vacancy}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="carousel-arrow right" onClick={scrollRight}>&gt;</div>
+  <div className="carousel-arrow left" onClick={scrollLeft}>&lt;</div>
+  <div className="carousel-container" ref={carouselRef}>
+    {employees.map((employee, index) => (
+      <div className="carousel-item" key={index}>
+        <div className="carousel-photo">
+          <img 
+            src={`http://127.0.0.1:5001/static/${employee.photo}`} 
+            alt={`${employee.surname} ${employee.name}`} 
+            onError={(e) => { e.target.onerror = null; e.target.src="/default-photo.png" }} 
+          />
         </div>
-
+        <div className="carousel-text">
+          <p>{`${employee.surname} ${employee.name} ${employee.patronymic || ''}`}</p>
+          <p>{employee.vacancy}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+  <div className="carousel-arrow right" onClick={scrollRight}>&gt;</div>
+</div>
         {/* Текст под каруселью */}
         <p className="paragraph-normal project-text">
           Проектирование и расчеты осуществляются посредством современных программных продуктов — SolidWorks, SolidEdge, Ansys и т.п. Институт сотрудничает с ведущими научно-техническими центрами России: ГНЦ РФ ОАО НПО «ЦНИИТМАШ», ФГБОУ ВПО «НИУ «МЭИ».
