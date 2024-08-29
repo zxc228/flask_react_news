@@ -153,7 +153,8 @@ h1 {
 }
 
 .news-wrapper {
-  max-width: 1200px;
+  max-width: 1400px;
+  min-height: auto;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -362,27 +363,6 @@ h1 {
   transition: max-height 0.6s ease-in-out;
 }
 
-.news-item-enter {
-  opacity: 0;
-  transform: translateX(100%);
-}
-
-.news-item-enter-active {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
-}
-
-.news-item-exit {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.news-item-exit-active {
-  opacity: 0;
-  transform: translateX(-100%);
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
-}
 
 .news-item {
   background-color: #eaeaea;
@@ -556,27 +536,6 @@ h1 {
   max-width: 300px;
   word-wrap: break-word;
 }
-.news-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 0;
-  margin: 0;
-  overflow: hidden; /* Скрыть переполнение */
-  max-height: 430px; /* Ограничение по высоте */
-  transition: max-height 0.6s ease-in-out; /* Плавный переход */
-}
-
-
-.news-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
 
 .news-item-enter {
   opacity: 0;
@@ -598,27 +557,6 @@ h1 {
   opacity: 0;
   transform: translateX(-100%);
   transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
-}
-
-
-
-.news-item {
-  background-color: #eaeaea;
-  border-radius: 0px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: calc(33.33% - 20px);
-  min-height: 420px; /* Задание минимальной высоты */
-  box-sizing: border-box;
-  transition: transform 0.2s;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Разместить элементы вертикально с равномерным распределением */
-}
-
-.news-item:hover {
-  transform: translateY(-5px);
 }
 
 .news-date {
@@ -670,4 +608,3 @@ h1 {
 .pagination-dots .active {
   background-color: #007bff;
 }
-

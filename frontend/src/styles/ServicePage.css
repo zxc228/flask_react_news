@@ -1,0 +1,81 @@
+.service-page-section {
+    padding-top: 0;
+    background-color: #ffffff; /* Белый цвет фона */
+}
+
+.service-page-header {
+    text-align: center;
+    position: relative;
+}
+
+.service-page-header h1{
+    position: absolute;
+    top: 42%;
+    left: 17%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 28px;
+    z-index: 2;   
+}
+
+.header-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.service-page-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.service-page-title {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: 3rem !important;
+    margin-bottom: 50px;
+    margin-top: 0px;
+    text-align: center;
+    color: #000000; /* Черный цвет заголовка */
+}
+
+.service-page-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Три колонки */
+    gap: 0px; /* Убираем пространство между элементами */
+    margin-bottom: 50px;
+    margin-top: 100px;
+}
+
+.service-page-item {
+    background-color: rgba(0, 0, 0, 0.05); /* Легкий серый фон для карточек */
+    padding: 20px;
+    border-radius: 0px; /* Острые углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Измените цвет тени на черный */
+    color: #000000; /* Черный цвет текста */
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    border: 0.5px solid #000000; /* Черная рамка */
+}
+
+.service-page-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #000000; /* Черный цвет заголовка карточки */
+}
+
+.service-page-item p {
+    flex-grow: 1;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #333333; /* Темный оттенок для текста */
+}

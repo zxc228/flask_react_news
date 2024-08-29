@@ -14,16 +14,18 @@ const Header = () => {
       <nav className="navigation">
         <ul>
           <li><Link to="/">Главная</Link></li>
+          <li><Link to="/about">Информация</Link></li>
           <li><Link to="/services">Услуги</Link></li>
           <li><Link to="/news">Новости</Link></li>
-          <li><Link to="#">Партнеры</Link></li>
-          <li><Link to="#">Контакты</Link></li>
+          <li><Link to="/projects">Разработки</Link></li>
+          <li><Link to="/partners">Партнеры</Link></li>
+          <li><Link to="/vacancies">Вакансии</Link></li>
         </ul>
       </nav>
-      <div className="language-switch">
-        <i className="fas fa-globe"></i>
-        <span>RU</span>
-      </div>
+      {/* <div className="language-switch"> */}
+        {/* <i className="fas fa-globe"></i> */}
+        {/* <span>RU</span> */}
+      {/* </div> */}
     </header>
   );
 };

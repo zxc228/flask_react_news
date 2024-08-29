@@ -18,11 +18,11 @@
 
 .news-detail-header-container h1 {
   position: absolute;
-  top: 42%;
+  top: 40%;
   left: 17%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 40px;
+  font-size: 42px;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   line-height: 28px;
@@ -32,7 +32,7 @@
 .news-detail-content-container {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 80px;
   margin-bottom: 100px; /* Сохранено для создания пространства внизу */
 }
 
@@ -59,15 +59,11 @@
   font-size: 18px;
   color: #007bff;
   margin-bottom: 20px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  white-space: normal;
-  max-width: 100%;
-
-  /* Позиционирование заголовка внутри контейнера */
-  position: absolute;
-  top: 25px;  /* Отступ сверху внутри контейнера */
-  right: 900px; /* Отступ справа внутри контейнера */
+  white-space: normal; /* Обеспечивает перенос текста на следующую строку */
+  width: 100%; /* Контейнер занимает всю доступную ширину */
+  max-width: 100%; /* Убирает ограничение по ширине */
+  overflow-wrap: break-word; /* Переносит длинные слова */
+  word-wrap: break-word; /* Переносит длинные слова */
 }
 
 .news-detail-description-container {

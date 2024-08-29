@@ -1,0 +1,81 @@
+.vacancy-details-page {
+    padding: 0px;
+  }
+  
+  .vacancy-details-page h1 {
+    font-size: 2rem;
+    color: #000000;
+    margin-bottom: 20px;
+    font-weight: 600;
+    margin-top: 100px;
+  }
+  .vacancy-content {
+    margin-top: 100px;
+    width: 70%;
+    margin-bottom: 70px;
+    margin-left: 148px;
+  }
+  .vacancy-page-header-container h1 {
+    position: absolute;
+    top: 23%;
+    left: 17%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 28px;
+    z-index: 2; 
+  }
+  .vacancy-details-page h2 {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  
+  .vacancy-details-page p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  .vacancy-details-page .vacancy-content {
+    margin-bottom: 20px;
+  }
+  
+  .vacancy-details-page .vacancy-apply {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .vacancy-details-page .vacancy-apply button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 50px;
+  }
+  
+  .vacancy-details-page .vacancy-apply button:hover {
+    background-color: #0056b3;
+  }
+  
+  .vacancy-details-page ul {
+    margin-left: 20px;
+    list-style-type: disc;
+  }
+  
+  .vacancy-details-page ul li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333333;
+  }
+  

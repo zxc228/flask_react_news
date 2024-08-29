@@ -1,0 +1,138 @@
+.contact-page {
+    padding-top: 0;
+  }
+  
+.contact-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+  
+.header-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+  
+.contact-header h1 {
+    position: absolute;
+    top: 42%;
+    left: 17%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 42px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 28px;
+    z-index: 2;
+}
+  
+.breadcrumb {
+    text-align: left;
+    margin-bottom: 10px;
+}
+  
+.breadcrumb-link {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+}
+  
+.breadcrumb-link:hover {
+    text-decoration: underline;
+}
+  
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+  
+.contact-info {
+    flex: 1;
+    margin-left: 150px; /* Добавляем отступ для сдвига вправо */
+    margin-top: 30px;
+}
+  
+.contact-info h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+  
+.contact-info p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    max-width: 200px;
+}
+  
+.contact-form {
+    flex: 2;
+    max-width: 500px; /* Уменьшаем максимальную ширину формы */
+    position: relative; /* Устанавливаем позиционирование относительно начального положения */
+    left: -200px; /* Сдвигаем форму влево на 50px */
+    margin-top: 28px;
+}
+  
+.contact-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+  
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+  
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    max-width: 100%; /* Уменьшаем ширину полей */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+  
+.contact-form textarea {
+    height: 100px;
+}
+  
+.consent {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: -490px;
+}
+  
+.consent label {
+    margin-left: -480px;
+    margin-top: -8px;
+    font-size: 14px;
+}
+  
+.consent a {
+    color: #007bff;
+    text-decoration: none;
+}
+  
+.consent a:hover {
+    text-decoration: underline;
+}
+  
+button[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+  
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,61 @@
+.document-category-page {
+    padding-top: 0;
+  }
+  
+  .document-category-card {
+    width: 60%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-left: 148px;
+    margin-top: 100px;
+    margin-bottom: 70px;
+  }
+  
+  .document-card-header {
+    background-color: #4c8bf5;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .document-card-header h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .document-card-body {
+    padding: 20px;
+  }
+  
+  .document-card-body ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  .document-card-body ul li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #333333;
+  }
+  
+  .document-card-body ul li a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .document-card-body ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .document-card-body ul li::before {
+    content: "•";
+    color: #007bff;
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+  }

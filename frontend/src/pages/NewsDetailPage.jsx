@@ -20,7 +20,7 @@ const NewsDetailPage = () => {
   return (
     <div className="news-detail-page-container">
       <header className="news-detail-header-container">
-        <img src="/back2.jpg" alt="Header Background" className="news-detail-header-image" />
+        <img src="/back4.png" alt="Header Background" className="news-detail-header-image" />
         <h1>Новости</h1>
         <div className="breadcrumb">
           <Link to="/news" className="breadcrumb-link">

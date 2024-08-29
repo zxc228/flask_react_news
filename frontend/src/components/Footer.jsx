@@ -12,11 +12,11 @@ const Footer = () => {
         <div className="footer-links-container">
           <div className="footer-links">
             <Link to="/about">О нас</Link> {/* Используем Link вместо <a> */}
-            <a href="#">Партнеры</a>
-            <a href="#">Вакансии</a>
-            <a href="#">Услуги</a>
-            <a href="#">Контакты</a>
-            <a href="#">Документы</a>
+            <Link to="/partners">Партнёры</Link> {/* Используем Link вместо <a> */}
+            <Link to="/vacancies">Вакансии</Link>
+            <a href="/services">Услуги</a>
+            <Link to="/contacts">Контакты</Link>
+            <a href="/documents">Документы</a>
           </div>
         </div>
         <div className="footer-contact-info">
