@@ -12,14 +12,14 @@
 }
 
 .logo-container {
-  margin-left: 190px; /* Сдвиг логотипа вправо */
+  margin-left: 140px; /* Сдвиг логотипа вправо */
 }
 
 .navigation a {
   color: white; /* Цвет текста в навигации */
   text-decoration: none;
-  margin: 0 15px;
-  font-size: 16px;
+  margin: 0 10px;
+  font-size: 18px;
   font-weight: 500;
   transition: color 0.3s ease-in-out; /* Добавляем плавный переход для цвета */
 }

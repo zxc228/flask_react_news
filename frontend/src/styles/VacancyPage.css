@@ -1,0 +1,87 @@
+/* VacancyPage.css */
+.vacancy-page {
+    padding-top: 0;
+  }
+  
+  .vacancy-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .vacancy-page-header-container h1{
+    position: absolute;
+    top: 23%;
+    left: 17%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 28px;
+    z-index: 2;
+  }
+  .vacancy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .vacancy-item {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 100px;
+    width: 70%; /* Устанавливаем ширину в 70% от родительского элемента */
+    max-width: 1000px; /* Ограничиваем максимальную ширину */
+    margin-left: 140px; /* Центрируем элемент по горизонтали */
+    margin-bottom: 70px;
+  }
+
+  .vacancy-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+  }
+  
+  .vacancy-link:hover {
+    text-decoration: underline;
+  }
+  .vacancy-link:visited {
+    color: #007bff;
+    text-decoration: none;
+}
+  
+  /* VacancyDetailPage.css */
+  .vacancy-detail-page {
+    padding: 20px;
+  }
+  
+  .vacancy-detail-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .vacancy-detail-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .vacancy-detail-content section {
+    margin-bottom: 20px;
+  }
+  
+  .contact-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .contact-button:hover {
+    background-color: #0056b3;
+  }

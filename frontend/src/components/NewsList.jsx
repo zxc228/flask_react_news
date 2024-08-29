@@ -48,10 +48,10 @@ const NewsList = () => {
                             <li className="news-item">
                                 <h3 className="news-date">{item.date}</h3>
                                 <h2 className="news-title-section">
-                                    {truncateText(item.title, 100)} {/* Обрезка до 50 символов */}
+                                    {truncateText(item.title, 120)} {/* Обрезка до 50 символов */}
                                 </h2>
                                 <p className="news-content">
-                                    {truncateText(item.content, 300)} {/* Обрезка до 100 символов */}
+                                    {truncateText(item.content, 200)} {/* Обрезка до 100 символов */}
                                 </p>
                                 <button 
                                     className="news-link" 

@@ -1,0 +1,97 @@
+.partner-detail-page {
+    padding-top: 0;
+}
+
+.partner-page-header-container {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.partner-page-header-container h1 {
+    position: absolute;
+    top: 43%;
+    left: 17%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 28px;
+    z-index: 2;
+}
+
+
+.partner-detail-content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    color: #555; /* Основной цвет текста */
+}
+
+.partner-detail-content h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333; /* Цвет заголовка */
+}
+
+.partner-detail-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.partner-detail-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+.partner-detail-content ul li {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.partner-detail-content a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.partner-detail-content a:hover {
+    text-decoration: underline;
+}
+
+
+.breadcrumb-partners-b {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: absolute;
+    left: 140px;
+    top: 451px;
+  }
+  
+  .breadcrumb-partners-link-b {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 180px; /* Подвинуть влево на 20px */
+}
+  
+  .breadcrumb-partners-icon-b {
+    font-size: 20px;
+    color: #007bff;
+    margin-right: 5px;
+  }
+  
+  .breadcrumb-partners-text-b {
+    color: #007bff;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .breadcrumb-text-b:hover {
+    text-decoration: underline;
+  }

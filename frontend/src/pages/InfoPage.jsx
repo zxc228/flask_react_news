@@ -1,9 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/InfoPage.css';
 
 const InfoPage = () => {
   const carouselRef = useRef(null);
+  const [employees, setEmployees] = useState([]);
+
+  useEffect(() => {
+    // Запрос к API для получения данных о сотрудниках
+    fetch('http://127.0.0.1:5001/api/employees')
+      .then(response => response.json())
+      .then(data => setEmployees(data))
+      .catch(error => console.error('Ошибка при получении данных сотрудников:', error));
+  }, []);
 
   const scrollLeft = () => {
     carouselRef.current.scrollBy({ left: -220, behavior: 'smooth' });
@@ -51,58 +60,30 @@ const InfoPage = () => {
           </p>
         </div>
 
-        {/* Обновляем карусель сотрудников */}
+        {/* Карусель сотрудников */}
         <div className="info-carousel">
           <div className="carousel-arrow left" onClick={scrollLeft}>&lt;</div>
           <div className="carousel-container" ref={carouselRef}>
-            <div className="carousel-item">
-              <div className="carousel-photo">Фото</div>
-              <div className="carousel-text">
-                <p>Имя сотрудника</p>
-                <p>Должность</p>
+            {employees.map((employee, index) => (
+              <div className="carousel-item" key={index}>
+                <div className="carousel-photo">
+                  <img 
+                    src={`http://127.0.0.1:5001/static/${employee.photo}`} // Проверьте правильность пути к изображению
+                    alt={`${employee.surname} ${employee.name}`} 
+                    onError={(e) => { e.target.onerror = null; e.target.src="/default-photo.png" }} // Фотография по умолчанию в случае ошибки
+                  />
+                </div>
+                <div className="carousel-text">
+                  <p>{`${employee.surname} ${employee.name} ${employee.patronymic || ''}`}</p>
+                  <p>{employee.vacancy}</p>
+                </div>
               </div>
-            </div>
-            <div className="carousel-item">
-              <div className="carousel-photo">Фото</div>
-              <div className="carousel-text">
-                <p>Имя сотрудника</p>
-                <p>Должность</p>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="carousel-photo">Фото</div>
-              <div className="carousel-text">
-                <p>Имя сотрудника</p>
-                <p>Должность</p>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="carousel-photo">Фото</div>
-              <div className="carousel-text">
-                <p>Имя сотрудника</p>
-                <p>Должность</p>
-              </div>
-            </div>
-            {/* Добавляем еще сотрудников */}
-            <div className="carousel-item">
-              <div className="carousel-photo">Фото</div>
-              <div className="carousel-text">
-                <p>Имя сотрудника</p>
-                <p>Должность</p>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="carousel-photo">Фото</div>
-              <div className="carousel-text">
-                <p>Имя сотрудника</p>
-                <p>Должность</p>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="carousel-arrow right" onClick={scrollRight}>&gt;</div>
         </div>
 
-        {/* Новый текст под каруселью */}
+        {/* Текст под каруселью */}
         <p className="paragraph-normal project-text">
           Проектирование и расчеты осуществляются посредством современных программных продуктов — SolidWorks, SolidEdge, Ansys и т.п. Институт сотрудничает с ведущими научно-техническими центрами России: ГНЦ РФ ОАО НПО «ЦНИИТМАШ», ФГБОУ ВПО «НИУ «МЭИ».
         </p>
