@@ -14,6 +14,9 @@ import VacancyPage from './pages/VacancyPage';
 import VacancyDetailPage from './pages/VacancyDetailPage'; // Импортируем страницу деталей вакансий
 import DocumentsPage from './pages/DocumentsPage'; // Импортируем страницу деталей вакансий
 import DocumentCategoryPage from './pages/DocumentCategoryPage'; // Новый компонент
+import DevelopmentsPage from './pages/DevelopmentsPage';
+import DevelopmentDetailPage from './pages/DevelopmentDetailPage';
+
 
 function App() {
   return (
@@ -33,6 +36,8 @@ function App() {
           <Route path="/vacancies/:id" element={<VacancyDetailPage />} /> {/* Добавляем маршрут для деталей вакансий */}
           <Route path="/documents" element={<DocumentsPage />} /> {/* Добавляем маршрут для деталей вакансий */}
           <Route path="/documents/:categoryId" element={<DocumentCategoryPage />} /> {/* Маршрут для категории документов */}
+          <Route path="/developments" element={<DevelopmentsPage />} />
+          <Route path="/developments/:id" element={<DevelopmentDetailPage />} />
         </Routes>
         <Footer />
       </div>
