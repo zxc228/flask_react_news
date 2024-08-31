@@ -9,18 +9,24 @@
     <div class="container">
         <h1>Добавить новость</h1>
         <form action="{{ url_for('admin.admin_add_news') }}" method="POST">
-            <label for="title">Заголовок:</label>
-            <input type="text" name="title" required>
-            <br>
-            <label for="content">Содержание:</label>
-            <textarea name="content" required></textarea>
-            <br>
-            <label for="date">Дата:</label>
-            <input type="date" name="date" value="{{ datetime.now().strftime('%Y-%m-%d') }}" required>
-            <br>
-            <button type="submit">Добавить</button>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="title">{{ form.title.label }}</label><br>
+                {{ form.title(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                <label for="content">{{ form.content.label }}</label><br>
+                {{ form.content(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                <label for="date">{{ form.date.label }}</label><br>
+                {{ form.date(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class_='btn btn-primary') }}
+            </div>
         </form>
-        <a href="{{ url_for('admin.admin_news') }}" class="btn_back">Назад к новостям</a>
+        <a href="{{ url_for('admin.admin_news') }}" class="btn btn-secondary btn_back">Назад к новостям</a>
     </div>
 </body>
 </html>

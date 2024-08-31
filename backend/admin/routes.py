@@ -4,10 +4,15 @@ from backend import db
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
+from backend.admin.forms import AddEmployeeForm, EditEmployeeForm, AddNewsForm, EditNewsForm, AddVacancyForm, EditVacancyForm
+from PIL import Image
+import uuid
+
 
 admin = Blueprint('admin', __name__)
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+
 
 
 @admin.route("/admin")
@@ -29,10 +34,12 @@ def admin_view_news(id):
 
 @admin.route("/admin/news/add", methods=['GET', 'POST'])
 def admin_add_news():
-    if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
-        date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+    form = AddNewsForm()
+    
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
+        date = form.date.data
         
         new_news = Post(title=title, content=content, date=date)
         db.session.add(new_news)
@@ -40,23 +47,24 @@ def admin_add_news():
         flash("Новость добавлена успешно!", 'success')
         return redirect(url_for('admin.admin_news'))
     
-    return render_template("admin/add_news.html", datetime=datetime)
+    return render_template("admin/add_news.html", form=form)
 
 # Изменить новость
 @admin.route("/admin/news/edit/<int:id>", methods=['GET', 'POST'])
 def admin_edit_news(id):
     news = Post.query.get_or_404(id)
-    
-    if request.method == 'POST':
-        news.title = request.form['title']
-        news.content = request.form['content']
-        news.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+    form = EditNewsForm(obj=news)
+
+    if form.validate_on_submit():
+        news.title = form.title.data
+        news.content = form.content.data
+        news.date = form.date.data
         
         db.session.commit()
         flash("Новость обновлена успешно!", 'success')
         return redirect(url_for('admin.admin_news'))
-    
-    return render_template("admin/edit_news.html", news=news)
+
+    return render_template("admin/edit_news.html", form=form, news=news)
 
 # Удалить новость
 @admin.route("/admin/news/delete/<int:id>", methods=['POST'])
@@ -82,12 +90,14 @@ def admin_view_vacancy(id):
 # Добавить вакансию
 @admin.route("/admin/vacancies/add", methods=['GET', 'POST'])
 def admin_add_vacancy():
-    if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
-        salary = request.form['salary']
-        status = True if request.form.get('status') == 'on' else False
-        date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+    form = AddVacancyForm()
+
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
+        salary = form.salary.data if form.salary.data else None
+        status = form.status.data
+        date = form.date.data
         
         new_vacancy = Vacancy(title=title, content=content, salary=salary, status=status, date=date)
         db.session.add(new_vacancy)
@@ -95,25 +105,26 @@ def admin_add_vacancy():
         flash("Вакансия добавлена успешно!", 'success')
         return redirect(url_for('admin.admin_vacancies'))
     
-    return render_template("admin/add_vacancy.html", datetime=datetime)
+    return render_template("admin/add_vacancy.html", form=form)
 
 # Изменить вакансию
 @admin.route("/admin/vacancies/edit/<int:id>", methods=['GET', 'POST'])
 def admin_edit_vacancy(id):
     vacancy = Vacancy.query.get_or_404(id)
-    
-    if request.method == 'POST':
-        vacancy.title = request.form['title']
-        vacancy.content = request.form['content']
-        vacancy.salary = request.form['salary']
-        vacancy.status = True if request.form.get('status') == 'on' else False
-        vacancy.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+    form = EditVacancyForm(obj=vacancy)
+
+    if form.validate_on_submit():
+        vacancy.title = form.title.data
+        vacancy.content = form.content.data
+        vacancy.salary = form.salary.data if form.salary.data else None
+        vacancy.status = form.status.data
+        vacancy.date = form.date.data
         
         db.session.commit()
         flash("Вакансия обновлена успешно!", 'success')
         return redirect(url_for('admin.admin_vacancies'))
-    
-    return render_template("admin/edit_vacancy.html", vacancy=vacancy)
+
+    return render_template("admin/edit_vacancy.html", form=form, vacancy=vacancy)
 
 # Удалить вакансию
 @admin.route("/admin/vacancies/delete/<int:id>", methods=['POST'])
@@ -128,8 +139,7 @@ def admin_delete_vacancy(id):
 
 
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 
 @admin.route("/admin/employees")
@@ -162,12 +172,14 @@ def admin_delete_employee(id):
 
 @admin.route("/admin/employees/add", methods=['GET', 'POST'])
 def admin_add_employee():
-    if request.method == 'POST':
-        name = request.form['name']
-        surname = request.form['surname']
-        patronymic = request.form['patronymic']
-        vacancy = request.form['vacancy']
-        photo_file = request.files.get('photo')
+    form = AddEmployeeForm()
+    
+    if form.validate_on_submit():
+        name = form.name.data
+        surname = form.surname.data
+        patronymic = form.patronymic.data
+        vacancy = form.vacancy.data
+        photo_file = form.photo.data
 
         new_employee = Employee(
             name=name,
@@ -177,7 +189,7 @@ def admin_add_employee():
         )
 
         if photo_file and allowed_file(photo_file.filename):
-            UPLOAD_FOLDER = os.path.join(os.getcwd(), 'backend','static', 'uploads')
+            UPLOAD_FOLDER = os.path.join(os.getcwd(), 'backend', 'static', 'uploads')
 
             # Создаем папку, если она еще не существует
             if not os.path.exists(UPLOAD_FOLDER):
@@ -194,49 +206,71 @@ def admin_add_employee():
         flash("Сотрудник добавлен успешно!", 'success')
         return redirect(url_for('admin.admin_employees'))
     
-    return render_template("admin/add_employee.html")
+    return render_template("admin/add_employee.html", form=form)
 
 
 
 
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+from PIL import Image
+from werkzeug.utils import secure_filename
+import os
 
 @admin.route("/admin/employees/edit/<int:id>", methods=['GET', 'POST'])
 def admin_edit_employee(id):
     employee = Employee.query.get_or_404(id)
-    
-    if request.method == 'POST':
-        employee.name = request.form['name']
-        employee.surname = request.form['surname']
-        employee.patronymic = request.form['patronymic']
-        employee.vacancy = request.form['vacancy']
+    form = EditEmployeeForm(obj=employee)
 
-        # Сохраняем старый путь к фото перед его возможной заменой
+    if form.validate_on_submit():
+        employee.name = form.name.data
+        employee.surname = form.surname.data
+        employee.patronymic = form.patronymic.data
+        employee.vacancy = form.vacancy.data
+
         old_photo_path = None
         if employee.photo:
             old_photo_path = os.path.join(os.getcwd(), 'backend', 'static', employee.photo)
 
-        if 'photo' in request.files:
+        if form.photo.data:
             UPLOAD_FOLDER = os.path.join(os.getcwd(), 'backend', 'static', 'uploads')
 
-            # Создаем папку, если она еще не существует
             if not os.path.exists(UPLOAD_FOLDER):
                 os.makedirs(UPLOAD_FOLDER)
 
-            photo_file = request.files['photo']
+            photo_file = form.photo.data
             if photo_file and allowed_file(photo_file.filename):
-                filename = secure_filename(photo_file.filename)
-                filepath = os.path.join(UPLOAD_FOLDER, filename)
+                # Генерация уникального имени файла с тем же расширением
+                file_extension = photo_file.filename.rsplit('.', 1)[1].lower()
+                unique_filename = f"{uuid.uuid4()}.{file_extension}"
+                filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
+                
+                # Сохранение файла
                 photo_file.save(filepath)
-    
-                # Сохраняем новый путь, начиная с 'uploads'
-                employee.photo = os.path.join('uploads', filename).replace("\\", "/")
 
-                # Удаляем старое фото, если новое успешно загружено
+                # Изменение размера изображения
+                image = Image.open(filepath)
+                target_size = (300, 300)  # Укажите целевой размер (ширина, высота)
+                image = image.resize(target_size, Image.Resampling.LANCZOS)
+
+                # Определяем формат для сохранения
+                if file_extension == 'jpg':
+                    file_extension = 'jpeg'
+                
+                # Сохранение изображения с правильным форматом
+                image.save(filepath, format=file_extension.upper(), quality=95)
+
+                employee.photo = os.path.join('uploads', unique_filename).replace("\\", "/")
+
+                # Удаление старого фото, если новое успешно загружено
                 if old_photo_path and os.path.exists(old_photo_path):
                     os.remove(old_photo_path)
-        
+
         db.session.commit()
         flash("Информация о сотруднике обновлена успешно!", 'success')
         return redirect(url_for('admin.admin_employees'))
-    
-    return render_template("admin/edit_employee.html", employee=employee)
+
+    return render_template("admin/edit_employee.html", form=form, employee=employee)
