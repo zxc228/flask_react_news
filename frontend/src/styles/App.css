@@ -133,7 +133,7 @@ h1 {
     font-size: 12px;
   }
 }
-@media (max-width: 390px) {
+@media (max-width: 393px) {
   .App-main {
     height: 60vh; /* Еще больше уменьшаем высоту для маленьких экранов */
     padding-left: 0;
@@ -151,7 +151,7 @@ h1 {
   }
 
   h1 {
-    font-size: 1.3rem;
+    font-size: 1rem;
     text-align: center;
   }
 
