@@ -60,13 +60,13 @@
 
 @media (max-width: 393px) {
   .header-logo img {
-    max-height: 4rem;
+    max-height: 1rem;
   }
 }
 
 @media (max-width: 390px) {
   .header-logo img {
-    max-height: 3rem;
+    max-height: 1rem;
   }
 }
 
