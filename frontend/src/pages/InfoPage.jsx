@@ -33,7 +33,6 @@ const InfoPage = () => {
       <section className="info-content">
         <div className="breadcrumb">
           <Link to="/" className="breadcrumb-link">
-            <span className="breadcrumb-icon">&larr;</span>
             <span className="breadcrumb-text">Главная</span>
           </Link>
         </div>

@@ -1,63 +1,240 @@
 .header {
   width: 100%;
-  position: absolute; /* Хедер будет располагаться поверх контента */
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: 1000; /* Убедитесь, что хедер находится выше остальных элементов */
-  padding: 20px;
+  z-index: 1000;
+  padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0); /* Прозрачный хедер */
+  background-color: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
 }
 
 .logo-container {
-  margin-left: 140px; /* Сдвиг логотипа вправо */
+  margin-right: 0rem; /* Добавляем отступ справа для логотипа */
+}
+
+/* Базовый размер логотипа */
+.header-logo img {
+  height: 40% !important;
+  width: 40% !important;
+}
+
+/* Адаптивное уменьшение логотипа */
+
+/* Для экранов до 1024px (например, планшеты) */
+@media (max-width: 1024px) {
+  .navigation {
+    max-width: 60%; /* Уменьшаем ширину контейнера навигации */
+    justify-content: flex-start; /* Оставляем выравнивание влево */
+  }
+}
+/* Для экранов до 768px (например, планшеты) */
+@media (max-width: 1024px) {
+  .header-logo img {
+    max-height: 11rem;
+  }
+}
+/* Для экранов до 768px (например, планшеты) */
+@media (max-width: 768px) {
+  .header-logo img {
+    max-height: 8rem;
+  }
+}
+
+/* Для экранов до 480px (например, маленькие смартфоны) */
+@media (max-width: 480px) {
+  .header-logo img {
+    max-height: 8rem;
+  }
+}
+
+/* Для экранов до 430px (например, ваш телефон) */
+@media (max-width: 430px) {
+  .header-logo img {
+    max-height: 5.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .header-logo img {
+    max-height: 5rem;
+  }
+}
+
+.navigation {
+  display: flex;
+  justify-content: flex-start; /* Оставляем выравнивание влево */
+  flex-grow: 1;
+  max-width: 80%; /* Увеличиваем ширину */
+  margin-left: 0; /* Убираем лишний отступ */
+}
+
+.navigation ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation li {
+  margin: 0 1rem;
 }
 
 .navigation a {
-  color: white; /* Цвет текста в навигации */
+  color: white;
   text-decoration: none;
-  margin: 0 10px;
-  font-size: 18px;
+  font-size: 1.5rem;
   font-weight: 500;
-  transition: color 0.3s ease-in-out; /* Добавляем плавный переход для цвета */
+  transition: color 0.3s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .navigation a:hover {
-  color: aliceblue; /* Цвет при наведении */
+  color: aliceblue;
+  filter: brightness(0.8); /* Затемнение при наведении */
 }
 
-/* Дополнительно можно добавить эффект для других состояний */
 .navigation a:focus,
 .navigation a:active {
-  color: aliceblue; /* Цвет при фокусе или нажатии */
+  color: aliceblue;
 }
 
-.logo img {
-  max-height: 50px;
+/* Бургер-меню */
+.burger-menu {
+  display: none; /* Скрыто по умолчанию */
+  cursor: pointer;
+  z-index: 2000;
+  position: absolute; /* Бургер-меню позиционируется абсолютно */
+  right: 1.5rem; /* Расположен справа сверху */
+  top: 1.5rem; /* Расположен сверху */
 }
 
-/* Добавьте отступ для контента страницы, чтобы он не перекрывался хедером */
-.page-content {
-  padding-top: 80px; /* Отступ сверху, равный высоте хедера */
+.burger-icon {
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  position: relative;
+  transition: all 0.1s ease-in-out;
 }
 
-.language-switch {
+.burger-icon::before,
+.burger-icon::after {
+  content: '';
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.burger-icon::before {
+  top: -8px;
+}
+
+.burger-icon::after {
+  top: 8px;
+}
+
+.burger-icon.open {
+  background-color: transparent;
+}
+
+.burger-icon.open::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.burger-icon.open::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+/* Скрываем навигацию при уменьшении экрана */
+@media (max-width: 845px) {
+  .navigation {
+    display: none;
+  }
+  .burger-menu {
+    display: block;
+  }
+}
+
+/* Стили для бокового меню */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%; /* Меню на всю ширину экрана */
+  height: 100%;
+  background-color: #000000; /* Черный фон для бургер-меню */
+  padding: 2rem;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 1500;
+  overflow-y: auto; /* Скролл внутри бокового меню при необходимости */
+}
+
+.sidebar .header-logo img {
+  max-height: 12rem; /* Размер логотипа по умолчанию */
+  width: auto;
+}
+
+/* Адаптивное уменьшение логотипа для сайдбара */
+
+/* Для экранов до 768px (например, планшеты) */
+@media (max-width: 768px) {
+  .sidebar .header-logo img {
+    max-height: 18rem;
+  }
+}
+
+/* Для экранов до 480px (например, маленькие смартфоны) */
+@media (max-width: 480px) {
+  .sidebar .header-logo img {
+    max-height: 14rem;
+  }
+}
+
+/* Для экранов до 430px (например, ваш телефон) */
+@media (max-width: 430px) {
+  .sidebar .header-logo img {
+    max-height: 10rem;
+  }
+}
+
+/* Основные стили для других элементов сайдбара */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar li {
+  margin: 1rem 0;
+}
+
+.sidebar a {
   color: white;
-  margin-left: auto; /* Сдвигает весь блок language-switch вправо */
-  padding-right: 200px; /* Отступ справа для language-switch */
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out, filter 0.3s ease-in-out;
+  white-space: nowrap;
+  width: 100%;
+  display: block; /* Делает ссылки блочными элементами */
 }
 
-.language-switch .fa-globe {
-  margin-left: -10px; /* Сдвигает значок глобуса левее */
-  margin-bottom: -45px;
-}
-
-.language-switch span {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: -45px;
+.sidebar a:hover {
+  color: aliceblue;
+  filter: brightness(0.8); /* Затемнение при наведении */
 }

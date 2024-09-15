@@ -8,10 +8,9 @@ function ServicePage() {
       <header className="service-page-header">
         <img src="/back4.png" alt="Header Background" className="header-image" />
         <h1>Наши услуги</h1>
-        <div className="breadcrumb">
-          <Link to="/" className="breadcrumb-link">
-            <span className="breadcrumb-icon">&larr;</span>
-            <span className="breadcrumb-text">Главная</span>
+        <div className="service-breadcrumb">
+          <Link to="/" className="service-breadcrumb-link">
+            <span className="service-breadcrumb-text">Главная</span>
           </Link>
         </div>
       </header>

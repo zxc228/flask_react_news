@@ -53,7 +53,6 @@ const NewsPage = () => {
       <section className="news-content-container">
       <div className="breadcrumb">
           <Link to="/" className="breadcrumb-link">
-            <span className="breadcrumb-icon">&larr;</span>
             <span className="breadcrumb-text">Главная</span>
           </Link>
         </div>

@@ -1,77 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { useNavigate } from 'react-router-dom';  // Импортируем hook для навигации
-import '../styles/App.css'; 
+import { useNavigate } from 'react-router-dom';  
+import '../styles/NewsList.css'; 
 import config from '../config';
 
 const NewsList = () => {
     const [news, setNews] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const newsPerPage = 3;
-    const navigate = useNavigate();  // Инициализируем hook навигации
+    const [isLoading, setIsLoading] = useState(true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Условие для мобильных устройств
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`${config.apiUrl}/news`)
             .then(response => response.json())
-            .then(data => setNews(data))
+            .then(data => {
+                setNews(data);
+                setIsLoading(false);
+            })
             .catch(error => console.log('Fetching error: ', error));
+
+        // Проверяем размер экрана и обновляем состояние при изменении ширины окна
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768); // Условие для мобильных устройств
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
-    const totalPages = Math.ceil(news.length / newsPerPage);
-
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    const indexOfLastNews = currentPage * newsPerPage;
-    const indexOfFirstNews = indexOfLastNews - newsPerPage;
-    const currentNews = news.slice(indexOfFirstNews, indexOfLastNews);
-
-    // Функция для обрезки текста
     const truncateText = (text, maxLength) => {
         return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     };
 
     const handleReadMoreClick = (id) => {
-        navigate(`/news/${id}`);  // Перенаправляем пользователя на страницу новости
+        navigate(`/news/${id}`);
     };
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    // Если это мобильное устройство, отображаем только одну последнюю новость
+    const displayedNews = isMobile ? news.slice(0, 1) : news.slice(0, 3);
 
     return (
         <div>
             <div className="news-container">
-                <TransitionGroup component="ul" className="news-list">
-                    {currentNews.map((item) => (
-                        <CSSTransition
-                            key={item.id}
-                            timeout={600}
-                            classNames="news-item"
-                        >
-                            <li className="news-item">
-                                <h3 className="news-date">{item.date}</h3>
-                                <h2 className="news-title-section">
-                                    {truncateText(item.title, 120)} {/* Обрезка до 50 символов */}
-                                </h2>
-                                <p className="news-content">
-                                    {truncateText(item.content, 200)} {/* Обрезка до 100 символов */}
-                                </p>
-                                <button 
-                                    className="news-link" 
-                                    onClick={() => handleReadMoreClick(item.id)}>
-                                    Подробнее
-                                </button>
-                            </li>
-                        </CSSTransition>
+                <ul className="news-list">
+                    {displayedNews.map((item) => (
+                        <li className="news-item" key={item.id}>
+                            <h3 className="news-date">{item.date}</h3>
+                            <h2 className="news-title-section">
+                                {truncateText(item.title, 120)}
+                            </h2>
+                            <p className="news-content">
+                                {truncateText(item.content, 200)}
+                            </p>
+                            <button 
+                                className="news-link" 
+                                onClick={() => handleReadMoreClick(item.id)}>
+                                Подробнее
+                            </button>
+                        </li>
                     ))}
-                </TransitionGroup>
+                </ul>
             </div>
-            <div className="pagination-dots">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
-                    <span
-                        key={number}
-                        onClick={() => handlePageChange(number)}
-                        className={number === currentPage ? 'active' : ''}
-                    ></span>
-                ))}
+            <div className="all-news-button-container">
+                <button 
+                    className="all-news-button" 
+                    onClick={() => navigate('/news')}>
+                    Все новости
+                </button>
             </div>
         </div>
     );

@@ -1,88 +1,186 @@
 .App-footer {
-    background-color: #000000; /* Черный фон */
-    color: #ffffff; /* Белый текст */
-    padding: 60px 0; /* Отступы сверху и снизу */
-  }
-  
-  .footer-logo img {
-    max-height: 62px;
-    max-width: 146px;
-  }
-  
+  background-color: #000000;
+  color: #ffffff;
+  padding: 5% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.footer-logo {
+  position: absolute;
+  bottom: 17%;
+  left: 30%;
+}
+
+.footer-logo img {
+  max-height: 40%;
+  max-width: 40%;
+  margin-right: 20px; /* Добавляем отступ справа для логотипа */
+}
+
+.footer-content {
+  max-width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2%;
+  gap: 50px; /* Отступ между блоками ссылок и контактами */
+}
+
+.footer-links-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Три колонки */
+  grid-gap: 40px; /* Промежутки между колонками */
+  justify-content: flex-end; /* Перемещаем ссылки вправо */
+  width: 100%;
+  margin-right: 0%; /* Добавляем отступ справа */
+}
+
+.footer-links-container a {
+  color: #828282;
+  text-decoration: none;
+  font-family: Inter, sans-serif;
+  font-size: 1.8vw;
+  font-weight: 600;
+  text-align: left;
+}
+
+.footer-links-container a:hover {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+.footer-contact-info {
+  margin-left: auto;
+  text-align: left;
+  font-family: Inter, sans-serif;
+  font-size: 1.8vw;
+  font-weight: 600;
+  line-height: 2.8vw;
+  max-width: 40%;
+  word-wrap: break-word;
+  padding-right: 2%;
+}
+
+.footer-contact-info p {
+  display: flex;
+  align-items: flex-start;
+  margin: 10% 0;
+  margin-top: 0%;
+}
+
+.footer-contact-info p i {
+  margin-right: 2%;
+  font-size: 1.1em;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1% 2%;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.footer-company {
+  text-align: right;
+  font-family: Inter, sans-serif;
+  font-size: 1.8vw;
+  font-weight: 700;
+  line-height: 2.8vw;
+  margin-right: 25%; /* Добавляем отступ от правого края */
+  padding-left: 50px; /* Отступ для текста "ООО ЦНИПИ" */
+}
+
+/* Медиазапросы для мобильных устройств */
+@media (max-width: 768px) {
   .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Выравнивание по верхнему краю */
-    padding: 20px;
-    border-top: 1px solid #999999; /* Линия сверху */
-  }
-  
-  .footer-links-container {
-    display: flex;
     flex-direction: column;
-    margin-left: 50px;
-  }
-  
-  .footer-links {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Три столбца */
-    grid-gap: 15px 0px; /* Сокращаем пространство между строками и столбцами */
-  }
-  
-  .footer-contact-info {
-    margin-left: -80px; /* Увеличиваем отступ слева для сдвига блока вправо */
-    text-align: left;
-    margin-top: -20px;
-    font-family: Inter;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 28px;
-    max-width: 400px;
-    word-wrap: break-word;
-  }
-  
-  .footer-contact-info p {
-    display: flex;
     align-items: center;
-    margin: 10px 0;
+    text-align: center;
   }
-  
-  .footer-contact-info p i {
-    margin-right: 20px; /* Отступ между иконкой и текстом */
+
+  .footer-links-container {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    margin-top: 0%;
   }
-  
-  .footer-links a {
-    color: #828282;
-    text-decoration: none;
-    font-family: Inter;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 28px;
+
+  .footer-contact-info {
+    margin-top: 0%;
+    font-size: 2.5vw;
+    text-align: left; /* Оставляем текст слева */
+    align-self: flex-start; /* Смещаем блок влево */
+    width: 100%; /* Увеличиваем ширину блока контактов */
+    margin-left: 0%; /* Смещаем блок контактов немного влево */
+    max-width: 90%; /* Ограничиваем максимальную ширину, чтобы текст не был слишком растянут */
   }
-  
-  .footer-links a:hover {
-    text-decoration: underline;
-    color: #ffffff;
+
+  .footer-contact-info p {
+    margin: 10% 0; /* Добавляем вертикальный отступ между строками контактов */
   }
-  
+
+  .footer-logo {
+    position: static;
+    margin-bottom: 5%;
+  }
+
   .footer-bottom {
-    display: flex; /* Создаем flex-контейнер */
-    justify-content: space-between; /* Выравниваем элементы по краям */
-    align-items: center; /* Выравниваем элементы по вертикали */
-    padding: 20px; /* Добавляем отступы */
-    background-color: #000000; /* Черный фон */
-    color: #ffffff; /* Белый текст */
-    margin-left: 98px;
-    margin-top: -100px;
+    justify-content: center;
   }
-  
-  .footer-company p {
-    margin: 0;
-    font-family: Inter;
-    font-size: 20px;
+
+  .footer-company {
+    text-align: center;
+    margin-right: 0; /* Убираем отступ для мобильных */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links-container a {
+    font-size: 3.5vw;
+    width: 100%;
+  }
+
+  .footer-contact-info {
+    font-size: 3.5vw;
+    max-width: 100%;
+  }
+
+  .footer-company {
+    padding-left: 10px; /* Уменьшаем отступ для мобильных */
+  }
+}
+@media (max-width: 853px) {
+  .footer-company {
+    text-align: right;
+    font-family: Inter, sans-serif;
+    font-size: 1.8vw;
     font-weight: 700;
-    line-height: 28px;
+    line-height: 2.8vw;
+    margin-right: 20%; /* Добавляем отступ от правого края */
+    padding-left: 40px; /* Отступ для текста "ООО ЦНИПИ" */
   }
-  
+  .footer-logo img {
+    max-height: 30%;
+    max-width: 30%;
+  }
+}
+@media (max-width: 912px) {
+  .footer-company {
+    text-align: right;
+    font-family: Inter, sans-serif;
+    font-size: 1.8vw;
+    font-weight: 700;
+    line-height: 2.8vw;
+    margin-right: 25%; /* Добавляем отступ от правого края */
+    padding-left: 30px; /* Отступ для текста "ООО ЦНИПИ" */
+  }
+  .footer-logo img {
+    max-height: 30%;
+    max-width: 30%;
+  }
+}

@@ -19,9 +19,6 @@ const HomePage = () => {
         <div className="news-wrapper">
           <div className="news-header">
             <h2 className="news-title">Новости</h2>
-            <Link to="/news">
-              <button className="all-news-button">Все новости</button>
-            </Link>
           </div>
           <NewsList />
         </div>

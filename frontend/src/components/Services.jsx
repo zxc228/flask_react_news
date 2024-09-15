@@ -32,6 +32,7 @@ function Services() {
             className="service-item all-services" 
             style={{ backgroundImage: `url(${backgroundImage})` }}
           >
+            <div className="overlay"></div> {/* Затемнение фона */}
             <a href="/services" className="all-services-link">Все услуги</a>
           </div>
         </div>

@@ -10,14 +10,13 @@ const Footer = () => {
           <img src="/logo1.png" alt="logo" />
         </div>
         <div className="footer-links-container">
-          <div className="footer-links">
-            <Link to="/about">О нас</Link> {/* Используем Link вместо <a> */}
-            <Link to="/partners">Партнёры</Link> {/* Используем Link вместо <a> */}
-            <Link to="/vacancies">Вакансии</Link>
-            <a href="/services">Услуги</a>
-            <Link to="/contacts">Контакты</Link>
-            <a href="/documents">Документы</a>
-          </div>
+          {/* Нет необходимости в div для ссылок, их можно размещать сразу в контейнере */}
+          <Link to="/about">О нас</Link>
+          <Link to="/partners">Партнёры</Link>
+          <Link to="/vacancies">Вакансии</Link>
+          <a href="/services">Услуги</a>
+          <Link to="/contacts">Контакты</Link>
+          <a href="/documents">Документы</a>
         </div>
         <div className="footer-contact-info">
           <p><i className="fas fa-phone"></i> +7 (495) 642-84-41</p>

@@ -1,9 +1,8 @@
 .breadcrumb {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  position: absolute;
-  left: 140px;
-  top: 451px;
+  margin-top: 0rem; /* Отступ сверху от предыдущего элемента */
+  margin-bottom: 0rem; /* Отступ снизу */
+  display: flex;
+  align-items: center;
 }
 
 .breadcrumb-link {
@@ -13,22 +12,21 @@
 }
 
 .breadcrumb-icon {
-  font-size: 20px;
+  font-size: 1.2rem; /* Используем rem для масштабирования */
   color: #007bff;
-  margin-right: 5px;
+  margin-right: 0.5rem;
 }
 
 .breadcrumb-text {
   color: #007bff;
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 .breadcrumb-text:hover {
   text-decoration: underline;
 }
-
 .info-page {
   padding-top: 0;
 }
@@ -41,126 +39,114 @@
 .header-image {
   width: 100%;
   height: auto;
-  max-height: 450px;
+  max-height: 55vh; /* Увеличиваем высоту блока с изображением */
   object-fit: cover;
-  margin-bottom: 20px;
+  margin-bottom: 4%; /* Добавляем больше пространства ниже изображения */
 }
 
 .info-header h1 {
   position: absolute;
-  top: 42%;
-  left: 17%;
+  top: 60%; /* Опускаем заголовок ниже */
+  left: 15%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 40px;
+  font-size: 3vw;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  line-height: 28px;
+  line-height: 1.2;
   z-index: 2;
+  text-align: center;
 }
 
 .info-content {
-  max-width: 100%;
-  width: 80%;
+  max-width: 90%; /* Ограничиваем максимальную ширину */
+  width: 100%; /* Устанавливаем ширину в процентах */
   margin: 0 auto;
-  padding: 20px;
-  margin-top: 30px;
+  padding: 2%; /* Используем проценты для внутреннего отступа */
+  margin-top: 3%; /* Используем проценты для внешнего отступа */
 }
 
 .paragraph-large {
   font-family: 'Inter', semi-bold;
   font-weight: 600;
-  font-size: 24px !important;
-  line-height: 28px !important;
-  color: #000000 !important;
-  margin-bottom: 20px;
-  max-width: 900px;
+  font-size: 1.5rem; /* Используем rem для относительного размера текста */
+  line-height: 1.5;
+  color: #000000;
+  margin-bottom: 2%;
 }
 
 .paragraph-normal {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 18px !important;
-  line-height: 28px !important;
+  font-size: 1.2rem;
+  line-height: 1.6;
   color: #000000;
-  margin-bottom: 20px;
-  max-width: 1000px;
+  margin-bottom: 2%;
 }
 
 .paragraph-small {
   font-family: 'Inter', Medium;
-  font-weight: 600 !important;
-  font-size: 18px !important;
-  line-height: 28px !important;
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.6;
   color: #000000;
-  margin-bottom: 20px;
-  max-width: 1000px;
+  margin-bottom: 2%;
 }
 
 .styled-list {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 18px !important;
-  line-height: 28px !important;
+  font-size: 1.2rem;
+  line-height: 1.6;
   color: #000000;
-  padding-left: 20px;
-  margin-bottom: 40px;
+  padding-left: 5%; /* Используем проценты для внутреннего отступа */
+  margin-bottom: 4%;
 }
 
 .styled-list li {
-  margin-bottom: 10px;
+  margin-bottom: 1%;
 }
 
 .info-carousel {
-  position: relative; /* Убедитесь, что этот контейнер является позиционированным элементом */
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
-  text-align: center;
-}
-
-.carousel-container {
-  display: flex;
-  overflow-x: hidden;
-  scroll-snap-type: x mandatory;
-  gap: 20px;
-  padding: 20px 0;
   position: relative;
-  width: 100%;
-  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 2%;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-top: 3%; /* Отступ сверху */
+  display: flex;
+  align-items: center; /* Центрируем стрелки вертикально */
 }
 
 .carousel-arrow {
   cursor: pointer;
-  font-size: 24px;
+  font-size: 2rem;
   user-select: none;
-  position: absolute;
-  top: 50%; /* Центрируем стрелки по вертикали относительно контейнера */
-  transform: translateY(-50%);
-  z-index: 2;
   color: #000;
   background-color: transparent;
   border-radius: 50%;
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 2%; /* Используем проценты для внутреннего отступа */
+  width: 2rem; /* Ширина стрелки */
+  height: 2rem; /* Высота стрелки */
 }
 
-.carousel-arrow.left {
-  left: -20px; /* Позиционируем относительно левой границы контейнера */
-}
-
-.carousel-arrow.right {
-  right: -20px; /* Позиционируем относительно правой границы контейнера */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 2%;
+  padding: 2% 0;
+  flex-grow: 1; /* Даем контейнеру занимать оставшееся пространство */
 }
 
 .carousel-item {
   flex: 0 0 auto;
   background-color: #d9d9d9;
   scroll-snap-align: center;
-  border-radius: 8px;
-  padding: 38px;
-  width: 300px;
+  border-radius: 1rem;
+  padding: 2%;
+  width: 20%; /* Ширина в процентах */
   text-align: center;
 }
 
@@ -168,7 +154,7 @@
   width: 100%;
   height: 200px;
   background-color: #ffffff;
-  margin-bottom: 10px;
+  margin-bottom: 1%;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -181,16 +167,185 @@
   margin: 5px 0;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1rem;
 }
-/* Добавляем стиль для текста под каруселью */
+
 .project-text {
   font-family: 'Inter';
-  font-style: normal;
   font-weight: 500;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 1.2rem;
+  line-height: 1.6;
   color: #000000;
-  margin-bottom: 100px;
-  max-width: 770px;
+  margin-bottom: 5%;
+  max-width: 80%; /* Устанавливаем ширину в процентах */
+}
+
+/* Медиазапросы для адаптации под мобильные и планшеты */
+@media (max-width: 1024px) {
+  .header-image {
+    width: 100%;
+    height: auto;
+    max-height: 75vh; /* Увеличиваем высоту блока с изображением */
+    object-fit: cover;
+    margin-bottom: 4%; /* Добавляем больше пространства ниже изображения */
+  }
+
+  .info-header h1 {
+    top: 55%; /* Опускаем заголовок ниже */
+    left: 15%;
+    font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
+    line-height: 1.4;
+    margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+  }
+
+  .breadcrumb {
+    margin-top: 1rem; /* Отступ сверху для хлебных крошек */
+    margin-bottom: 1rem; /* Отступ снизу */
+  }
+
+  .carousel-arrow.left {
+    left: 2%;
+  }
+
+  .carousel-arrow.right {
+    right: 2%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-image {
+    max-height: 65vh; /* Увеличиваем высоту блока с изображением */
+  }
+
+  .info-header h1 {
+    top: 55%; /* Опускаем заголовок ниже */
+    left: 15%;
+    font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
+    line-height: 1.2;
+    margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+  }
+
+  .breadcrumb {
+    margin-top: 1rem; /* Отступ сверху для хлебных крошек */
+    margin-bottom: 1rem; /* Отступ снизу */
+    text-align: left; /* Выровняем хлебные крошки слева */
+  }
+
+  .carousel-item {
+    width: 40%; /* Увеличиваем размер карусели на мобильных устройствах */
+  }
+
+  .paragraph-large {
+    font-size: 1rem; /* Еще больше уменьшаем текст */
+    line-height: 1.3;
+  }
+
+  .paragraph-normal {
+    font-size: 0.9rem; /* Уменьшаем размер текста */
+    line-height: 1.4;
+  }
+
+  .paragraph-small {
+    font-size: 1rem; /* Еще больше уменьшаем текст */
+    line-height: 1.3;
+  }
+
+  .styled-list {
+    font-size: 0.9rem; /* Уменьшенный размер */
+  }
+
+  .project-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-image {
+    max-height: 70vh; /* Увеличиваем высоту блока с изображением */
+  }
+
+  .info-header h1 {
+    top: 60%; /* Опускаем заголовок ниже */
+    left: 15%;
+    font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
+    line-height: 1.2;
+    margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+  }
+
+  .breadcrumb {
+    margin-top: 0.5rem; /* Отступ сверху для хлебных крошек */
+    margin-bottom: 1rem; /* Отступ снизу */
+    text-align: left; /* Выровняем хлебные крошки слева */
+  }
+
+  .info-content {
+    width: 100%; /* Увеличиваем ширину для мобильных устройств */
+  }
+
+  .carousel-arrow {
+    display: none; /* Скрываем стрелки на маленьких экранах */
+  }
+
+  .carousel-item {
+    width: 60%; /* Еще больше увеличиваем размер карусели для маленьких экранов */
+  }
+
+  .paragraph-large {
+    font-size: 0.9rem; /* Еще меньше для маленьких экранов */
+    line-height: 1.2;
+  }
+
+  .paragraph-normal {
+    font-size: 0.8rem; /* Уменьшенный размер */
+    line-height: 1.2;
+  }
+
+  .paragraph-small {
+    font-size: 0.9rem; /* Уменьшенный размер */
+    line-height: 1.2;
+  }
+
+  .styled-list {
+    font-size: 0.8rem; /* Уменьшенный размер */
+  }
+
+  .project-text {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .header-image {
+    max-height: 75vh; /* Увеличиваем высоту блока с изображением */
+  }
+
+  .info-header h1 {
+    top: 70%; /* Опускаем заголовок ниже */
+    left: 15%;
+    font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
+    line-height: 1.2;
+    margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+  }
+
+  .breadcrumb {
+    margin-top: 0.5rem; /* Отступ сверху для хлебных крошек */
+    margin-bottom: 1rem; /* Отступ снизу */
+    text-align: left; /* Выровняем хлебные крошки слева */
+  }
+
+  .info-content {
+    width: 100%; /* Увеличиваем ширину для мобильных устройств */
+  }
+
+  .carousel-arrow {
+    display: none; /* Скрываем стрелки на маленьких экранах */
+  }
+
+  .carousel-item {
+    width: 60%; /* Еще больше увеличиваем размер карусели для маленьких экранов */
+  }
+
+  .project-text {
+    font-size: 1rem;
+  }
 }

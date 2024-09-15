@@ -1,3 +1,29 @@
+/* Основные стили */
+.service-breadcrumb {
+    margin-top: 0rem; /* Отступ сверху от предыдущего элемента */
+    margin-bottom: 0rem; /* Отступ снизу */
+    display: flex;
+    align-items: center;
+    padding-left: 2rem; /* Добавляем отступ слева */
+}
+
+.service-breadcrumb-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.service-breadcrumb-text {
+    color: #007bff;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.service-breadcrumb-text:hover {
+    text-decoration: underline;
+}
+
 .service-page-section {
     padding-top: 0;
     background-color: #ffffff; /* Белый цвет фона */
@@ -8,23 +34,25 @@
     position: relative;
 }
 
-.service-page-header h1{
+.service-page-header h1 {
     position: absolute;
-    top: 42%;
-    left: 17%;
+    top: 50%; /* Опускаем заголовок ниже */
+    left: 15%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 40px;
+    font-size: 3vw; /* Используем vw для адаптивного размера шрифта */
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    line-height: 28px;
-    z-index: 2;   
+    line-height: 1.2;
+    z-index: 2;
 }
 
 .header-image {
     width: 100%;
     height: auto;
-    display: block;
+    max-height: 55vh; /* Увеличиваем высоту блока с изображением */
+    object-fit: cover;
+    margin-bottom: 4%; /* Добавляем больше пространства ниже изображения */
 }
 
 .service-page-wrapper {
@@ -38,7 +66,7 @@
 .service-page-title {
     font-family: 'Lora', serif;
     font-weight: 500;
-    font-size: 3rem !important;
+    font-size: 3rem; /* Используем rem для адаптивного размера */
     margin-bottom: 50px;
     margin-top: 0px;
     text-align: center;
@@ -49,8 +77,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Три колонки */
     gap: 0px; /* Убираем пространство между элементами */
-    margin-bottom: 50px;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .service-page-item {
@@ -78,4 +105,138 @@
     font-size: 1rem;
     margin-bottom: 20px;
     color: #333333; /* Темный оттенок для текста */
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1280px) {
+    .header-image {
+        width: 100%;
+        height: auto;
+        max-height: 75vh; /* Увеличиваем высоту блока с изображением */
+        object-fit: cover;
+        margin-bottom: 4%; /* Добавляем больше пространства ниже изображения */
+    }
+    .service-page-grid {
+        margin-top: 1rem;
+        margin-bottom: 4rem;
+    }
+    .service-page-header h1 {
+        font-size: 2rem; /* Slightly reduce font size for tablets */
+    }
+
+    .service-page-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for tablets */
+        gap: 20px; /* Add some space between elements */
+    }
+
+    .service-page-item {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    .service-breadcrumb {
+        margin-top: 1rem; /* Отступ сверху для хлебных крошек */
+        margin-bottom: 1rem; /* Отступ снизу */
+    }
+}
+
+@media (max-width: 768px) {
+    .header-image {
+        max-height: 65vh; /* Увеличиваем высоту блока с изображением */
+    }
+
+    .service-page-header h1 {
+        top: 55%; /* Опускаем заголовок ниже */
+        left: 15%;
+        font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
+        line-height: 1.2;
+        margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+    }
+
+    .service-breadcrumb {
+        margin-top: 1rem; /* Отступ сверху для хлебных крошек */
+        margin-bottom: 1rem; /* Отступ снизу */
+        text-align: left; /* Выровняем хлебные крошки слева */
+    }
+
+    .service-page-title {
+        font-size: 2.5rem; /* Adjust title font size */
+    }
+
+    .service-page-grid {
+        grid-template-columns: 1fr; /* Single column for small devices */
+        gap: 20px; /* Add space between elements */
+        margin-top: 50px; /* Adjust top margin */
+    }
+
+    .service-page-item {
+        padding: 10px; /* Further reduce padding for mobile devices */
+    }
+}
+
+@media (max-width: 480px) {
+    .header-image {
+        max-height: 70vh; /* Увеличиваем высоту блока с изображением */
+    }
+
+    .service-page-header h1 {
+        font-size: 1rem; /* Smaller font size for mobile devices */
+        top: 50%; /* Adjust top position for small screens */
+    }
+
+    .service-breadcrumb {
+        margin-top: 0rem; /* Отступ сверху для хлебных крошек */
+        margin-bottom: 0rem; /* Отступ снизу */
+        text-align: left; /* Выровняем хлебные крошки слева */
+    }
+
+    .service-page-title {
+        font-size: 2rem; /* Adjust title font size */
+    }
+    .service-page-grid {
+        margin-top: 1rem;
+    }
+    .service-page-item {
+        padding: 10px; /* Maintain reduced padding */
+    }
+
+    .service-page-item h3 {
+        font-size: 1.2rem; /* Reduce heading size for mobile */
+    }
+
+    .service-page-item p {
+        font-size: 0.9rem; /* Reduce text size for mobile */
+    }
+}
+
+@media (max-width: 390px) {
+    .header-image {
+        max-height: 75vh; /* Увеличиваем высоту блока с изображением */
+    }
+    .service-page-grid {
+        margin-top: 1rem;
+    }
+    .service-page-header h1 {
+        top: 50%; /* Опускаем заголовок ниже */
+        left: 15%;
+        font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
+        line-height: 1.2;
+    }
+
+    .service-breadcrumb {
+        margin-top: 0.5rem; /* Отступ сверху для хлебных крошек */
+        margin-bottom: 1rem; /* Отступ снизу */
+        text-align: left; /* Выровняем хлебные крошки слева */
+    }
+
+    .service-page-title {
+        font-size: 1.8rem; /* Adjust title font size */
+    }
+
+    .service-page-item h3 {
+        font-size: 1rem; /* Adjust card title size */
+    }
+
+    .service-page-item p {
+        font-size: 0.8rem; /* Adjust card text size */
+    }
 }
