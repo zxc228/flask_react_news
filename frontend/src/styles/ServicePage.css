@@ -78,6 +78,7 @@
     grid-template-columns: repeat(3, 1fr); /* Три колонки */
     gap: 0px; /* Убираем пространство между элементами */
     margin-top: 50px;
+    margin-bottom: 3rem;
 }
 
 .service-page-item {
