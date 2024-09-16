@@ -1,10 +1,10 @@
+/* Styles for all screen sizes */
 .news-detail-page-container {
   padding-top: 0;
 }
 
 .news-detail-header-container {
   text-align: center;
-  margin-bottom: 30px;
   position: relative;
 }
 
@@ -13,16 +13,15 @@
   height: auto;
   max-height: 450px;
   object-fit: cover;
-  margin-bottom: 20px;
 }
 
 .news-detail-header-container h1 {
   position: absolute;
-  top: 40%;
-  left: 17%;
+  top: 60%;
+  left: 15%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 42px;
+  font-size: 3rem;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   line-height: 28px;
@@ -32,8 +31,8 @@
 .news-detail-content-container {
   display: flex;
   justify-content: center;
-  margin-top: 80px;
-  margin-bottom: 100px; /* Сохранено для создания пространства внизу */
+  margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 
 .news-detail-item-container {
@@ -43,7 +42,7 @@
   max-width: 1120px;
   width: 100%;
   height: auto;
-  position: relative; /* Обеспечивает, что позиционирование будет относительно этого контейнера */
+  position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -59,11 +58,11 @@
   font-size: 18px;
   color: #007bff;
   margin-bottom: 20px;
-  white-space: normal; /* Обеспечивает перенос текста на следующую строку */
-  width: 100%; /* Контейнер занимает всю доступную ширину */
-  max-width: 100%; /* Убирает ограничение по ширине */
-  overflow-wrap: break-word; /* Переносит длинные слова */
-  word-wrap: break-word; /* Переносит длинные слова */
+  white-space: normal;
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .news-detail-description-container {
@@ -75,4 +74,120 @@
   word-wrap: break-word;
   white-space: normal;
   max-width: 100%;
+}
+
+.news-details-breadcrumb {
+  margin: auto;
+  max-width: 1120px;
+  padding: 10px;
+  margin-top: 1rem;
+}
+
+.news-details-breadcrumb-link {
+  text-decoration: none;
+}
+
+.news-details-breadcrumb-text {
+  color: #007bff;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Tablet screens */
+@media (max-width: 1024px) {
+  .news-detail-header-container h1 {
+    font-size: 2.5rem; /* Reduce font size */
+    top: 50%;
+    left: 50%;
+  }
+
+  .news-detail-item-container {
+    padding: 20px; /* Reduce padding */
+  }
+
+  .news-details-breadcrumb {
+    max-width: 90%; /* Reduce the max width */
+    padding: 5px; /* Adjust padding */
+  }
+}
+
+/* Small tablets and large phones */
+@media (max-width: 768px) {
+  .news-detail-header-container h1 {
+    font-size: 2rem; /* Further reduce font size */
+    top: 50%;
+    left: 50%;
+  }
+
+  .news-detail-content-container {
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .news-detail-item-container {
+    padding: 15px; /* Further reduce padding */
+  }
+
+  .news-details-breadcrumb {
+    max-width: 90%; /* Further reduce the max width */
+    padding: 5px; /* Adjust padding */
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .news-detail-header-container h1 {
+    font-size: 1.8rem; /* Further reduce font size */
+    top: 50%;
+    left: 50%;
+  }
+
+  .news-detail-content-container {
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .news-detail-item-container {
+    padding: 10px; /* Reduce padding for small screens */
+  }
+
+  .news-details-breadcrumb {
+    max-width: 90%;
+    padding: 5px; /* Adjust padding */
+  }
+
+  .news-detail-title-container {
+    font-size: 16px; /* Adjust font size */
+  }
+
+  .news-detail-description-container {
+    font-size: 14px; /* Adjust font size */
+  }
+}
+
+/* Very small phones */
+@media (max-width: 390px) {
+  .news-detail-header-container h1 {
+    font-size: 1.5rem; /* Further reduce font size */
+    top: 50%;
+    left: 50%;
+  }
+
+  .news-detail-item-container {
+    padding: 8px; /* Further reduce padding for very small screens */
+  }
+
+  .news-details-breadcrumb {
+    max-width: 90%;
+    padding: 5px;
+  }
+
+  .news-detail-title-container {
+    font-size: 14px; /* Adjust font size */
+  }
+
+  .news-detail-description-container {
+    font-size: 12px; /* Adjust font size */
+  }
 }

@@ -20,26 +20,28 @@ const NewsDetailPage = () => {
 
   return (
     <div className="news-detail-page-container">
-      <header className="news-detail-header-container">
-        <img src="/back4.png" alt="Header Background" className="news-detail-header-image" />
-        <h1>Новости</h1>
-        <div className="breadcrumb">
-          <Link to="/news" className="breadcrumb-link">
-            <span className="breadcrumb-icon">&larr;</span>
-            <span className="breadcrumb-text">Все Новости</span>
-          </Link>
-        </div>
-      </header>
-      <section className="news-detail-content-container">
-        <div className="news-detail-item-container">
-          <p className="news-detail-date-container">{newsItem.date}</p>
-          <h2 className="news-detail-title-container">{newsItem.title}</h2>
-          <p className="news-detail-description-container">
-            {newsItem.content}
-          </p>
-        </div>
-      </section>
+  <header className="news-detail-header-container">
+    <img src="/back4.png" alt="Header Background" className="news-detail-header-image" />
+    <h1>Новости</h1>
+  </header>
+  
+  {/* Перемещаем крошку сюда, чтобы она оказалась над контейнером */}
+  <div className="news-details-breadcrumb">
+    <Link to="/news" className="news-details-breadcrumb-link">
+      <span className="news-details-breadcrumb-text">Все Новости</span>
+    </Link>
+  </div>
+
+  <section className="news-detail-content-container">
+    <div className="news-detail-item-container">
+      <p className="news-detail-date-container">{newsItem.date}</p>
+      <h2 className="news-detail-title-container">{newsItem.title}</h2>
+      <p className="news-detail-description-container">
+        {newsItem.content}
+      </p>
     </div>
+  </section>
+</div>
   );
 };
 
