@@ -27,7 +27,7 @@ function VacancyDetailsPage() {
   return (
     <div className="vacancy-details-page">
       <header className="vacancy-page-header-container">
-                <img src="/back4.png" alt="Header Background" className="header-image" />
+                <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
                 <h1>Вакансии</h1>
                 <div className="breadcrumb">
                     <Link to="/vacancies" className="breadcrumb-link">

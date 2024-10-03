@@ -37,11 +37,10 @@ function DevelopmentDetailPage() {
   return (
     <div className="development-detail-page">
       <header className="development-header">
-        <img src="/back4.png" alt="Header Background" className="header-image" />
+        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
         <h1>Разработки</h1>
         <div className="breadcrumb">
           <Link to="/developments" className="breadcrumb-link">
-            <span className="breadcrumb-icon">&larr;</span>
             <span className="breadcrumb-text">Все разработки</span>
           </Link>
         </div>

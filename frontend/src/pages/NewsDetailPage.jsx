@@ -21,7 +21,7 @@ const NewsDetailPage = () => {
   return (
     <div className="news-detail-page-container">
   <header className="news-detail-header-container">
-    <img src="/back4.png" alt="Header Background" className="news-detail-header-image" />
+    <img src="/comp_atom 2.jpg" alt="Header Background" className="news-detail-header-image" />
     <h1>Новости</h1>
   </header>
   

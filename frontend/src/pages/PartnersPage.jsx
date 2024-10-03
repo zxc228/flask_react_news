@@ -117,11 +117,10 @@ const PartnersPage = () => {
     return (
         <div className="partners-page">
             <header className="partner-page-header-container">
-                <img src="/back4.png" alt="Header Background" className="header-image" />
+                <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
                 <h1>Партнёры</h1>
                 <div className="breadcrumb-partners">
                     <Link to="/" className="breadcrumb-partners-link">
-                        <span className="breadcrumb-partners-icon">&larr;</span>
                         <span className="breadcrumb-partners-text">Главная</span>
                     </Link>
                 </div>

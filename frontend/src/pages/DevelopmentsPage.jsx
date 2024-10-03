@@ -7,7 +7,6 @@ function DevelopmentsPage() {
     {
       id: 1,
       title: 'Клапаны предохранительные с пневматической системой управления',
-      imageUrl: '/klapan 2.png',
       description: 'Краткое описание разработки 1...',
     },
     {
@@ -27,11 +26,10 @@ function DevelopmentsPage() {
   return (
     <div className="developments-page">
       <header className="developments-header">
-        <img src="/back4.png" alt="Header Background" className="header-image" />
+        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
         <h1>Наши разработки</h1>
         <div className="breadcrumb">
           <Link to="/" className="breadcrumb-link">
-            <span className="breadcrumb-icon">&larr;</span>
             <span className="breadcrumb-text">Главная</span>
           </Link>
         </div>
@@ -40,7 +38,6 @@ function DevelopmentsPage() {
       <div className="developments-list">
         {developments.map(development => (
           <div key={development.id} className="development-item">
-            <img src={development.imageUrl} alt={development.title} className="development-image" />
             <div className="development-info">
               <h2>{development.title}</h2>
               <p>{development.description}</p>

@@ -39,9 +39,10 @@
 .header-image {
   width: 100%;
   height: auto;
-  max-height: 55vh; /* Увеличиваем высоту блока с изображением */
-  object-fit: cover;
-  margin-bottom: 4%; /* Добавляем больше пространства ниже изображения */
+  max-height: 55vh;
+  object-fit: cover;  /* Сохраняем пропорции */
+  object-position: center 10%;  /* Поднимаем изображение выше центра */
+  margin-bottom: 4%;
 }
 
 .info-header h1 {
@@ -191,11 +192,10 @@
   }
 
   .info-header h1 {
-    top: 55%; /* Опускаем заголовок ниже */
-    left: 15%;
-    font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
-    line-height: 1.4;
-    margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+    font-size: 2.5rem; /* Reduce font size */
+    top: 60%; /* Adjust positioning */
+    left: 15%; /* Center horizontally */
+    transform: translateX(-50%);
   }
 
   .breadcrumb {
@@ -218,11 +218,10 @@
   }
 
   .info-header h1 {
-    top: 55%; /* Опускаем заголовок ниже */
-    left: 15%;
-    font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
-    line-height: 1.2;
-    margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+    font-size: 1.8rem; /* Reduce font size */
+    top: 13vh; /* Adjust positioning */
+    left: 15%; /* Center horizontally */
+    transform: translateX(-50%);
   }
 
   .breadcrumb {
@@ -265,11 +264,10 @@
   }
 
   .info-header h1 {
-    top: 60%; /* Опускаем заголовок ниже */
-    left: 15%;
-    font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
-    line-height: 1.2;
-    margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+    font-size: 1.2rem; /* Smaller font size */
+    top: 8vh; /* Adjust positioning */
+    left: 15%; /* Center horizontally */
+    transform: translateX(-50%);
   }
 
   .breadcrumb {
@@ -314,17 +312,50 @@
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 393px) {
   .header-image {
     max-height: 75vh; /* Увеличиваем высоту блока с изображением */
   }
 
   .info-header h1 {
-    top: 70%; /* Опускаем заголовок ниже */
-    left: 15%;
-    font-size: 3.5vw; /* Используем vw для адаптивного размера шрифта */
-    line-height: 1.2;
-    margin-bottom: 1rem; /* Отступ снизу, чтобы отделить заголовок от хлебных крошек */
+    font-size: 0.9rem; /* Smaller font size */
+    top: 8vh; /* Adjust positioning */
+    left: 15%; /* Center horizontally */
+    transform: translateX(-50%);
+  }
+
+  .breadcrumb {
+    margin-top: 0.5rem; /* Отступ сверху для хлебных крошек */
+    margin-bottom: 1rem; /* Отступ снизу */
+    text-align: left; /* Выровняем хлебные крошки слева */
+  }
+
+  .info-content {
+    width: 100%; /* Увеличиваем ширину для мобильных устройств */
+  }
+
+  .carousel-arrow {
+    display: none; /* Скрываем стрелки на маленьких экранах */
+  }
+
+  .carousel-item {
+    width: 60%; /* Еще больше увеличиваем размер карусели для маленьких экранов */
+  }
+
+  .project-text {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 375px) {
+  .header-image {
+    max-height: 75vh; /* Увеличиваем высоту блока с изображением */
+  }
+
+  .info-header h1 {
+    font-size: 0.9rem; /* Smaller font size */
+    top: 10vh; /* Adjust positioning */
+    left: 15%; /* Center horizontally */
+    transform: translateX(-50%);
   }
 
   .breadcrumb {

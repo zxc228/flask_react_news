@@ -1,6 +1,7 @@
 import React from 'react';
 import NewsList from '../components/NewsList';
 import Services from '../components/Services';
+import MissionSection from '../components/MissionSection';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
@@ -8,22 +9,15 @@ const HomePage = () => {
     <>
       <main className="App-main">
         <div className="overlay">
-          <h1>СТАРК — Арматура будущего для устойчивого развития!</h1>
-          {/* Оборачиваем кнопку в Link для перехода на страницу "О нас" */}
+          <h1>СТАРК - надежный партнер для успешного развития Вашего бизнеса</h1>
+          {/* Кнопка с ссылкой на страницу "О нас" */}
           <Link to="/about">
             <button className="learn-more-button">Узнать больше</button>
           </Link>
         </div>
       </main>
-      <section className="news-section">
-        <div className="news-wrapper">
-          <div className="news-header">
-            <h2 className="news-title">Новости</h2>
-          </div>
-          <NewsList />
-        </div>
-      </section>
-      <Services />
+      {/* Добавляем компонент "Наша миссия" */}
+      <MissionSection />
     </>
   );
 };

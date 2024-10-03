@@ -47,7 +47,7 @@ const NewsPage = () => {
   return (
     <div className="news-page-container">
       <header className="news-header-container">
-        <img src="/back4.png" alt="Header Background" className="header-image" />
+        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
         <h1>Новости</h1>
       </header>
       <section className="news-content-container">

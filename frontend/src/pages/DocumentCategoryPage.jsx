@@ -41,11 +41,10 @@ function DocumentCategoryPage() {
   return (
     <div className="document-category-page">
         <header className="documents-header">
-        <img src="/back4.png" alt="Header Background" className="header-image" />
+        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
         <h1>Документы</h1>
         <div className="breadcrumb">
           <Link to="/documents" className="breadcrumb-link">
-            <span className="breadcrumb-icon">&larr;</span>
             <span className="breadcrumb-text">Все документы</span>
           </Link>
         </div>

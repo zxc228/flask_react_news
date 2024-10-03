@@ -6,7 +6,7 @@ function ServicePage() {
   return (
     <section className="service-page-section">
       <header className="service-page-header">
-        <img src="/back4.png" alt="Header Background" className="header-image" />
+        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
         <h1>Наши услуги</h1>
         <div className="service-breadcrumb">
           <Link to="/" className="service-breadcrumb-link">

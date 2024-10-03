@@ -1,44 +1,43 @@
+/* Основные стили */
 .partner-detail-page {
     padding-top: 0;
 }
 
 .partner-page-header-container {
     text-align: center;
-    margin-bottom: 30px;
     position: relative;
 }
 
-.partner-page-header-container h1 {
+.partner-detail-page-header-container h1 {
     position: absolute;
     top: 43%;
     left: 17%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 40px;
+    font-size: 3vw;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    line-height: 28px;
+    line-height: 1.2;
     z-index: 2;
 }
-
 
 .partner-detail-content {
     max-width: 800px;
     margin: 40px auto;
     padding: 20px;
     font-family: 'Inter', sans-serif;
-    color: #555; /* Основной цвет текста */
+    color: #555;
 }
 
 .partner-detail-content h2 {
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: 600;
     margin-bottom: 20px;
-    color: #333; /* Цвет заголовка */
+    color: #333;
 }
 
 .partner-detail-content p {
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 1.6;
     margin-bottom: 20px;
 }
@@ -51,7 +50,7 @@
 
 .partner-detail-content ul li {
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 1.125rem;
 }
 
 .partner-detail-content a {
@@ -63,35 +62,156 @@
     text-decoration: underline;
 }
 
-
 .breadcrumb-partners-b {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    position: absolute;
-    left: 140px;
-    top: 451px;
-  }
-  
-  .breadcrumb-partners-link-b {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding-left: 2rem; /* Отступ слева */
+}
+
+.breadcrumb-partners-link-b {
     display: flex;
     align-items: center;
     text-decoration: none;
-    margin-left: 180px; /* Подвинуть влево на 20px */
 }
-  
-  .breadcrumb-partners-icon-b {
-    font-size: 20px;
+
+.breadcrumb-partners-icon-b {
+    font-size: 1.2rem;
     color: #007bff;
-    margin-right: 5px;
-  }
-  
-  .breadcrumb-partners-text-b {
+    margin-right: 0.5rem;
+}
+
+.breadcrumb-partners-text-b {
     color: #007bff;
     font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 500;
-  }
-  
-  .breadcrumb-text-b:hover {
+}
+
+.breadcrumb-text-b:hover {
     text-decoration: underline;
-  }
+}
+
+/* Медиазапросы для адаптации под мобильные и планшеты */
+@media (max-width: 1024px) {
+    .partner-detail-page-header-container h1 {
+        font-size: 2.5rem;
+        top: 50%;
+        left: 15%;
+        transform: translateX(-50%);
+    }
+
+    .partner-detail-content {
+        max-width: 700px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .partner-detail-page-header-container h1 {
+        font-size: 1.8rem;
+        top: 13vh;
+        left: 15%;
+        transform: translateX(-50%);
+    }
+
+    .partner-detail-content {
+        max-width: 600px;
+        padding: 1rem;
+    }
+
+    .partner-detail-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .partner-detail-content p {
+        font-size: 1rem;
+    }
+
+    .breadcrumb-partners-b {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .partner-detail-page-header-container h1 {
+        font-size: 1.2rem;
+        top: 8vh;
+        left: 15%;
+        transform: translateX(-50%);
+    }
+
+    .partner-detail-content {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+
+    .partner-detail-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .partner-detail-content p {
+        font-size: 0.9rem;
+    }
+
+    .breadcrumb-partners-b {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 393px) {
+    .partner-detail-page-header-container h1 {
+        font-size: 0.9rem;
+        top: 8vh;
+        left: 15%;
+        transform: translateX(-50%);
+    }
+
+    .partner-detail-content {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+
+    .partner-detail-content h2 {
+        font-size: 1rem;
+    }
+
+    .partner-detail-content p {
+        font-size: 0.8rem;
+    }
+
+    .breadcrumb-partners-b {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    }
+}
+@media (max-width: 375px) {
+    .partner-detail-page-header-container h1 {
+        font-size: 0.9rem;
+        top: 10vh;
+        left: 15%;
+        transform: translateX(-50%);
+    }
+
+    .partner-detail-content {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+
+    .partner-detail-content h2 {
+        font-size: 1rem;
+    }
+
+    .partner-detail-content p {
+        font-size: 0.8rem;
+    }
+
+    .breadcrumb-partners-b {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    }
+}

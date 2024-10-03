@@ -6,7 +6,7 @@ function ContactPage() {
   return (
     <div className="contact-page">
       <header className="contact-header">
-        <img src="/back4.png" alt="Header Background" className="header-image" />
+        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
         <h1>Контакты</h1>
         <div className="breadcrumb">
           <Link to="/" className="breadcrumb-link">
