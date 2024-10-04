@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="App-footer">
       <div className="footer-logo">
-        <img src="/logo1.png" alt="logo" />
+        <img src="/logo2.png" alt="logo" />
       </div>
 
       <div className="footer-links-and-contact">
@@ -16,9 +16,12 @@ const Footer = () => {
         </div>
 
         <div className="footer-contact-info">
-          <p><i className="fas fa-phone"></i> +7 (495) 642-84-41</p>
-          <p><i className="fas fa-envelope"></i> office@instark.ru</p>
-          <p><i className="fas fa-map-marker-alt"></i> Москва, Варшавское шоссе, д. 125Ж, корп. 6</p>
+          {/* Ссылка на звонок по номеру */}
+          <p><i className="fas fa-phone"></i> <a href="tel:+74956428441" className="footer-link">+7 (495) 642-84-41</a></p>
+          {/* Ссылка на почту */}
+          <p><i className="fas fa-envelope"></i> <a href="mailto:office@instark.ru" className="footer-link">office@instark.ru</a></p>
+          {/* Ссылка на Яндекс.Карты с адресом */}
+          <p><i className="fas fa-map-marker-alt"></i> <a href="https://yandex.ru/maps/?text=Москва, Варшавское шоссе, д. 125Ж, корп. 6" target="_blank" rel="noopener noreferrer" className="footer-link">Москва, Варшавское шоссе, д. 125Ж, корп. 6</a></p>
         </div>
       </div>
 
@@ -27,7 +30,9 @@ const Footer = () => {
           <p>© ООО ЦНИПИ «СТАРК» 2013</p>
         </div>
         <div className="footer-button-right">
-          <button>Свяжитесь с нами</button>
+          <Link to="/contacts">
+            <button>Свяжитесь с нами</button>
+          </Link> {/* Здесь нужно закрыть тег Link */}
         </div>
       </div>
     </footer>

@@ -31,7 +31,6 @@ function VacancyDetailsPage() {
                 <h1>Вакансии</h1>
                 <div className="breadcrumb">
                     <Link to="/vacancies" className="breadcrumb-link">
-                        <span className="breadcrumb-icon">&larr;</span>
                         <span className="breadcrumb-text">Вакансии</span>
                     </Link>
                 </div>

@@ -8,7 +8,18 @@
   justify-content: space-between;
   position: relative;
 }
+/* Стили для ссылок, чтобы они выглядели как текст */
+.footer-link {
+  color: inherit; /* Наследуем цвет от родительского элемента */
+  text-decoration: none; /* Убираем подчеркивание */
+  pointer-events: auto; /* Оставляем интерактивность для mailto и tel */
+  cursor: default; /* Изменяем курсор на стандартный */
+}
 
+.footer-link:hover {
+  text-decoration: underline; /* Добавляем подчеркивание при наведении */
+  color: inherit; /* Ссылка не будет менять цвет при наведении */
+}
 /* Лого слева */
 .footer-logo {
   position: absolute;
@@ -259,7 +270,7 @@
   .footer-logo {
     position: absolute;
     top: 50%;
-    left: 2%; /* Сдвигаем логотип чуть правее */
+    left: 10%; /* Сдвигаем логотип чуть правее */
   }
 }
 
@@ -300,8 +311,8 @@
   }
   .footer-logo {
     position: absolute;
-    top: 59%;
-    left: 2%; /* Сдвигаем логотип чуть правее */
+    top: 55%;
+    left: 10%; /* Сдвигаем логотип чуть правее */
   }
 }
 
@@ -342,8 +353,8 @@
   }
   .footer-logo {
     position: absolute;
-    top: 59%;
-    left: 2%; /* Сдвигаем логотип чуть правее */
+    top: 55%;
+    left: 10%; /* Сдвигаем логотип чуть правее */
   }
 }
 
@@ -392,8 +403,8 @@
 
   .footer-logo {
     position: absolute;
-    top: 5%;
-    left: 33%; /* Сдвигаем логотип чуть правее */
+    top: 8%;
+    left: 36%; /* Сдвигаем логотип чуть правее */
   }
 }
 
@@ -442,7 +453,7 @@
 
   .footer-logo {
     position: absolute;
-    top: 5%;
-    left: 35%; /* Сдвигаем логотип чуть правее */
+    top: 7%;
+    left: 38%; /* Сдвигаем логотип чуть правее */
   }
 }

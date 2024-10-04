@@ -254,10 +254,10 @@
         margin-top: 1rem;
     }
     .service-page-header h1 {
-    font-size: 0.9rem; /* Smaller font size */
-    top: 8vh; /* Adjust positioning */
-    left: 15%; /* Center horizontally */
-    transform: translateX(-50%);
+        font-size: 0.9rem; /* Smaller font size */
+        top: 10vh; /* Adjust positioning */
+        left: 15%; /* Center horizontally */
+        transform: translateX(-50%);
     }
 
     .service-breadcrumb {
@@ -286,10 +286,10 @@
         margin-top: 1rem;
     }
     .service-page-header h1 {
-    font-size: 0.9rem; /* Smaller font size */
-    top: 10vh; /* Adjust positioning */
-    left: 15%; /* Center horizontally */
-    transform: translateX(-50%);
+        font-size: 0.9rem; /* Smaller font size */
+        top: 12vh; /* Adjust positioning */
+        left: 15%; /* Center horizontally */
+        transform: translateX(-50%);
     }
 
     .service-breadcrumb {

@@ -205,7 +205,7 @@
   @media (max-width: 393px) {
     .developments-header h1 {
       font-size: 0.9rem; /* Smaller font size */
-    top: 8vh; /* Adjust positioning */
+    top: 10vh; /* Adjust positioning */
     left: 18%; /* Center horizontally */
     transform: translateX(-50%);
     }
@@ -230,7 +230,7 @@
   @media (max-width: 375px) {
     .developments-header h1 {
       font-size: 0.9rem; /* Smaller font size */
-    top: 10vh; /* Adjust positioning */
+    top: 12vh; /* Adjust positioning */
     left: 18%; /* Center horizontally */
     transform: translateX(-50%);
     }

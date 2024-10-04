@@ -57,7 +57,7 @@
 }
 
 .mission-learn-more-button {
-    padding: 10px 20px;
+    padding: 10px 40px; /* Увеличиваем отступы внутри кнопки для растяжения текста */
     font-size: 16px;
     background-color: transparent;
     color: #333;
@@ -66,9 +66,10 @@
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     align-self: flex-end;
-    margin-right: 20%;
+    margin-right: 15%; /* Сдвигаем кнопку правее */
     margin-bottom: 5%;
     margin-top: 3%;
+    white-space: nowrap; /* Чтобы текст не переносился на новую строку */
 }
 
 .mission-learn-more-button:hover {
@@ -89,5 +90,22 @@
     .mission-learn-more-button {
         font-size: 14px;
         margin-right: 0;
+    }
+}
+@media (max-width: 393px) {
+    .mission-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+        text-align: left;
+        font-family: 'Inter', sans-serif;
+        width: 100%;
+        max-width: 100%; 
+        padding-left: 10%; /* Отступ слева для заголовка */
+        position: relative; /* Для добавления псевдоэлементов перед и после */
+    }
+    .mission-description {
+        text-align: left;
     }
 }

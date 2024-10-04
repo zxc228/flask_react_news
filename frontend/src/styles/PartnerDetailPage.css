@@ -165,10 +165,10 @@
 
 @media (max-width: 393px) {
     .partner-detail-page-header-container h1 {
-        font-size: 0.9rem;
-        top: 8vh;
-        left: 15%;
-        transform: translateX(-50%);
+        font-size: 0.9rem; /* Smaller font size */
+    top: 10vh; /* Adjust positioning */
+    left: 15%; /* Center horizontally */
+    transform: translateX(-50%);
     }
 
     .partner-detail-content {
@@ -191,10 +191,10 @@
 }
 @media (max-width: 375px) {
     .partner-detail-page-header-container h1 {
-        font-size: 0.9rem;
-        top: 10vh;
-        left: 15%;
-        transform: translateX(-50%);
+        font-size: 0.9rem; /* Smaller font size */
+    top: 12vh; /* Adjust positioning */
+    left: 15%; /* Center horizontally */
+    transform: translateX(-50%);
     }
 
     .partner-detail-content {

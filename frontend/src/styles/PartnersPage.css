@@ -220,7 +220,7 @@
 
   .partner-page-header-container h1 {
     font-size: 0.9rem; /* Smaller font size */
-    top: 8vh; /* Adjust positioning */
+    top: 10vh; /* Adjust positioning */
     left: 15%; /* Center horizontally */
     transform: translateX(-50%);
   }
@@ -254,7 +254,7 @@
 
   .partner-page-header-container h1 {
     font-size: 0.9rem; /* Smaller font size */
-    top: 10vh; /* Adjust positioning */
+    top: 12vh; /* Adjust positioning */
     left: 15%; /* Center horizontally */
     transform: translateX(-50%);
   }

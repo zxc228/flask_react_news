@@ -13,7 +13,7 @@ body, html, #root, .App {
 /* Основной блок */
 .App-main {
   height: 100vh;
-  background: url('/public/PhotoBackHeader.png') no-repeat center center;
+  background: url('/public/logo1.png') no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: center;

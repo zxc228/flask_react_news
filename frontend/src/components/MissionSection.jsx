@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/MissionSection.css';
 
 const MissionSection = () => {
@@ -14,7 +15,10 @@ const MissionSection = () => {
         Основным конкурентным преимуществом института является компетентность и опыт сотрудников в тесном сотрудничестве с
         ведущими университетами и институтами России.
       </p>
-      <button className="mission-learn-more-button">Узнать больше</button>
+      {/* Оборачиваем кнопку в Link для корректного перенаправления */}
+      <Link to="/about">
+        <button className="mission-learn-more-button">Узнать больше</button>
+      </Link>
     </section>
   );
 };
