@@ -1,6 +1,10 @@
-/* Основные стили для контактной страницы */
+
 .contact-page {
     padding-top: 0;
+}
+/* Убедимся, что контейнеры занимают 100% ширины */
+.contact-container, .contact-info, .contact-form, .contact-map {
+    max-width: 100%;
 }
 
 .contact-header {
@@ -79,7 +83,7 @@
 
 .contact-form {
     flex: 2;
-    max-width: 500px;
+    max-width: 300px;
     position: relative;
     left: -200px;
     margin-top: 28px;
@@ -392,6 +396,7 @@ button[type="submit"]:hover {
     margin-bottom: 10px;
     margin-left: -9%; /* Сдвигаем карту еще левее */
     transform: translateY(-10%); /* Поднимаем карту выше */
+    max-width: 200px;
   }
 
   .contact-map iframe {
@@ -405,31 +410,51 @@ button[type="submit"]:hover {
 @media (max-width: 375px) {
     .contact-header h1 {
         font-size: 0.9rem; /* Smaller font size */
-        top: 12vh; /* Adjust positioning */
-        left: 15%; /* Center horizontally */
-        transform: translateX(-50%);
+    top: 12vh; /* Adjust positioning */
+    left: 15%; /* Center horizontally */
+    transform: translateX(-50%);
     }
-  
+
     .contact-info {
-      text-align: center;
-      margin-left: 0;
+        text-align: center; /* Сдвигаем контакты правее */
+        margin-left: auto; /* Убираем отступ слева */
+        margin-right: auto; /* Добавляем отступ справа */
     }
-  
+
     .contact-form {
-      left: 0;
+        max-width: 100px;
+        margin-left: 5%; /* Центрируем форму */
+        padding: 0;
     }
-  
-    .contact-map {
-      position: relative;
-      margin-top: 0px; /* Уменьшаем отступ сверху */
-      margin-bottom: 10px;
-      margin-left: -5%; /* Сдвигаем карту еще левее */
-      transform: translateY(-10%); /* Поднимаем карту выше */
-    }
-  
+
     .contact-map iframe {
-      height: 200px;
-      width: 90%;
-      margin-left: 0; /* Убираем дополнительный отступ для центровки */
+        height: 200px;
+        width: 90%; /* Используем 90% ширины экрана */
+        margin: 0 auto; /* Центрируем карту */
+    }
+
+    .contact-map iframe {
+        height: 200px;
+        width: 300px;
+        margin-left: 0; /* Убираем лишний отступ */
+    }
+
+    .contact-map {
+        position: relative;
+        margin-top: 0px; /* Убираем отступ сверху */
+        margin-bottom: 10px;
+        margin-left: -5%; /* Сдвигаем карту левее */
+        transform: translateY(-10%); /* Поднимаем карту */
+        max-width: 200px;
+    }
+    .consent label {
+        margin-left: 1px; /* Уменьшаем отступ до 5px */
+        white-space: initial; /* Запрещаем перенос текста */
+    }
+    .contact-form {
+        flex: 2;
+        max-width: 400px;
+        position: relative;
+        margin-top: 28px;
     }
 }
