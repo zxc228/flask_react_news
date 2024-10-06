@@ -16,6 +16,7 @@ import DocumentsPage from './pages/DocumentsPage'; // Импортируем с�
 import DocumentCategoryPage from './pages/DocumentCategoryPage'; // Новый компонент
 import DevelopmentsPage from './pages/DevelopmentsPage';
 import DevelopmentDetailPage from './pages/DevelopmentDetailPage';
+import EmployeePage from './pages/EmployeePage'; // Импортируем страницу сотрудника
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/documents/:categoryId" element={<DocumentCategoryPage />} /> {/* Маршрут для категории документов */}
           <Route path="/developments" element={<DevelopmentsPage />} />
           <Route path="/developments/:id" element={<DevelopmentDetailPage />} />
+          <Route path="/directors/:id" element={<EmployeePage />} /> {/* Добавляем маршрут для сотрудников */}
         </Routes>
         <Footer />
       </div>

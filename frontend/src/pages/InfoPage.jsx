@@ -36,12 +36,12 @@ const InfoPage = () => {
 
   <h3>Руководство института</h3>
   <ul className="employee-list">
-    <li><Link to="/directors/general">Генеральный директор</Link></li>
-    <li><Link to="/directors/chief-engineer">Главный конструктор</Link></li>
-    <li><Link to="/directors/technologist">Главный технолог</Link></li>
-    <li><Link to="/directors/welder">Главный сварщик</Link></li>
-    <li><Link to="/directors/accountant">Главный бухгалтер</Link></li>
-  </ul>
+  <li><Link to="/directors/1">Генеральный директор</Link></li> {/* Используем ID сотрудника */}
+  <li><Link to="/directors/2">Главный конструктор</Link></li>
+  <li><Link to="/directors/3">Главный технолог</Link></li>
+  <li><Link to="/directors/4">Главный сварщик</Link></li>
+  <li><Link to="/directors/5">Главный бухгалтер</Link></li>
+</ul>
 
   <h3>Перечень аттестаций персонала СТАРК:</h3>
   <ul className="attestation-list">

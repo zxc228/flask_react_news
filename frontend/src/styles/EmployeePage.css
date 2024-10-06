@@ -1,0 +1,91 @@
+/* Общие стили для всех страниц */
+.employee-page {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 0; /* Убираем верхний отступ */
+}
+.employee-header-container h1 {
+  position: absolute;
+  top: 100%;
+  left: 17%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 42px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 28px;
+  z-index: 2;
+}
+.employee-header-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  margin-bottom: 20%; /* Убираем отступ снизу */
+}
+
+.header-image {
+  width: 100%;
+  height: auto;
+  max-height: 55vh;
+  object-fit: cover;
+}
+
+.page-title {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 40px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.breadcrumb-employee {
+  margin-top: 0rem; /* Отступ сверху от предыдущего элемента */
+  margin-bottom: 0rem; /* Отступ снизу */
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-employee-link {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.breadcrumb-employee-link:hover {
+  text-decoration: underline;
+}
+
+/* Стили для контента */
+.detail-content {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: left;
+}
+
+.detail-content h2 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.detail-content h3 {
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.detail-content p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.employee-photo {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 20px;
+}

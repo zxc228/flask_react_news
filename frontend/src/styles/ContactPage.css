@@ -382,29 +382,49 @@ button[type="submit"]:hover {
   }
 
   .contact-info {
-    text-align: center;
-    margin-left: 0;
-  }
-
-  .contact-form {
-    left: 0;
-  }
-
-  .contact-map {
-    position: relative;
-    margin-top: 0px; /* Уменьшаем отступ сверху */
-    margin-bottom: 10px;
-    margin-left: -9%; /* Сдвигаем карту еще левее */
-    transform: translateY(-10%); /* Поднимаем карту выше */
-    max-width: 200px;
-  }
-
-  .contact-map iframe {
-    height: 220px;
-    width: 90%;
-    margin-left: 5%;
-  }
+    text-align: center; /* Сдвигаем контакты правее */
+    margin-left: auto; /* Убираем отступ слева */
+    margin-right: auto; /* Добавляем отступ справа */
 }
+
+.contact-form {
+    max-width: 100px;
+    margin-left: 5%; /* Центрируем форму */
+    padding: 0;
+}
+
+.contact-map iframe {
+    height: 200px;
+    width: 90%; /* Используем 90% ширины экрана */
+    margin: 0 auto; /* Центрируем карту */
+}
+
+.contact-map iframe {
+    height: 200px;
+    width: 300px;
+    margin-left: 0; /* Убираем лишний отступ */
+}
+
+.contact-map {
+    position: relative;
+    margin-top: 0px; /* Убираем отступ сверху */
+    margin-bottom: 10px;
+    margin-left: -5%; /* Сдвигаем карту левее */
+    transform: translateY(-10%); /* Поднимаем карту */
+    max-width: 200px;
+}
+.consent label {
+    margin-left: 1px; /* Уменьшаем отступ до 5px */
+    white-space: initial; /* Запрещаем перенос текста */
+}
+.contact-form {
+    flex: 2;
+    max-width: 400px;
+    position: relative;
+    margin-top: 28px;
+}
+}
+
 
 /* Адаптация для 375px и ниже */
 @media (max-width: 375px) {
