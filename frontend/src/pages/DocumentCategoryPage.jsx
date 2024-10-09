@@ -1,38 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import content from '../content.json';
 import '../styles/DocumentCategoryPage.css';
-import { Link } from 'react-router-dom';
 
 function DocumentCategoryPage() {
   const { categoryId } = useParams();
-
-  // Предустановленные данные о категориях и документах
-  const documentCategories = {
-    1: {
-      title: 'Сертификаты',
-      files: [
-        { name: 'Сертификат соответствия № TC RU C-RU.AA71.B.00006', url: '/0001.jpg' },
-        { name: 'Сертификат соответствия № TC RU C-RU.AA71.B.00007', url: '/files/certificate2.docx' },
-        // Добавьте больше документов, если необходимо
-      ]
-    },
-    2: {
-      title: 'Лицензии',
-      files: [
-        { name: 'Лицензия на право конструирования оборудования для ядерных установок (блоков АС)', url: '/files/license1.docx' }
-      ]
-    },
-    3: {
-      title: 'Референции',
-      files: [
-        { name: 'Референции от компании-партнера', url: '/files/reference1.docx' },
-        { name: 'Референции от компании-партнера', url: '/files/reference2.docx' },
-        // Добавьте больше документов, если необходимо
-      ]
-    }
-  };
-
-  const category = documentCategories[categoryId];
+  const category = content.documents.find(doc => doc.id === parseInt(categoryId));
 
   if (!category) {
     return <p>Категория не найдена</p>;
@@ -40,7 +13,7 @@ function DocumentCategoryPage() {
 
   return (
     <div className="document-category-page">
-        <header className="documents-header">
+      <header className="documents-header">
         <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
         <h1>Документы</h1>
         <div className="breadcrumb">

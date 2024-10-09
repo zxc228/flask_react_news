@@ -1,20 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/MissionSection.css';
-
+import content from '../content.json';
 const MissionSection = () => {
   return (
     <section className="mission-section">
-      <h2 className="mission-title">Наша миссия</h2>
-      <p className="mission-description">
-        Наш коллектив стремится стать лидером в развитии отечественного арматуростроения на основе современных
-        конструкторских и технологических решений для устойчивого и эффективного функционирования топливно-энергетического
-        комплекса России.
-      </p>
-      <p className="mission-description">
-        Основным конкурентным преимуществом института является компетентность и опыт сотрудников в тесном сотрудничестве с
-        ведущими университетами и институтами России.
-      </p>
+      <h2 className="mission-title">{content.mission.title}</h2> {/* Используем title из JSON */}
+      <p className="mission-description">{content.mission.description1}</p> {/* Используем описание из JSON */}
+      <p className="mission-description">{content.mission.description2}</p> {/* Второе описание */}
+      
       {/* Оборачиваем кнопку в Link для корректного перенаправления */}
       <Link to="/about">
         <button className="mission-learn-more-button">Узнать больше</button>

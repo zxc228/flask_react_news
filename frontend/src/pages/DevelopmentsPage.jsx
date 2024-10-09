@@ -1,27 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import content from '../content.json';
 import '../styles/DevelopmentsPage.css';
 
 function DevelopmentsPage() {
-  const developments = [
-    {
-      id: 1,
-      title: 'Клапаны предохранительные с пневматической системой управления',
-      description: 'Краткое описание разработки 1...',
-    },
-    {
-      id: 2,
-      title: 'Краны шаровые запорно-регулирующие',
-      imageUrl: '/kran 1 animated.png',
-      description: 'Краткое описание разработки 2...',
-    },
-    {
-      id: 3,
-      title: 'Клапан паровой для БРОУ',
-      imageUrl: '/klan.png',
-      description: 'Краткое описание разработки 3...',
-    },
-  ];
+  const maxDescriptionLength = 100; // Максимальная длина описания
 
   return (
     <div className="developments-page">
@@ -36,17 +19,24 @@ function DevelopmentsPage() {
       </header>
 
       <div className="developments-list">
-        {developments.map(development => (
-          <div key={development.id} className="development-item">
-            <div className="development-info">
-              <h2>{development.title}</h2>
-              <p>{development.description}</p>
-              <Link to={`/developments/${development.id}`} className="development-detail-link">
-                Подробнее
-              </Link>
+        {content.developments.map(development => {
+          // Обрезаем описание, если его длина превышает maxDescriptionLength
+          const shortDescription = development.description.length > maxDescriptionLength
+            ? `${development.description.slice(0, maxDescriptionLength)}...`
+            : development.description;
+
+          return (
+            <div key={development.id} className="development-item">
+              <div className="development-info">
+                <h2>{development.title}</h2>
+                <p>{shortDescription}</p>
+                <Link to={`/developments/${development.id}`} className="development-detail-link">
+                  Подробнее
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

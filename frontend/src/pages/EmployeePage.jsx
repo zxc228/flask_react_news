@@ -1,30 +1,11 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import '../styles/EmployeePage.css'; // Import your CSS styles
+import content from '../content.json';
+import '../styles/EmployeePage.css';
 
-// Data for employees or partners
-const employees = [
-    {
-      id: 1,
-      name: 'Наталья Иванова',
-      position: 'Главный конструктор',
-      description: 'Ее путь в арматуростроение был не быстрым, но целеустремленным и осознанным. Наша героиня всегда верила, что каждая встреча и любая полученная информация имеют значение и могут повлиять на дальнейший путь. После окончания института она решила пройти дополнительное обучение, чтобы расширить свои профессиональные горизонты. Выбор пал на курсы по подготовке операторов арматурных станков. В процессе учебы она узнала о возможности освоить дополнительную профессию – наладчика автоматизированных линий на заводах, что открывало для нее новые перспективы. Так она совмещала теоретические знания с практическими навыками, постепенно наращивая свой профессиональный потенциал и опыт в арматуростроении.Этот осознанный подход к обучению и работе помог ей стать ключевым специалистом в своем отделе, внося вклад в развитие и модернизацию производства.',
-      photo: '/natalia.jpg'  // Здесь была пропущена запятая
-    },
-    {
-      id: 2,
-      name: 'Алексей Петров',
-      position: 'Технолог',
-      description: 'Алексей занимается технологическим процессом...',
-      photo: '/images/alexey_petrov.jpg'
-    },
-    // Add more employees here as necessary
-  ];
-
-// Component to display employee/partner details
 const EmployeeDetailPage = () => {
   const { id } = useParams();
-  const employee = employees.find(emp => emp.id === parseInt(id));
+  const employee = content.employees.find(emp => emp.id === parseInt(id)); // Ищем сотрудника по ID
 
   if (!employee) {
     return <div>Сотрудник не найден</div>;
