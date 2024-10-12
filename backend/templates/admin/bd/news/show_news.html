@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все новости</title>
+</head>
+<body>
+    <h1>Новости</h1>
+    <a href="{{ url_for('admin.add_news') }}">Добавить новость</a>
+    <ul>
+        {% for item in news %}
+            <li>
+                <strong>{{ item.title }}</strong> ({{ item.date.strftime('%d %B %Y') }}) — {{ item.category }}
+                <a href="{{ url_for('admin.edit_news', news_id=item.id) }}">Редактировать</a>
+                <form action="{{ url_for('admin.delete_news', news_id=item.id) }}" method="post" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Удалить эту новость?');">Удалить</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <a href="{{ url_for('admin.index') }}">Домой</a>
+</body>
+</html>

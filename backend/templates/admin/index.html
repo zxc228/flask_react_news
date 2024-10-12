@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Админка</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin панель</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Административная панель</h1>
-        <ul>
-            <li><a href="{{ url_for('admin.admin_news') }}">Управление новостями</a></li>
-            <li><a href="{{ url_for('admin.admin_vacancies') }}">Управление вакансиями</a></li>
-            <li><a href="{{ url_for('admin.admin_employees') }}">Управление сотрудниками</a></li>
-        </ul>
-    </div>
+    <h1>Admin панель</h1>
+    
+    <a href="{{ url_for('admin.cms') }}">CMS (управление контентом)</a>
+    <a href="{{ url_for('admin.bd') }}">БД контент</a>
 </body>
 </html>
