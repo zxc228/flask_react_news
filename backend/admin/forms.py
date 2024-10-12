@@ -1,55 +1,46 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, DateField, DecimalField, BooleanField
-from wtforms.validators import DataRequired,  Optional
+from wtforms import StringField, TextAreaField, SubmitField, SelectField
+from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileAllowed
-from datetime import datetime
-
-class AddEmployeeForm(FlaskForm):
-    name = StringField('Имя', validators=[DataRequired()])
-    surname = StringField('Фамилия', validators=[DataRequired()])
-    patronymic = StringField('Отчество', validators=[DataRequired()])
-    vacancy = StringField('Вакансия', validators=[DataRequired()])
-    photo = FileField('Фото', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Только изображения!')])
-    submit = SubmitField('Добавить')
-
-
-class EditEmployeeForm(FlaskForm):
-    name = StringField('Имя', validators=[DataRequired()])
-    surname = StringField('Фамилия', validators=[DataRequired()])
-    patronymic = StringField('Отчество', validators=[DataRequired()])
-    vacancy = StringField('Вакансия', validators=[DataRequired()])
-    photo = FileField('Фото', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Только изображения!')])
-    submit = SubmitField('Сохранить')
 
 
 class AddNewsForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired()])
     content = TextAreaField('Содержание', validators=[DataRequired()])
-    date = DateField('Дата', default=datetime.today, validators=[DataRequired()])
-    submit = SubmitField('Добавить')
-
+    # Категории с выбором значений
+    category = SelectField('Категория', choices=[('Новости института', 'Новости института'), ('Новости арматурного сообщества', 'Новости арматурного сообщества'), ('Новости рынка', 'Новости рынка')], validators=[DataRequired()])
+    submit = SubmitField('Добавить новость')
 
 class EditNewsForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired()])
     content = TextAreaField('Содержание', validators=[DataRequired()])
-    date = DateField('Дата', default=datetime.today, validators=[DataRequired()])
+    # Категории с выбором значений
+    category = SelectField('Категория', choices=[('Новости института', 'Новости института'), ('Новости арматурного сообщества', 'Новости арматурного сообщества'), ('Новости рынка', 'Новости рынка')], validators=[DataRequired()])
+    submit = SubmitField('Добавить новость')
+
+
+
+class AddProjectForm(FlaskForm):
+    name = StringField('Название', validators=[DataRequired()])
+    content = TextAreaField('Описание', validators=[DataRequired()])
+    submit = SubmitField('Добавить проект')
+
+class EditProjectForm(FlaskForm):
+    name = StringField('Название', validators=[DataRequired()])
+    content = TextAreaField('Описание', validators=[DataRequired()])
     submit = SubmitField('Сохранить изменения')
 
 
 
-class AddVacancyForm(FlaskForm):
-    title = StringField('Заголовок', validators=[DataRequired()])
-    content = TextAreaField('Описание', validators=[DataRequired()])
-    salary = DecimalField('Зарплата', validators=[Optional()])
-    status = BooleanField('Статус', default=True)
-    date = DateField('Дата', default=datetime.today, validators=[DataRequired()])
-    submit = SubmitField('Добавить')
 
+class AddDocumentForm(FlaskForm):
+    type = StringField('Тип документа', validators=[DataRequired()])
+    name = StringField('Название', validators=[DataRequired()])
+    file = FileField('Загрузить файл (PDF или DOCX)', validators=[DataRequired(), FileAllowed(['pdf', 'docx'], 'Только PDF и DOCX!')])
+    submit = SubmitField('Добавить документ')
 
-class EditVacancyForm(FlaskForm):
-    title = StringField('Заголовок', validators=[DataRequired()])
-    content = TextAreaField('Описание', validators=[DataRequired()])
-    salary = DecimalField('Зарплата', validators=[Optional()])
-    status = BooleanField('Статус')
-    date = DateField('Дата', default=datetime.today, validators=[DataRequired()])
+class EditDocumentForm(FlaskForm):
+    type = StringField('Тип документа', validators=[DataRequired()])
+    name = StringField('Название', validators=[DataRequired()])
+    file = FileField('Обновить файл (PDF или DOCX)', validators=[FileAllowed(['pdf', 'docx'], 'Только PDF и DOCX!')])
     submit = SubmitField('Сохранить изменения')
