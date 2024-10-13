@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги</title>
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        /* Стили для формы добавления услуги */
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        form input[type="text"],
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        form textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        /* Стили для списка услуг */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Кнопка удаления */
+        button.delete {
+            background-color: #e74c3c;
+            margin-top: 10px;
+        }
+
+        button.delete:hover {
+            background-color: #c0392b;
+        }
+
+        /* Ссылка для возврата */
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('admin.cms') }}">Назад к CMS</a>
+    <h1>Услуги</h1>
+
+    <h2>Добавить новую услугу</h2>
+    <form method="POST" action="{{ url_for('admin.add_service') }}">
+        <input type="text" name="title" placeholder="Название услуги" required><br>
+        <textarea name="description" placeholder="Описание услуги" required></textarea><br>
+        <button type="submit">Добавить</button>
+    </form>
+
+    <h2>Список услуг</h2>
+    <ul>
+        {% for service in services %}
+        <li>
+            <strong>{{ service.title }}</strong><br>
+            {{ service.description }}<br>
+
+            <!-- Форма для редактирования услуги -->
+            <form method="POST" action="{{ url_for('admin.edit_service', index=loop.index0) }}">
+                <input type="text" name="title" value="{{ service.title }}" required><br>
+                <textarea name="description" required>{{ service.description }}</textarea><br>
+                <button type="submit">Редактировать</button>
+            </form>
+
+            <!-- Форма для удаления услуги -->
+            <form method="POST" action="{{ url_for('admin.delete_service', index=loop.index0) }}">
+                <button type="submit" class="delete">Удалить</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('admin.cms') }}">Назад к CMS</a>
+</body>
+</html>

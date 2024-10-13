@@ -17,7 +17,7 @@ def create_app():
 
     db.init_app(app)
 
-    from backend.models import Post, Project, Documents, Partners # Убедитесь, что это правильный путь к вашим моделям
+    from backend.models import Post, Project, Documents # Убедитесь, что это правильный путь к вашим моделям
 
     migrate.init_app(app, db)
 

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контент InfoPage</title>
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Заголовок страницы */
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Стили для заголовков секций */
+        h2 {
+            font-size: 1.5em;
+            color: #3498db;
+            margin-top: 30px;
+        }
+
+        /* Стили для списков */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        li {
+            background-color: white;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Стили для форм внутри списка */
+        form {
+            display: inline;
+            margin-left: 10px;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        /* Стили для кнопок */
+        button {
+            padding: 7px 15px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        /* Красные кнопки для удаления */
+        button.delete {
+            background-color: #e74c3c;
+        }
+
+        button.delete:hover {
+            background-color: #c0392b;
+        }
+
+        /* Стили для формы добавления */
+        form[action] {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form[action] input[type="text"] {
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        /* Ссылка для возврата */
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        /* Центрирование контента */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('admin.cms') }}">Назад к CMS</a>
+    <h1>Контент InfoPage</h1>
+
+    <!-- Основные направления -->
+    <h2>Основные направления</h2>
+    <ul>
+        {% for direction in infoPage.mainDirections %}
+        <li>
+            {{ direction }}
+            <form method="POST" action="{{ url_for('admin.delete_main_direction', index=loop.index0) }}">
+                <button type="submit" class="delete">Удалить</button>
+            </form>
+            <form method="POST" action="{{ url_for('admin.edit_main_direction', index=loop.index0) }}">
+                <input type="text" name="updated_direction" value="{{ direction }}">
+                <button type="submit">Изменить</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{{ url_for('admin.add_main_direction') }}">
+        <input type="text" name="new_direction" placeholder="Введите новое направление">
+        <button type="submit">Добавить</button>
+    </form>
+
+    <!-- Должности -->
+    <h2>Должности</h2>
+    <ul>
+        {% for manager in infoPage.management %}
+        <li>
+            {{ manager.position }}
+            <form method="POST" action="{{ url_for('admin.delete_management_position', index=loop.index0) }}">
+                <button type="submit" class="delete">Удалить</button>
+            </form>
+            <form method="POST" action="{{ url_for('admin.edit_management_position', index=loop.index0) }}">
+                <input type="text" name="updated_position" value="{{ manager.position }}">
+                <button type="submit">Изменить</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{{ url_for('admin.add_management_position') }}">
+        <input type="text" name="new_position" placeholder="Введите новую должность">
+        <button type="submit">Добавить</button>
+    </form>
+
+    <!-- Аттестации -->
+    <h2>Аттестации</h2>
+    <ul>
+        {% for attestation in infoPage.attestations %}
+        <li>
+            {{ attestation }}
+            <form method="POST" action="{{ url_for('admin.delete_attestation', index=loop.index0) }}">
+                <button type="submit" class="delete">Удалить</button>
+            </form>
+            <form method="POST" action="{{ url_for('admin.edit_attestation', index=loop.index0) }}">
+                <input type="text" name="updated_attestation" value="{{ attestation }}">
+                <button type="submit">Изменить</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{{ url_for('admin.add_attestation') }}">
+        <input type="text" name="new_attestation" placeholder="Введите новую аттестацию">
+        <button type="submit">Добавить</button>
+    </form>
+
+    <a href="{{ url_for('admin.cms') }}">Назад к CMS</a>
+</body>
+</html>

@@ -1,11 +1,16 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from backend.models import Post, Project, Documents, Partners
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+from backend.models import Post, Project, Documents
 from backend import db
 from werkzeug.utils import secure_filename
 from datetime import datetime
-from backend.admin.forms import AddNewsForm, EditNewsForm, AddProjectForm, EditProjectForm, AddDocumentForm, EditDocumentForm
-from flask import current_app
+from backend.admin.forms import AddNewsForm, EditNewsForm, AddProjectForm, EditProjectForm, AddDocumentForm, EditDocumentForm, EditMainContentForm
+from flask_wtf import FlaskForm
+from wtforms import StringField, TextAreaField, FieldList, FormField, SubmitField
+from wtforms.validators import DataRequired
 import os
+import mimetypes
+import json
+
 
 admin = Blueprint('admin', __name__)
 
@@ -17,7 +22,7 @@ def index():
 # Страница управления контентом (CMS)
 @admin.route('/admin/cms')
 def cms():
-    return render_template('admin/cms.html')
+    return render_template('admin/cms/cms.html')
 
 # Страница управления БД (bd)
 @admin.route('/admin/bd')
@@ -141,31 +146,58 @@ def show_documents():
 def add_document():
     form = AddDocumentForm()
     if form.validate_on_submit():
-        # Путь к папке для сохранения файлов
-        upload_folder = os.path.join(current_app.root_path, 'static/documents')
+        upload_folder = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'public', 'documents')
 
-        # Проверяем, существует ли папка, если нет — создаем её
+
         if not os.path.exists(upload_folder):
             os.makedirs(upload_folder)
 
-        # Сохранение файла
         file = form.file.data
-        filename = secure_filename(file.filename)  # Убедись, что здесь filename правильно обрабатывается
-        file_path = os.path.join(upload_folder, filename)  # Путь сохранения файла
-        file.save(file_path)
+        if not file.filename:
+            flash('Файл не содержит имени!', 'danger')
+            return redirect(url_for('admin.add_document'))
+
+        # Получение безопасного имени файла
+        original_filename = secure_filename(file.filename)
+
+        # Извлекаем расширение файла
+        name, ext = os.path.splitext(original_filename)
+        if not ext:
+            # Используем mimetypes для попытки определить тип файла и добавить расширение
+            mime_type = file.mimetype
+            extension = mimetypes.guess_extension(mime_type)
+            if extension:
+                ext = extension
+            else:
+                flash('Не удалось определить тип файла!', 'danger')
+                return redirect(url_for('admin.add_document'))
+
+        # Формируем имя файла: Имя из формы + дата + расширение
+        filename = f"{form.name.data}_{datetime.utcnow().strftime('%Y%m%d%H%M%S')}{ext}"
+        file_path = os.path.join(upload_folder, filename)
+
+        try:
+            file.save(file_path)
+        except Exception as e:
+            flash(f"Ошибка при сохранении файла: {str(e)}", 'danger')
+            return redirect(url_for('admin.add_document'))
 
         document = Documents(
             type=form.type.data,
             name=form.name.data,
-            file_path=filename  # Сохраняем имя файла (например, document.docx)
+            file_path=filename
         )
         db.session.add(document)
         db.session.commit()
         flash('Документ успешно добавлен!', 'success')
         return redirect(url_for('admin.show_documents'))
+
     return render_template('admin/bd/documents/add_document.html', form=form)
 
+
 # Редактирование документа
+import mimetypes
+
 @admin.route('/admin/bd/documents/edit/<int:document_id>', methods=['GET', 'POST'])
 def edit_document(document_id):
     document = Documents.query.get_or_404(document_id)
@@ -176,34 +208,596 @@ def edit_document(document_id):
         form.name.data = document.name
 
     if form.validate_on_submit():
-        if form.file.data:  # Если загружен новый файл, то обновим его
-            # Путь к папке для сохранения файлов
-            upload_folder = os.path.join(current_app.root_path, 'static/documents')
+        upload_folder = os.path.join(current_app.root_path, 'static/documents')
 
-            # Проверяем, существует ли папка, если нет — создаем её
-            if not os.path.exists(upload_folder):
-                os.makedirs(upload_folder)
+        if form.file.data:  # Если загружен новый файл
+            # Удаление старого файла
+            old_file_path = os.path.join(upload_folder, document.file_path)
+            if os.path.exists(old_file_path):
+                os.remove(old_file_path)
 
             file = form.file.data
-            filename = secure_filename(file.filename)
+            original_filename = secure_filename(file.filename)
+
+            # Извлекаем расширение файла
+            name, ext = os.path.splitext(original_filename)
+            if not ext:
+                # Используем mimetypes для попытки определить тип файла и добавить расширение
+                mime_type = file.mimetype
+                extension = mimetypes.guess_extension(mime_type)
+                if extension:
+                    ext = extension
+                else:
+                    flash('Не удалось определить тип файла!', 'danger')
+                    return redirect(url_for('admin.edit_document', document_id=document_id))
+
+            # Формируем новое имя файла: Имя из формы + дата + расширение
+            filename = f"{form.name.data}_{datetime.utcnow().strftime('%Y%m%d%H%M%S')}{ext}"
             file_path = os.path.join(upload_folder, filename)
-            file.save(file_path)
-            document.file_path = filename  # Обновляем путь к новому файлу
-        
+
+            # Сохраняем новый файл
+            try:
+                file.save(file_path)
+            except Exception as e:
+                flash(f"Ошибка при сохранении файла: {str(e)}", 'danger')
+                return redirect(url_for('admin.edit_document', document_id=document_id))
+
+            # Обновляем путь к новому файлу в базе данных
+            document.file_path = filename
+
+        # Обновляем остальные поля
         document.type = form.type.data
         document.name = form.name.data
+
         db.session.commit()
         flash('Документ успешно обновлен!', 'success')
         return redirect(url_for('admin.show_documents'))
-    
+
     return render_template('admin/bd/documents/edit_document.html', form=form, document=document)
+
+
 
 
 # Удаление документа
 @admin.route('/admin/bd/documents/delete/<int:document_id>', methods=['POST'])
 def delete_document(document_id):
     document = Documents.query.get_or_404(document_id)
+
+    # Удаление файла с диска
+    upload_folder = os.path.join(current_app.root_path, 'static/documents')
+    file_path = os.path.join(upload_folder, document.file_path)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
     db.session.delete(document)
     db.session.commit()
     flash('Документ успешно удален!', 'success')
     return redirect(url_for('admin.show_documents'))
+
+
+# CMS
+#main content
+@admin.route('/admin/cms/edit_main_content', methods=['GET', 'POST'])
+def edit_main_content():
+    # Путь к JSON файлу - подняться на уровень выше с помощью os.path.pardir
+    json_file_path = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'src', 'content.json')
+
+    # Проверка на существование файла (можно временно добавить для отладки)
+    print(f"Путь к JSON: {json_file_path}")
+
+    # Загружаем текущие данные из JSON
+    with open(json_file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    form = EditMainContentForm()
+
+    if request.method == 'GET':
+        # Заполняем форму текущими значениями из JSON
+        form.title.data = data.get('title', '')
+        form.mission_title.data = data['mission'].get('title', '')
+        form.mission_description1.data = data['mission'].get('description1', '')
+        form.mission_description2.data = data['mission'].get('description2', '')
+
+    if form.validate_on_submit():
+        # Обновляем данные из формы
+        data['title'] = form.title.data
+        data['mission']['title'] = form.mission_title.data
+        data['mission']['description1'] = form.mission_description1.data
+        data['mission']['description2'] = form.mission_description2.data
+
+        # Сохраняем изменения обратно в JSON файл
+        try:
+            with open(json_file_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+            flash('Контент успешно обновлен!', 'success')
+        except Exception as e:
+            flash(f'Ошибка при сохранении данных: {str(e)}', 'danger')
+
+        return redirect(url_for('admin.cms'))
+
+    return render_template('admin/cms/main_page/edit_main_content.html', form=form)
+
+
+#Info page
+# Функция для загрузки JSON файла
+def load_json():
+
+    json_file_path = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'src', 'content.json')
+    with open(json_file_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+# Функция для сохранения изменений в JSON файл
+def save_json(data):
+
+    json_file_path = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'src', 'content.json')
+    with open(json_file_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+
+# Показать контент infoPage
+@admin.route('/admin/cms/info')
+def show_info():
+    data = load_json()
+    return render_template('admin/cms/info_page/info_page.html', infoPage=data['infoPage'])
+
+# Добавление новой основной направления
+@admin.route('/admin/cms/info/add_main_direction', methods=['POST'])
+def add_main_direction():
+    data = load_json()
+    new_direction = request.form.get('new_direction')
+
+    if new_direction:
+        data['infoPage']['mainDirections'].append(new_direction)
+        save_json(data)
+        flash('Новое направление успешно добавлено!', 'success')
+    else:
+        flash('Направление не может быть пустым!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+# Удаление направления
+@admin.route('/admin/cms/info/delete_main_direction/<int:index>', methods=['POST'])
+def delete_main_direction(index):
+    data = load_json()
+    try:
+        del data['infoPage']['mainDirections'][index]
+        save_json(data)
+        flash('Направление успешно удалено!', 'success')
+    except IndexError:
+        flash('Неверный индекс!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+# Редактирование направления
+@admin.route('/admin/cms/info/edit_main_direction/<int:index>', methods=['POST'])
+def edit_main_direction(index):
+    data = load_json()
+    updated_direction = request.form.get('updated_direction')
+
+    if updated_direction:
+        try:
+            data['infoPage']['mainDirections'][index] = updated_direction
+            save_json(data)
+            flash('Направление успешно обновлено!', 'success')
+        except IndexError:
+            flash('Неверный индекс!', 'danger')
+    else:
+        flash('Новое значение не может быть пустым!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+# Пример страницы управления контентом infoPage
+@admin.route('/admin/cms/info/edit', methods=['GET', 'POST'])
+def edit_info_page():
+    data = load_json()
+
+    if request.method == 'POST':
+        # Редактирование основной информации
+        data['infoPage']['management'][0]['position'] = request.form.get('general_manager_position')
+
+        save_json(data)
+        flash('Контент успешно обновлен!', 'success')
+        return redirect(url_for('admin.show_info'))
+
+    return render_template('admin/cms/info_page/edit_info_page.html', infoPage=data['infoPage'])
+
+# Добавление новой должности
+@admin.route('/admin/cms/info/add_management_position', methods=['POST'])
+def add_management_position():
+    data = load_json()
+    new_position = request.form.get('new_position')
+
+    if new_position:
+        new_id = len(data['infoPage']['management']) + 1
+        data['infoPage']['management'].append({"position": new_position, "id": new_id})
+        save_json(data)
+        flash('Новая должность успешно добавлена!', 'success')
+    else:
+        flash('Должность не может быть пустой!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+# Удаление должности
+@admin.route('/admin/cms/info/delete_management_position/<int:index>', methods=['POST'])
+def delete_management_position(index):
+    data = load_json()
+    try:
+        del data['infoPage']['management'][index]
+        save_json(data)
+        flash('Должность успешно удалена!', 'success')
+    except IndexError:
+        flash('Неверный индекс!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+# Редактирование должности
+@admin.route('/admin/cms/info/edit_management_position/<int:index>', methods=['POST'])
+def edit_management_position(index):
+    data = load_json()
+    updated_position = request.form.get('updated_position')
+
+    if updated_position:
+        try:
+            data['infoPage']['management'][index]['position'] = updated_position
+            save_json(data)
+            flash('Должность успешно обновлена!', 'success')
+        except IndexError:
+            flash('Неверный индекс!', 'danger')
+    else:
+        flash('Новое значение не может быть пустым!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+# Добавление новой аттестации
+@admin.route('/admin/cms/info/add_attestation', methods=['POST'])
+def add_attestation():
+    data = load_json()
+    new_attestation = request.form.get('new_attestation')
+
+    if new_attestation:
+        data['infoPage']['attestations'].append(new_attestation)
+        save_json(data)
+        flash('Новая аттестация успешно добавлена!', 'success')
+    else:
+        flash('Аттестация не может быть пустой!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+# Удаление аттестации
+@admin.route('/admin/cms/info/delete_attestation/<int:index>', methods=['POST'])
+def delete_attestation(index):
+    data = load_json()
+    try:
+        del data['infoPage']['attestations'][index]
+        save_json(data)
+        flash('Аттестация успешно удалена!', 'success')
+    except IndexError:
+        flash('Неверный индекс!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+# Редактирование аттестации
+@admin.route('/admin/cms/info/edit_attestation/<int:index>', methods=['POST'])
+def edit_attestation(index):
+    data = load_json()
+    updated_attestation = request.form.get('updated_attestation')
+
+    if updated_attestation:
+        try:
+            data['infoPage']['attestations'][index] = updated_attestation
+            save_json(data)
+            flash('Аттестация успешно обновлена!', 'success')
+        except IndexError:
+            flash('Неверный индекс!', 'danger')
+    else:
+        flash('Новое значение не может быть пустым!', 'danger')
+
+    return redirect(url_for('admin.show_info'))
+
+
+
+# Путь для загрузки изображений
+
+
+# Обработка фото
+def handle_photo(file):
+    # Папка для загрузки файлов
+    UPLOAD_FOLDER = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'public', 'employees')
+    
+    # Создаем папку, если она не существует
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
+    
+    # Безопасное имя файла
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    
+    # Сохраняем файл
+    file.save(filepath)
+    
+    # Возвращаем относительный путь для использования на веб-странице
+    return f"/employees/{filename}"
+
+
+# Route для синхронизации данных management и employees
+
+@admin.route('/admin/cms/employees/employees_sync', methods=['GET', 'POST'])
+def employees_sync():
+    data = load_json()
+
+    management = data['infoPage'].get('management', [])
+    employees = data.get('employees', [])
+
+    # Синхронизация данных management и employees
+    for manager in management:
+        # Проверяем, существует ли сотрудник с данным id в employees
+        employee = next((emp for emp in employees if emp['id'] == manager['id']), None)
+        if not employee:
+            # Если не существует, создаем запись с базовой информацией
+            new_employee = {
+                "id": manager['id'],
+                "name": manager['position'],  # По умолчанию имя как позиция
+                "position": manager['position'],
+                "description": "",  # Пустое описание
+                "photo": ""  # Без фото
+            }
+            employees.append(new_employee)
+
+    # Сохраняем синхронизированные данные
+    data['employees'] = employees
+    save_json(data)
+
+    # Обработка формы
+    if request.method == 'POST':
+        emp_id = int(request.form.get('id'))
+        
+
+        employee = next((emp for emp in employees if emp['id'] == emp_id), None)
+
+        if employee:
+            # Обновляем данные сотрудника только если новые данные были введены
+            name = request.form.get('name')
+            description = request.form.get('description')
+            file = request.files.get('photo')
+
+            # Только обновляем, если есть новые значения
+            if name and name.strip():  # Проверяем, что имя не пустое
+                employee['name'] = name.strip()
+
+            if description and description.strip():  # Проверяем, что описание не пустое
+                employee['description'] = description.strip()
+
+            # Обработка фото
+            if file and file.filename:
+                employee['photo'] = handle_photo(file)
+
+            # Сохраняем обновленные данные
+            save_json(data)
+            flash('Информация о сотруднике успешно обновлена!', 'success')
+
+            # Отладка: проверяем обновленные данные
+            
+
+        else:
+            flash('Сотрудник не найден!', 'danger')
+
+        return redirect(url_for('admin.employees_sync'))
+
+    return render_template('admin/cms/employees/employees_sync.html', employees=employees)
+
+
+#УСЛУГИ
+# Показать список услуг
+@admin.route('/admin/cms/services')
+def show_services():
+    data = load_json()
+    services = data.get('services', [])
+    return render_template('admin/cms/services/services_list.html', services=services)
+
+
+
+# Добавить новую услугу
+@admin.route('/admin/cms/services/add', methods=['POST'])
+def add_service():
+    data = load_json()
+    services = data.get('services', [])
+
+    title = request.form.get('title')
+    description = request.form.get('description')
+
+    if title and description:
+        new_service = {
+            "title": title,
+            "description": description
+        }
+        services.append(new_service)
+        save_json(data)
+        flash('Новая услуга успешно добавлена!', 'success')
+    else:
+        flash('Название и описание услуги не могут быть пустыми!', 'danger')
+
+    return redirect(url_for('admin.show_services'))
+
+
+# Редактировать услугу
+@admin.route('/admin/cms/services/edit/<int:index>', methods=['POST'])
+def edit_service(index):
+    data = load_json()
+    services = data.get('services', [])
+
+    if index < 0 or index >= len(services):
+        flash('Неверный индекс услуги!', 'danger')
+        return redirect(url_for('admin.show_services'))
+
+    title = request.form.get('title')
+    description = request.form.get('description')
+
+    if title and description:
+        services[index]['title'] = title
+        services[index]['description'] = description
+        save_json(data)
+        flash('Услуга успешно обновлена!', 'success')
+    else:
+        flash('Название и описание услуги не могут быть пустыми!', 'danger')
+
+    return redirect(url_for('admin.show_services'))
+
+
+# Удалить услугу
+@admin.route('/admin/cms/services/delete/<int:index>', methods=['POST'])
+def delete_service(index):
+    data = load_json()
+    services = data.get('services', [])
+
+    if index < 0 or index >= len(services):
+        flash('Неверный индекс услуги!', 'danger')
+        return redirect(url_for('admin.show_services'))
+
+    del services[index]
+    save_json(data)
+    flash('Услуга успешно удалена!', 'success')
+
+    return redirect(url_for('admin.show_services'))
+
+
+# Партнеры
+# Показать список партнеров
+@admin.route('/admin/cms/partners')
+def show_partners():
+    data = load_json()
+    partners = data.get('partners', [])
+    return render_template('admin/cms/partners/partners_list.html', partners=partners)
+
+# Загрузка и сохранение изображения (логотипа)
+def handle_logo(file):
+    if file and file.filename:
+        UPLOAD_FOLDER = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'public', 'logos')
+        if not os.path.exists(UPLOAD_FOLDER):
+            os.makedirs(UPLOAD_FOLDER)
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(filepath)
+        return f"/logos/{filename}"
+    return ""  # Возвращаем пустую строку, если файл не загружен
+
+# Добавить нового партнера
+@admin.route('/admin/cms/partners/add', methods=['POST'])
+def add_partner():
+    data = load_json()
+    partners = data.get('partners', [])
+
+    # Получение данных из формы
+    name = request.form.get('name')
+    description = request.form.get('description')
+    details = request.form.get('details')
+    website = request.form.get('website')
+    cooperation = request.form.get('cooperation')
+
+    # Проверяем файл логотипа
+    file = request.files.get('logo')
+    logo = handle_logo(file)
+
+    if name and description:
+        new_partner = {
+            "id": len(partners) + 1,  # ID будет автогенерироваться
+            "name": name,
+            "description": description,
+            "logo": logo,  # Логотип (может быть пустым)
+            "details": details,
+            "website": website,
+            "cooperation": cooperation
+        }
+        partners.append(new_partner)
+        save_json(data)
+        flash('Новый партнер успешно добавлен!', 'success')
+    else:
+        flash('Название и описание партнера не могут быть пустыми!', 'danger')
+
+    return redirect(url_for('admin.show_partners'))
+
+
+# Редактировать партнера
+@admin.route('/admin/cms/partners/edit/<int:index>', methods=['POST'])
+def edit_partner(index):
+    data = load_json()
+    partners = data.get('partners', [])
+
+    if index < 0 or index >= len(partners):
+        flash('Неверный индекс партнера!', 'danger')
+        return redirect(url_for('admin.show_partners'))
+
+    # Получение данных из формы
+    name = request.form.get('name')
+    description = request.form.get('description')
+    details = request.form.get('details')
+    website = request.form.get('website')
+    cooperation = request.form.get('cooperation')
+
+    # Проверяем файл логотипа
+    file = request.files.get('logo')
+    logo = handle_logo(file) if file and file.filename else partners[index]['logo']
+
+    if name and description:
+        partners[index]['name'] = name
+        partners[index]['description'] = description
+        partners[index]['logo'] = logo  # Обновляем логотип, если он загружен
+        partners[index]['details'] = details
+        partners[index]['website'] = website
+        partners[index]['cooperation'] = cooperation
+        save_json(data)
+        flash('Партнер успешно обновлен!', 'success')
+    else:
+        flash('Название и описание партнера не могут быть пустыми!', 'danger')
+
+    return redirect(url_for('admin.show_partners'))
+
+
+# Удалить партнера
+@admin.route('/admin/cms/partners/delete/<int:index>', methods=['POST'])
+def delete_partner(index):
+    data = load_json()
+    partners = data.get('partners', [])
+
+    if index < 0 or index >= len(partners):
+        flash('Неверный индекс партнера!', 'danger')
+        return redirect(url_for('admin.show_partners'))
+
+    del partners[index]
+    save_json(data)
+    flash('Партнер успешно удален!', 'success')
+
+    return redirect(url_for('admin.show_partners'))
+
+import shutil
+
+# Маршрут для создания резервной копии JSON
+@admin.route('/admin/cms/backup', methods=['POST'])
+def create_backup():
+    MAIN_JSON_FILE = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'src', 'content.json')
+    BACKUP_JSON_FILE = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'src', 'backup_content.json')
+    try:
+        shutil.copyfile(MAIN_JSON_FILE, BACKUP_JSON_FILE)
+        flash('Резервная копия успешно создана!', 'success')
+    except Exception as e:
+        flash(f"Ошибка при создании резервной копии: {str(e)}", 'danger')
+
+    return redirect(url_for('admin.index'))
+
+
+
+# Маршрут для восстановления резервной копии
+@admin.route('/admin/cms/restore_backup', methods=['POST'])
+def restore_backup():
+    MAIN_JSON_FILE = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'src', 'content.json')
+    BACKUP_JSON_FILE = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'src', 'backup_content.json')
+    try:
+        if os.path.exists(BACKUP_JSON_FILE):
+            shutil.copyfile(BACKUP_JSON_FILE, MAIN_JSON_FILE)
+            flash('Резервная копия успешно восстановлена!', 'success')
+        else:
+            flash('Резервная копия не найдена!', 'danger')
+    except Exception as e:
+        flash(f"Ошибка при восстановлении резервной копии: {str(e)}", 'danger')
+
+    return redirect(url_for('admin.index'))
+

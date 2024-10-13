@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Базы данных</title>
+    <title>Система управления контентом</title>
     <style>
         /* Общие стили для страницы */
         body {
@@ -14,7 +14,7 @@
             padding: 20px;
         }
 
-        /* Заголовок */
+        /* Заголовок страницы */
         h1 {
             color: #2c3e50;
             font-size: 2.5em;
@@ -24,13 +24,17 @@
 
         /* Ссылки */
         a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
+            display: block;
+            margin: 10px 0;
+            padding: 15px;
             color: white;
             background-color: #3498db;
             text-decoration: none;
             border-radius: 5px;
+            text-align: center;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
             transition: background-color 0.3s;
         }
 
@@ -50,12 +54,13 @@
     </style>
 </head>
 <body>
-    <h1>Базы данных</h1>
-    
-    <a href="{{ url_for('admin.show_news') }}">Новости</a>
-    <a href="{{ url_for('admin.show_projects') }}">Проекты</a>
-    <a href="{{ url_for('admin.show_documents') }}">Документы</a>
+    <h1>Система управления контентом</h1>
+
+    <a href="{{ url_for('admin.edit_main_content') }}">Редактирование главной страницы</a>
+    <a href="{{ url_for('admin.show_info') }}">Редактирование страницы информации</a>
+    <a href="{{ url_for('admin.employees_sync') }}">Редактирование сотрудников</a>
+    <a href="{{ url_for('admin.show_services') }}">Редактирование услуг</a>
+    <a href="{{ url_for('admin.show_partners') }}">Редактирование партнеров</a>
     <a href="{{ url_for('admin.index') }}">Домой</a>
-    
 </body>
 </html>

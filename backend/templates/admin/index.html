@@ -4,11 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin панель</title>
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Заголовок */
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Ссылки */
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            color: white;
+            background-color: #3498db;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        /* Формы */
+        form {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        /* Кнопки */
+        button {
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+    </style>
 </head>
 <body>
     <h1>Admin панель</h1>
     
     <a href="{{ url_for('admin.cms') }}">CMS (управление контентом)</a>
     <a href="{{ url_for('admin.bd') }}">БД контент</a>
+    
+    <!-- Форма для создания резервной копии (POST запрос) -->
+    <form method="POST" action="{{ url_for('admin.create_backup') }}">
+        <button type="submit">Создать резервную копию</button>
+    </form>
+
+    <!-- Форма для восстановления резервной копии (POST запрос) -->
+    <form method="POST" action="{{ url_for('admin.restore_backup') }}">
+        <button type="submit">Восстановить резервную копию</button>
+    </form>
 </body>
 </html>

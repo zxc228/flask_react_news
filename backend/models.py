@@ -12,14 +12,6 @@ class Post(db.Model):
         return f"<News {self.title} - {self.date.strftime('%d %B %Y')}>"
     
 
-class Partners(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    desc = db.Column(db.Text, nullable=False)
-    logo_path = db.Column(db.String(255), nullable=False)
-    url = db.Column(db.String(255), nullable=False)
-
-
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
