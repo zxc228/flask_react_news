@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import content from '../content.json';
 import '../styles/DocumentCategoryPage.css';
+import config from '../config';
 
 function DocumentCategoryPage() {
   const { categoryId } = useParams();
-  const category = content.documents.find(doc => doc.id === parseInt(categoryId));
+  const [category, setCategory] = useState(null);
+
+  useEffect(() => {
+    fetch(`${config.apiUrl}/documents`)
+      .then(response => response.json())
+      .then(data => {
+        const selectedCategory = data.find(doc => doc.id === parseInt(categoryId));
+        if (selectedCategory) {
+          setCategory({
+            title: selectedCategory.type,
+            files: data.filter(doc => doc.type === selectedCategory.type).map(doc => ({
+              name: doc.name,
+              url: doc.file_path
+            }))
+          });
+        }
+      })
+      .catch(error => console.log('Fetching error:', error));
+  }, [categoryId]);
 
   if (!category) {
     return <p>Категория не найдена</p>;

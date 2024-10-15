@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import content from '../content.json';
 import '../styles/DevelopmentDetailPage.css';
+import config from '../config';
 
 function DevelopmentDetailPage() {
   const { id } = useParams();
-  const development = content.developments.find(dev => dev.id === parseInt(id));
+  const [development, setDevelopment] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${config.apiUrl}/projects/${id}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Разработка не найдена');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setDevelopment(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.log(error.message);
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) {
+    return <p>Загрузка...</p>;
+  }
 
   if (!development) {
     return <p>Разработка не найдена</p>;
@@ -24,8 +47,8 @@ function DevelopmentDetailPage() {
       </header>
 
       <div className="development-detail-content">
-        <h2>{development.title}</h2>
-        <p>{development.description}</p>
+        <h2>{development.name}</h2>
+        <p>{development.content}</p>
       </div>
     </div>
   );

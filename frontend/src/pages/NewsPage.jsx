@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Импортируем Link
+import { Link } from 'react-router-dom';
 import '../styles/NewsPage.css';
 import config from '../config';
 
 const NewsPage = () => {
   const [news, setNews] = useState([]);
+  const [categories, setCategories] = useState(['Все']); // Начальная категория - "Все"
+  const [selectedCategory, setSelectedCategory] = useState('Все');
   const [currentPage, setCurrentPage] = useState(1);
   const newsPerPage = 5;
 
   useEffect(() => {
-    console.log('API URL being used:', config.apiUrl);  // Логируем API URL
-    fetch(`${config.apiUrl}/news`)
+    fetch(`http://127.0.0.1:5001/api/news`)
       .then(response => response.json())
-      .then(data => setNews(data))
+      .then(data => {
+        setNews(data);
+
+        // Извлечение уникальных категорий из новостей
+        const uniqueCategories = ['Все', ...new Set(data.map(item => item.category))];
+        setCategories(uniqueCategories);
+      })
       .catch(error => console.log('Fetching error: ', error));
   }, []);
 
-  const totalPages = Math.ceil(news.length / newsPerPage);
+  // Фильтрация новостей по выбранной категории
+  const filteredNews = selectedCategory === 'Все'
+    ? news
+    : news.filter(item => item.category === selectedCategory);
+
+  const totalPages = Math.ceil(filteredNews.length / newsPerPage);
+  const indexOfLastNews = currentPage * newsPerPage;
+  const indexOfFirstNews = indexOfLastNews - newsPerPage;
+  const currentNews = filteredNews.slice(indexOfFirstNews, indexOfLastNews);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
@@ -24,24 +39,9 @@ const NewsPage = () => {
     }
   };
 
-  const indexOfLastNews = currentPage * newsPerPage;
-  const indexOfFirstNews = indexOfLastNews - newsPerPage;
-  const currentNews = news.slice(indexOfFirstNews, indexOfLastNews);
-
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(
-        <span
-          key={i}
-          onClick={() => handlePageChange(i)}
-          className={i === currentPage ? 'active-page-number' : 'page-number'}
-        >
-          {i}
-        </span>
-      );
-    }
-    return pageNumbers;
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1); // Сбрасываем на первую страницу при изменении категории
   };
 
   return (
@@ -50,8 +50,24 @@ const NewsPage = () => {
         <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
         <h1>Новости</h1>
       </header>
+      
+      <div className="category-filter">
+        {categories.map((category, index) => (
+          <label key={index} className="category-option">
+            <input
+              type="radio"
+              name="category"
+              value={category}
+              checked={selectedCategory === category}
+              onChange={() => handleCategoryChange(category)}
+            />
+            {category}
+          </label>
+        ))}
+      </div>
+
       <section className="news-content-container">
-      <div className="breadcrumb">
+        <div className="breadcrumb">
           <Link to="/" className="breadcrumb-link">
             <span className="breadcrumb-text">Главная</span>
           </Link>
@@ -63,17 +79,24 @@ const NewsPage = () => {
               <Link to={`/news/${item.id}`} className="news-title-container">
                 {item.title}
               </Link>
-              <p>
-                {item.content}
-              </p>
+              <p>{item.content}</p>
             </div>
             <Link to={`/news/${item.id}`} className="news-button-container">Подробнее</Link>
           </div>
         ))}
       </section>
+      
       <div className="pagination-container">
         <span onClick={() => handlePageChange(currentPage - 1)} className="page-arrow">&lt;</span>
-        {renderPageNumbers()}
+        {[...Array(totalPages)].map((_, i) => (
+          <span
+            key={i + 1}
+            onClick={() => handlePageChange(i + 1)}
+            className={currentPage === i + 1 ? 'active-page-number' : 'page-number'}
+          >
+            {i + 1}
+          </span>
+        ))}
         <span onClick={() => handlePageChange(currentPage + 1)} className="page-arrow">&gt;</span>
       </div>
     </div>

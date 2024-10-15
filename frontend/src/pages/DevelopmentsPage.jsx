@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import content from '../content.json';
 import '../styles/DevelopmentsPage.css';
+import config from '../config';
 
 function DevelopmentsPage() {
+  const [developments, setDevelopments] = useState([]);
   const maxDescriptionLength = 100; // Максимальная длина описания
+
+  useEffect(() => {
+    fetch(`${config.apiUrl}/projects`)
+      .then(response => response.json())
+      .then(data => setDevelopments(data))
+      .catch(error => console.log('Fetching error:', error));
+  }, []);
 
   return (
     <div className="developments-page">
@@ -19,16 +27,16 @@ function DevelopmentsPage() {
       </header>
 
       <div className="developments-list">
-        {content.developments.map(development => {
+        {developments.map(development => {
           // Обрезаем описание, если его длина превышает maxDescriptionLength
-          const shortDescription = development.description.length > maxDescriptionLength
-            ? `${development.description.slice(0, maxDescriptionLength)}...`
-            : development.description;
+          const shortDescription = development.content.length > maxDescriptionLength
+            ? `${development.content.slice(0, maxDescriptionLength)}...`
+            : development.content;
 
           return (
             <div key={development.id} className="development-item">
               <div className="development-info">
-                <h2>{development.title}</h2>
+                <h2>{development.name}</h2>
                 <p>{shortDescription}</p>
                 <Link to={`/developments/${development.id}`} className="development-detail-link">
                   Подробнее

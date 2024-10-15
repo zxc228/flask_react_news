@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import content from '../content.json';
 import '../styles/DocumentsPage.css';
+import config from '../config';
 
 function DocumentsPage() {
+  const [documents, setDocuments] = useState([]);
+
+  useEffect(() => {
+    fetch(`${config.apiUrl}/documents`)
+      .then(response => response.json())
+      .then(data => {
+        // Группировка документов по типу
+        const groupedDocuments = data.reduce((acc, doc) => {
+          if (!acc[doc.type]) {
+            acc[doc.type] = {
+              id: doc.id,
+              title: doc.type,
+              files: []
+            };
+          }
+          acc[doc.type].files.push({ name: doc.name, url: doc.file_path });
+          return acc;
+        }, {});
+        setDocuments(Object.values(groupedDocuments));
+      })
+      .catch(error => console.log('Fetching error:', error));
+  }, []);
+
   return (
     <div className="documents-page">
       <header className="documents-header">
@@ -16,7 +39,7 @@ function DocumentsPage() {
         </div>
       </header>
       <div className="documents-grid">
-        {content.documents.map(doc => (
+        {documents.map(doc => (
           <div key={doc.id} className="document-card">
             <div className="document-card-header">
               <h3>{doc.title}</h3>
