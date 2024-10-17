@@ -11,7 +11,7 @@ const NewsPage = () => {
   const newsPerPage = 5;
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5001/api/news`)
+    fetch(`${config.apiUrl}/news/${id}`)
       .then(response => response.json())
       .then(data => {
         setNews(data);
