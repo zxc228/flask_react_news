@@ -1,11 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import content from '../content.json'; // Импортируем JSON-файл с данными о партнерах
+import config from '../config'; // Убедитесь, что у вас есть правильный файл config.js
 import '../styles/PartnerDetailPage.css';
 
 const PartnerDetailPage = () => {
     const { id } = useParams();
-    const partner = content.partners.find(p => p.id === parseInt(id)); // Ищем партнера по ID
+    const [partner, setPartner] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch(`${config.apiUrl}/data`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const partnerData = data.partners.find(p => p.id === parseInt(id));
+                setPartner(partnerData);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Fetching error: ', error);
+                setError(error);
+                setLoading(false);
+            });
+    }, [id]);
+
+    if (loading) {
+        return <div>Загрузка...</div>;
+    }
+
+    if (error) {
+        return <div>Ошибка при загрузке данных: {error.message}</div>;
+    }
 
     if (!partner) {
         return <div>Партнёр не найден</div>;

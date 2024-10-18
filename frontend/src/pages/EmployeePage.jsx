@@ -1,11 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import content from '../content.json';
+import config from '../config'; // Убедитесь, что у вас есть правильный файл config.js
 import '../styles/EmployeePage.css';
 
 const EmployeeDetailPage = () => {
   const { id } = useParams();
-  const employee = content.employees.find(emp => emp.id === parseInt(id)); // Ищем сотрудника по ID
+  const [employee, setEmployee] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(`${config.apiUrl}/data`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const employeeData = data.employees.find(emp => emp.id === parseInt(id));
+        setEmployee(employeeData); // Устанавливаем данные найденного сотрудника в состояние
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Fetching error: ', error);
+        setError(error);
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) {
+    return <div>Загрузка...</div>;
+  }
+
+  if (error) {
+    return <div>Ошибка при загрузке данных: {error.message}</div>;
+  }
 
   if (!employee) {
     return <div>Сотрудник не найден</div>;

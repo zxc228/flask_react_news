@@ -1,25 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import content from '../content.json'; // Импортируем данные из JSON
+import config from '../config'; // Убедитесь, что у вас есть правильный файл config.js
 import '../styles/PartnersPage.css';
 
 const PartnersPage = () => {
+    const [partners, setPartners] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const partnersPerPage = 4;
 
-    // Фильтрация партнеров: исключаем тех, у кого нет логотипа
-    const filteredPartners = content.partners.filter(partner => partner.logo);
+    useEffect(() => {
+        fetch(`${config.apiUrl}/data`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const filteredPartners = data.partners.filter(partner => partner.logo); // Фильтрация партнеров по наличию логотипа
+                setPartners(filteredPartners);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Fetching error: ', error);
+                setError(error);
+                setLoading(false);
+            });
+    }, []);
 
     // Подсчет общего количества страниц
-    const totalPages = Math.ceil(filteredPartners.length / partnersPerPage);
+    const totalPages = Math.ceil(partners.length / partnersPerPage);
 
     // Получаем партнеров для текущей страницы
     const indexOfLastPartner = currentPage * partnersPerPage;
     const indexOfFirstPartner = indexOfLastPartner - partnersPerPage;
-    const currentPartners = filteredPartners.slice(indexOfFirstPartner, indexOfLastPartner);
+    const currentPartners = partners.slice(indexOfFirstPartner, indexOfLastPartner);
 
     // Функция для смены страницы
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    if (loading) {
+        return <div>Загрузка...</div>;
+    }
+
+    if (error) {
+        return <div>Ошибка при загрузке данных: {error.message}</div>;
+    }
 
     return (
         <div className="partners-page">

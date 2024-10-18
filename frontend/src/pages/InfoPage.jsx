@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import content from '../content.json';
+import config from '../config';
 import '../styles/InfoPage.css';
 
 const InfoPage = () => {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(`${config.apiUrl}/data`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setContent(data);  // Устанавливаем данные из API в состояние content
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Fetching error: ', error);
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Загрузка...</div>;
+  }
+
+  if (error) {
+    return <div>Ошибка при загрузке данных: {error.message}</div>;
+  }
+
   return (
     <div className="info-page">
       <header className="info-header">
