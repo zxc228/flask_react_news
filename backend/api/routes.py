@@ -1,6 +1,7 @@
-from flask import Blueprint, Response, jsonify
+from flask import Blueprint, Response, jsonify, current_app
 from backend.models import Post, Documents, Project
 import json
+import os
 
 api = Blueprint('api', __name__)
 
@@ -118,6 +119,25 @@ def get_one_document(id):
     }
     response = Response(
         response=json.dumps(document_data, ensure_ascii=False),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
+
+
+
+
+@api.route("/api/data", methods=['GET'])
+def get_data():
+    json_file_path = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'src', 'content.json')
+
+    # Загружаем текущие данные из JSON
+    with open(json_file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    # Формируем ответ с ensure_ascii=False для корректного отображения русского текста
+    response = Response(
+        response=json.dumps(data, ensure_ascii=False),
         status=200,
         mimetype='application/json'
     )
