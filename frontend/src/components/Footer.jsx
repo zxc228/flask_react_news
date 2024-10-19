@@ -11,7 +11,6 @@ const Footer = () => {
 
       <div className="footer-links-and-contact">
         <div className="footer-links-container">
-          <Link to="/vacancies">Вакансии</Link>
           <Link to="/contacts">Контакты</Link>
         </div>
 
