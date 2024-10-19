@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/MissionSection.css';
-import config from '../config';
+import config from '../config'; // Импорт конфигурации для API URL
 
 const MissionSection = () => {
-  const [mission, setMission] = useState(null);
+  const [missionContent, setMissionContent] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Делаем запрос к API для получения данных о миссии
-    fetch(`${config.apiUrl}/mission`)
+    // Делаем запрос к API для получения данных миссии
+    fetch(`${config.apiUrl}/data`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Ошибка при загрузке данных');
@@ -18,7 +18,7 @@ const MissionSection = () => {
         return response.json();
       })
       .then(data => {
-        setMission(data.mission); // Сохраняем данные о миссии
+        setMissionContent(data.mission);
         setLoading(false);
       })
       .catch(error => {
@@ -28,26 +28,19 @@ const MissionSection = () => {
       });
   }, []);
 
-  // Пока данные загружаются
   if (loading) {
     return <div>Загрузка...</div>;
   }
 
-  // Если возникла ошибка
   if (error) {
     return <div>{error}</div>;
   }
 
-  // Если данные не найдены
-  if (!mission) {
-    return <div>Данные не найдены</div>;
-  }
-
   return (
     <section className="mission-section">
-      <h2 className="mission-title">{mission.title}</h2> {/* Используем title из API */}
-      <p className="mission-description">{mission.description1}</p> {/* Используем первое описание из API */}
-      <p className="mission-description">{mission.description2}</p> {/* Используем второе описание */}
+      <h2 className="mission-title">{missionContent.title}</h2> {/* Используем title из API данных */}
+      <p className="mission-description">{missionContent.description1}</p> {/* Используем первое описание из API данных */}
+      <p className="mission-description">{missionContent.description2}</p> {/* Используем второе описание */}
       
       {/* Оборачиваем кнопку в Link для корректного перенаправления */}
       <Link to="/about">
