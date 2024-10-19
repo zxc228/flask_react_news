@@ -10,6 +10,7 @@ from wtforms.validators import DataRequired
 import os
 import mimetypes
 import json
+import uuid
 
 
 admin = Blueprint('admin', __name__)
@@ -141,14 +142,14 @@ def show_documents():
     documents = Documents.query.order_by(Documents.name).all()
     return render_template('admin/bd/documents/show_documents.html', documents=documents)
 
-## Добавить документ
+# Добавить документ
 @admin.route('/admin/bd/documents/add', methods=['GET', 'POST'])
 def add_document():
     form = AddDocumentForm()
     if form.validate_on_submit():
-        upload_folder = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'public', 'documents')
+        upload_folder = os.path.join(current_app.root_path, 'static', 'documents')
 
-
+        # Создаем папку, если она не существует
         if not os.path.exists(upload_folder):
             os.makedirs(upload_folder)
 
@@ -176,16 +177,18 @@ def add_document():
         filename = f"{form.name.data}_{datetime.utcnow().strftime('%Y%m%d%H%M%S')}{ext}"
         file_path = os.path.join(upload_folder, filename)
 
+        # Сохраняем файл
         try:
             file.save(file_path)
         except Exception as e:
             flash(f"Ошибка при сохранении файла: {str(e)}", 'danger')
             return redirect(url_for('admin.add_document'))
 
+        # Создаем запись в базе данных
         document = Documents(
             type=form.type.data,
             name=form.name.data,
-            file_path=filename
+            file_path=filename  # Сохраняем путь только к файлу, чтобы потом работать с ним через 'static/documents'
         )
         db.session.add(document)
         db.session.commit()
@@ -194,10 +197,7 @@ def add_document():
 
     return render_template('admin/bd/documents/add_document.html', form=form)
 
-
 # Редактирование документа
-import mimetypes
-
 @admin.route('/admin/bd/documents/edit/<int:document_id>', methods=['GET', 'POST'])
 def edit_document(document_id):
     document = Documents.query.get_or_404(document_id)
@@ -208,7 +208,7 @@ def edit_document(document_id):
         form.name.data = document.name
 
     if form.validate_on_submit():
-        upload_folder = os.path.join(current_app.root_path, 'static/documents')
+        upload_folder = os.path.join(current_app.root_path, 'static', 'documents')
 
         if form.file.data:  # Если загружен новый файл
             # Удаление старого файла
@@ -222,7 +222,6 @@ def edit_document(document_id):
             # Извлекаем расширение файла
             name, ext = os.path.splitext(original_filename)
             if not ext:
-                # Используем mimetypes для попытки определить тип файла и добавить расширение
                 mime_type = file.mimetype
                 extension = mimetypes.guess_extension(mime_type)
                 if extension:
@@ -255,25 +254,22 @@ def edit_document(document_id):
 
     return render_template('admin/bd/documents/edit_document.html', form=form, document=document)
 
-
-
-
 # Удаление документа
 @admin.route('/admin/bd/documents/delete/<int:document_id>', methods=['POST'])
 def delete_document(document_id):
     document = Documents.query.get_or_404(document_id)
 
     # Удаление файла с диска
-    upload_folder = os.path.join(current_app.root_path, 'static/documents')
+    upload_folder = os.path.join(current_app.root_path, 'static', 'documents')
     file_path = os.path.join(upload_folder, document.file_path)
     if os.path.exists(file_path):
         os.remove(file_path)
 
+    # Удаляем запись из базы данных
     db.session.delete(document)
     db.session.commit()
     flash('Документ успешно удален!', 'success')
     return redirect(url_for('admin.show_documents'))
-
 
 # CMS
 #main content
@@ -499,14 +495,21 @@ def edit_attestation(index):
 # Путь для загрузки изображений
 
 
-# Обработка фото
-def handle_photo(file):
-    # Папка для загрузки файлов
-    UPLOAD_FOLDER = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'public', 'employees')
+
+
+def handle_photo(file, old_photo=None):
+    # Папка для загрузки файлов (в папку статических файлов Flask)
+    UPLOAD_FOLDER = os.path.join(current_app.root_path, 'static', 'employees')
     
     # Создаем папку, если она не существует
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
+    
+    # Удаление старого фото, если оно существует
+    if old_photo:
+        old_photo_path = os.path.join(current_app.root_path, old_photo.lstrip('/'))
+        if os.path.exists(old_photo_path):
+            os.remove(old_photo_path)
     
     # Безопасное имя файла
     filename = secure_filename(file.filename)
@@ -515,11 +518,10 @@ def handle_photo(file):
     # Сохраняем файл
     file.save(filepath)
     
-    # Возвращаем относительный путь для использования на веб-странице
-    return f"/employees/{filename}"
+    # Возвращаем путь без `/static`
+    return f"employees/{filename}"
 
 
-# Route для синхронизации данных management и employees
 
 @admin.route('/admin/cms/employees/employees_sync', methods=['GET', 'POST'])
 def employees_sync():
@@ -550,8 +552,6 @@ def employees_sync():
     # Обработка формы
     if request.method == 'POST':
         emp_id = int(request.form.get('id'))
-        
-
         employee = next((emp for emp in employees if emp['id'] == emp_id), None)
 
         if employee:
@@ -561,22 +561,21 @@ def employees_sync():
             file = request.files.get('photo')
 
             # Только обновляем, если есть новые значения
-            if name and name.strip():  # Проверяем, что имя не пустое
+            if name and name.strip():
                 employee['name'] = name.strip()
 
-            if description and description.strip():  # Проверяем, что описание не пустое
+            if description and description.strip():
                 employee['description'] = description.strip()
 
             # Обработка фото
             if file and file.filename:
-                employee['photo'] = handle_photo(file)
+                # Передаем старое фото для удаления
+                old_photo = employee.get('photo', None)
+                employee['photo'] = handle_photo(file, old_photo)
 
             # Сохраняем обновленные данные
             save_json(data)
             flash('Информация о сотруднике успешно обновлена!', 'success')
-
-            # Отладка: проверяем обновленные данные
-            
 
         else:
             flash('Сотрудник не найден!', 'danger')
@@ -668,17 +667,27 @@ def show_partners():
     partners = data.get('partners', [])
     return render_template('admin/cms/partners/partners_list.html', partners=partners)
 
-# Загрузка и сохранение изображения (логотипа)
+# Загрузка и сохранение изображения (логотипа) с уникальным именем
 def handle_logo(file):
     if file and file.filename:
-        UPLOAD_FOLDER = os.path.join(current_app.root_path, os.path.pardir, 'frontend', 'public', 'logos')
+        UPLOAD_FOLDER = os.path.join(current_app.root_path, 'static', 'logos')
         if not os.path.exists(UPLOAD_FOLDER):
             os.makedirs(UPLOAD_FOLDER)
-        filename = secure_filename(file.filename)
+
+        # Генерация уникального имени для файла
+        ext = file.filename.split('.')[-1]
+        filename = f"{uuid.uuid4().hex}.{ext}"
         filepath = os.path.join(UPLOAD_FOLDER, filename)
         file.save(filepath)
         return f"/logos/{filename}"
     return ""  # Возвращаем пустую строку, если файл не загружен
+
+# Удаление файла логотипа
+def delete_logo(logo_path):
+    if logo_path:
+        logo_full_path = os.path.join(current_app.root_path, logo_path.lstrip('/'))
+        if os.path.exists(logo_full_path):
+            os.remove(logo_full_path)
 
 # Добавить нового партнера
 @admin.route('/admin/cms/partners/add', methods=['POST'])
@@ -698,8 +707,10 @@ def add_partner():
     logo = handle_logo(file)
 
     if name and description:
+        # Генерация уникального ID
+        max_id = max([partner['id'] for partner in partners], default=0)  # Если список пуст, max_id будет 0
         new_partner = {
-            "id": len(partners) + 1,  # ID будет автогенерироваться
+            "id": max_id + 1,  # Новый ID будет больше текущего максимального на 1
             "name": name,
             "description": description,
             "logo": logo,  # Логотип (может быть пустым)
@@ -714,7 +725,6 @@ def add_partner():
         flash('Название и описание партнера не могут быть пустыми!', 'danger')
 
     return redirect(url_for('admin.show_partners'))
-
 
 # Редактировать партнера
 @admin.route('/admin/cms/partners/edit/<int:index>', methods=['POST'])
@@ -735,7 +745,15 @@ def edit_partner(index):
 
     # Проверяем файл логотипа
     file = request.files.get('logo')
-    logo = handle_logo(file) if file and file.filename else partners[index]['logo']
+    if file and file.filename:
+        # Удаляем старый логотип, если загружен новый
+        if partners[index]['logo']:
+            delete_logo(partners[index]['logo'])
+
+        # Сохраняем новый логотип с уникальным именем
+        logo = handle_logo(file)
+    else:
+        logo = partners[index]['logo']  # Если логотип не загружен, оставляем старый
 
     if name and description:
         partners[index]['name'] = name
@@ -751,7 +769,6 @@ def edit_partner(index):
 
     return redirect(url_for('admin.show_partners'))
 
-
 # Удалить партнера
 @admin.route('/admin/cms/partners/delete/<int:index>', methods=['POST'])
 def delete_partner(index):
@@ -762,11 +779,21 @@ def delete_partner(index):
         flash('Неверный индекс партнера!', 'danger')
         return redirect(url_for('admin.show_partners'))
 
+    # Удаляем логотип партнера
+    delete_logo(partners[index]['logo'])
+
+    # Удаляем партнера из списка
     del partners[index]
+
+    # Обновляем ID всех партнёров после удаления
+    for i, partner in enumerate(partners):
+        partner['id'] = i + 1
+
     save_json(data)
     flash('Партнер успешно удален!', 'success')
 
     return redirect(url_for('admin.show_partners'))
+
 
 import shutil
 

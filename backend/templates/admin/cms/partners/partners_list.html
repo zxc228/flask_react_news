@@ -135,7 +135,7 @@
             <strong>{{ partner.name }}</strong><br>
             {{ partner.description }}<br>
             {% if partner.logo %}
-            <img src="{{ partner.logo }}" alt="{{ partner.name }}" style="width:100px;"><br>
+            <img src="{{ url_for('static', filename='logos/' + partner.logo.split('/')[-1]) }}" alt="{{ partner.name }}" style="width:100px;"><br>
             {% endif %}
             Вебсайт: {{ partner.website }}<br>
             Детали: {{ partner.details }}<br>

@@ -1,9 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import content from '../content.json';
 import '../styles/InfoPage.css';
+import config from '../config';
 
 const InfoPage = () => {
+  const [infoPage, setInfoPage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Делаем запрос к API для получения данных из content.json
+    fetch(`${config.apiUrl}/data`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Ошибка при загрузке данных');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setInfoPage(data.infoPage);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Ошибка:', error);
+        setError('Не удалось загрузить данные');
+        setLoading(false);
+      });
+  }, []);
+
+  // Пока данные загружаются
+  if (loading) {
+    return <div>Загрузка...</div>;
+  }
+
+  // Если возникла ошибка
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  // Если данные не найдены
+  if (!infoPage) {
+    return <div>Данные не найдены</div>;
+  }
+
   return (
     <div className="info-page">
       <header className="info-header">
@@ -19,7 +58,7 @@ const InfoPage = () => {
         <div className="info-text">
           <p className="paragraph-large">Основные направления деятельности института:</p>
           <ul className="styled-list">
-            {content.infoPage.mainDirections.map((direction, index) => (
+            {infoPage.mainDirections.map((direction, index) => (
               <li key={index}>{direction}</li>
             ))}
           </ul>
@@ -30,7 +69,7 @@ const InfoPage = () => {
 
           <h3>Руководство института</h3>
           <ul className="employee-list">
-            {content.infoPage.management.map((employee) => (
+            {infoPage.management.map((employee) => (
               <li key={employee.id}>
                 <Link to={`/directors/${employee.id}`}>{employee.position}</Link>
               </li>
@@ -39,7 +78,7 @@ const InfoPage = () => {
 
           <h3>Перечень аттестаций персонала СТАРК:</h3>
           <ul className="attestation-list">
-            {content.infoPage.attestations.map((attestation, index) => (
+            {infoPage.attestations.map((attestation, index) => (
               <li key={index}>{attestation}</li>
             ))}
           </ul>

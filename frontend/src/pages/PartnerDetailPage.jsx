@@ -1,12 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import content from '../content.json'; // Импортируем JSON-файл с данными о партнерах
 import '../styles/PartnerDetailPage.css';
+import config from '../config';
 
 const PartnerDetailPage = () => {
-    const { id } = useParams();
-    const partner = content.partners.find(p => p.id === parseInt(id)); // Ищем партнера по ID
+    const { id } = useParams(); // Получаем ID из параметров маршрута
+    const [partner, setPartner] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
+    useEffect(() => {
+        // Делаем запрос к API для получения данных о партнёрах
+        fetch(`${config.apiUrl}/data`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка при загрузке данных');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Находим партнёра по ID
+                const foundPartner = data.partners.find(p => p.id === parseInt(id));
+                if (foundPartner) {
+                    setPartner(foundPartner);
+                } else {
+                    setError('Партнёр не найден');
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                setError('Партнёр не найден');
+                setLoading(false);
+            });
+    }, [id]); // Этот эффект срабатывает, когда изменяется ID
+
+    // Пока данные загружаются
+    if (loading) {
+        return <div>Загрузка...</div>;
+    }
+
+    // Если возникла ошибка
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    // Если партнёр не найден
     if (!partner) {
         return <div>Партнёр не найден</div>;
     }

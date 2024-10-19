@@ -140,7 +140,7 @@
                 <label>Фото:</label> <br>
                 <input type="file" name="photo"><br>
                 {% if employee.photo %}
-                <img src="{{ employee.photo }}" alt="{{ employee.name }}" style="width:100px;"><br>
+                <img src="{{ url_for('static', filename='employees/' + employee.photo.split('/')[-1]) }}" alt="{{ employee.name }}" style="width:100px;"><br>
                 {% endif %}
                 <br>
 
