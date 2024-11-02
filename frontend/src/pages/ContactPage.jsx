@@ -1,8 +1,46 @@
-import React from 'react';
-import '../styles/ContactPage.css'; // Подключаем файл стилей
+import React, { useState } from 'react';
+import '../styles/ContactPage.css';
 import { Link } from 'react-router-dom';
+import config from '../config'; // Подключаем конфиг для URL API
 
 function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    organization: '',
+    message: '',
+  });
+  const [responseMessage, setResponseMessage] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${config.apiUrl}/send-email`, { // URL из config.js
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setResponseMessage('Сообщение успешно отправлено');
+        setFormData({ name: '', email: '', phone: '', organization: '', message: '' });
+      } else {
+        setResponseMessage('Ошибка при отправке сообщения');
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+      setResponseMessage('Не удалось отправить сообщение');
+    }
+  };
+
   return (
     <div className="contact-page">
       <header className="contact-header">
@@ -25,21 +63,21 @@ function ContactPage() {
 
         <div className="contact-form">
           <h2>Обратная связь</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>ФИО:*</label>
-            <input type="text" name="name" required />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
             
             <label>E-mail:*</label>
-            <input type="email" name="email" required />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
             
             <label>Телефон:*</label>
-            <input type="tel" name="phone" required />
+            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
             
             <label>Организация:</label>
-            <input type="text" name="organization" />
+            <input type="text" name="organization" value={formData.organization} onChange={handleChange} />
             
             <label>Ваше сообщение:*</label>
-            <textarea name="message" required></textarea>
+            <textarea name="message" value={formData.message} onChange={handleChange} required></textarea>
             
             <div className="consent">
               <input type="checkbox" required />
@@ -48,10 +86,10 @@ function ContactPage() {
             
             <button type="submit">Отправить</button>
           </form>
+          {responseMessage && <p>{responseMessage}</p>}
         </div>
       </div>
 
-      {/* Контейнер с картой Яндекс */}
       <div className="contact-map">
         <h3>Наше местоположение</h3>
         <iframe

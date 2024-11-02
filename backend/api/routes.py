@@ -1,9 +1,16 @@
-from flask import Blueprint, Response, jsonify, current_app
+from flask import Blueprint, Response, jsonify, current_app, request
 from backend.models import Post, Documents, Project
+
 import json
 import os
+import smtplib
+from email.mime.text import MIMEText
 
 api = Blueprint('api', __name__)
+
+
+
+
 
 
 @api.route("/api/news", methods=['GET'])
@@ -142,3 +149,38 @@ def get_data():
         mimetype='application/json'
     )
     return response
+
+
+
+
+@api.route("/api/send-email", methods=['POST'])
+def send_email():
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+    phone = data.get('phone')
+    organization = data.get('organization')
+    message = data.get('message')
+
+    # Создаем сообщение с указанием кодировки UTF-8
+    msg = MIMEText(f"""
+    ФИО: {name}
+    Email: {email}
+    Телефон: {phone}
+    Организация: {organization}
+
+    Сообщение:
+    {message}
+    """, _charset="cp1251")
+    msg['Subject'] = f"Новое сообщение от {name}"
+    msg['From'] = current_app.config['MAIL_USERNAME']
+    msg['To'] = 'ilya423@yandex.ru'
+
+    try:
+        with smtplib.SMTP_SSL(current_app.config['MAIL_SERVER'], current_app.config['MAIL_PORT']) as server:
+            server.login(current_app.config['MAIL_USERNAME'], current_app.config['MAIL_PASSWORD'])
+            server.sendmail(msg['From'], [msg['To']], msg.as_string())
+        return jsonify({"message": "Сообщение отправлено успешно"}), 200
+    except Exception as e:
+        print(f"Ошибка при отправке письма: {e}")
+        return jsonify({"message": "Ошибка при отправке сообщения"}), 500
