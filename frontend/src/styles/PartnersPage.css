@@ -15,7 +15,7 @@
     left: 15%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 3vw; /* Используем vw для адаптивного размера шрифта */
+    font-size: 2.5vw; /* Используем vw для адаптивного размера шрифта */
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     line-height: 1.2;
@@ -151,13 +151,20 @@
   }
 
   .partner-page-header-container h1 {
-    font-size: 2.5rem; /* Reduce font size */
+    font-size: 2rem; /* Reduce font size */
     top: 50%; /* Adjust positioning */
-    left: 15%; /* Center horizontally */
+    left: 19%; /* Center horizontally */
     transform: translateX(-50%);
   }
 }
-
+@media (max-width: 820px) {
+  .partner-page-header-container h1 {
+    font-size: 1.6rem; /* Reduce font size */
+    top: 50%; /* Adjust positioning */
+    left: 19%; /* Center horizontally */
+    transform: translateX(-50%);
+  }
+}
 /* Small tablets and large phones */
 @media (max-width: 768px) {
   .partners-list {
@@ -167,9 +174,9 @@
   }
 
   .partner-page-header-container h1 {
-    font-size: 1.8rem; /* Reduce font size */
+    font-size: 1.5rem; /* Reduce font size */
     top: 13vh; /* Adjust positioning */
-    left: 15%; /* Center horizontally */
+    left: 19%; /* Center horizontally */
     transform: translateX(-50%);
   }
 }
@@ -183,9 +190,9 @@
   }
 
   .partner-page-header-container h1 {
-    font-size: 1.2rem; /* Smaller font size */
-    top: 8vh; /* Adjust positioning */
-    left: 15%; /* Center horizontally */
+    font-size: 0.8rem; /* Smaller font size */
+    top: 9vh; /* Adjust positioning */
+    left: 18%; /* Center horizontally */
     transform: translateX(-50%);
   }
 
@@ -219,9 +226,9 @@
   }
 
   .partner-page-header-container h1 {
-    font-size: 0.9rem; /* Smaller font size */
+    font-size: 0.7rem; /* Smaller font size */
     top: 10vh; /* Adjust positioning */
-    left: 15%; /* Center horizontally */
+    left: 18%; /* Center horizontally */
     transform: translateX(-50%);
   }
 
@@ -253,9 +260,9 @@
   }
 
   .partner-page-header-container h1 {
-    font-size: 0.9rem; /* Smaller font size */
+    font-size: 0.6rem; /* Smaller font size */
     top: 12vh; /* Adjust positioning */
-    left: 15%; /* Center horizontally */
+    left: 17%; /* Center horizontally */
     transform: translateX(-50%);
   }
 

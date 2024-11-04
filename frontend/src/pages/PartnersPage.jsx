@@ -59,7 +59,7 @@ const PartnersPage = () => {
         <div className="partners-page">
             <header className="partner-page-header-container">
                 <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
-                <h1>Партнёры</h1>
+                <h1>Партнеры и Заказчики</h1>
                 <div className="breadcrumb-partners">
                     <Link to="/" className="breadcrumb-partners-link">
                         <span className="breadcrumb-partners-text">Главная</span>

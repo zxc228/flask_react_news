@@ -54,7 +54,7 @@ const PartnerDetailPage = () => {
         <div className="partner-detail-page">
             <header className="partner-page-header-container">
                 <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
-                <h1>Партнёр</h1>
+                <h1>Партнеры и Заказчики</h1>
                 <div className="breadcrumb-partners-b">
                     <Link to="/partners" className="breadcrumb-partners-link-b">
                         <span className="breadcrumb-partners-text-b">Партнёры</span>
