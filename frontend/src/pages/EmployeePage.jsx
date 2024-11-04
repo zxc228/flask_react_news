@@ -51,7 +51,9 @@ const EmployeeDetailPage = () => {
   }
 
   // Формируем полный путь к фото, используя config.staticUrl
-  const photoUrl = employee.photo ? `${config.staticUrl}/${employee.photo}` : null;
+ 
+  const photoUrl = employee.photo ? `${config.staticUrl}/${employee.photo.replace(/^\/?flask-static\//, '')}` : null;
+
 
   return (
     <div className="employee-page">
