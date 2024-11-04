@@ -70,7 +70,8 @@ const PartnersPage = () => {
                 {currentPartners.map((partner) => (
                     <div key={partner.id} className="partner-item">
                         {/* Используем staticUrl для логотипов */}
-                        <img src={`${config.staticUrl}${partner.logo}`} alt={partner.name} className="partner-logo" />
+                       <img src={`${config.staticUrl}/logos/${partner.logo}`} alt={partner.name} className="partner-logo" />
+
                         <h2 className="partner-name">{partner.name}</h2>
                         <p className="partner-description">{partner.description}</p>
                         <Link to={`/partners/${partner.id}`} className="partner-link">Подробнее</Link>

@@ -140,9 +140,10 @@
                 <label>Фото:</label> <br>
                 <input type="file" name="photo"><br>
                 {% if employee.photo %}
-                <img src="{{ url_for('static', filename='employees/' + employee.photo.split('/')[-1]) }}" alt="{{ employee.name }}" style="width:100px;"><br>
-                {% endif %}
+                <img src="{{ employee.photo }}" alt="{{ employee.name }}" style="width:100px;">
                 <br>
+                {% endif %}
+
 
                 <button type="submit">Обновить</button>
             </form>

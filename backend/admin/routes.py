@@ -497,29 +497,40 @@ def edit_attestation(index):
 
 
 
+import uuid
+
 def handle_photo(file, old_photo=None):
-    # Папка для загрузки файлов (в папку статических файлов Flask)
+    # Папка для загрузки файлов (реальный путь на сервере)
     UPLOAD_FOLDER = os.path.join(current_app.root_path, 'static', 'employees')
     
     # Создаем папку, если она не существует
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
     
-    # Удаление старого фото, если оно существует
+   # Удаление старого фото, если оно существует
     if old_photo:
-        old_photo_path = os.path.join(current_app.root_path, old_photo.lstrip('/'))
+        # Убираем 'flask-static/' из пути и создаем полный путь к старому файлу
+        old_photo_relative_path = old_photo.replace('/flask-static/', '')
+        old_photo_path = os.path.join(current_app.root_path, 'static', old_photo_relative_path)
+        
+        print(f"Полный путь к старому фото для удаления: {old_photo_path}")
+        
         if os.path.exists(old_photo_path):
             os.remove(old_photo_path)
     
-    # Безопасное имя файла
-    filename = secure_filename(file.filename)
-    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    # Генерация уникального имени для файла
+    ext = os.path.splitext(file.filename)[1]
+    unique_filename = f"{uuid.uuid4().hex}{ext}"
+    filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
     
     # Сохраняем файл
     file.save(filepath)
     
-    # Возвращаем путь без `/static`
-    return f"employees/{filename}"
+    # Возвращаем путь с начальным слэшем для корректного отображения URL
+    return f"/flask-static/employees/{unique_filename}"
+
+
+
 
 
 
