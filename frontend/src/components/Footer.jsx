@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="App-footer">
       <div className="footer-logo">
-        <img src="/logo2.png" alt="logo" />
+        <img src="/logo_ulta_canon.svg" alt="logo" />
       </div>
 
       <div className="footer-links-and-contact">
@@ -26,7 +26,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <div className="footer-company-left">
-          <p>© ООО ЦНИПИ «СТАРК» 2013</p>
+          <p>© ООО ЦНИПИ «СТАРК» 2024</p>
         </div>
         <div className="footer-button-right">
           <Link to="/contacts">
