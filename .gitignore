@@ -5,3 +5,6 @@ instance/
 uploads/
 
 /frontend/src/config.js
+/backend/staic/documents/
+
+/backend/config.py

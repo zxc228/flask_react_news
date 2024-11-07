@@ -11,7 +11,7 @@ const NewsPage = () => {
   const newsPerPage = 5;
 
   useEffect(() => {
-    fetch(`${config.apiUrl}/news/${id}`)
+    fetch(`${config.apiUrl}/news`)
       .then(response => response.json())
       .then(data => {
         setNews(data);

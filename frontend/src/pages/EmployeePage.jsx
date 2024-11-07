@@ -1,15 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import content from '../content.json';
 import '../styles/EmployeePage.css';
+import config from '../config';
 
 const EmployeeDetailPage = () => {
-  const { id } = useParams();
-  const employee = content.employees.find(emp => emp.id === parseInt(id)); // Ищем сотрудника по ID
+  const { id } = useParams(); // Получаем ID из параметров маршрута
+  const [employee, setEmployee] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    // Делаем запрос к API для получения данных из content.json
+    fetch(`${config.apiUrl}/data`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Ошибка при загрузке данных');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Находим сотрудника по ID
+        const foundEmployee = data.employees.find(emp => emp.id === parseInt(id));
+        if (foundEmployee) {
+          setEmployee(foundEmployee);
+        } else {
+          setError('Сотрудник не найден');
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Ошибка:', error);
+        setError('Сотрудник не найден');
+        setLoading(false);
+      });
+  }, [id]); // Этот эффект срабатывает, когда изменяется ID
+
+  // Пока данные загружаются
+  if (loading) {
+    return <div>Загрузка...</div>;
+  }
+
+  // Если возникла ошибка
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  // Если сотрудник не найден
   if (!employee) {
     return <div>Сотрудник не найден</div>;
   }
+
+  // Формируем полный путь к фото, используя config.staticUrl
+ 
+  const photoUrl = employee.photo ? `${config.staticUrl}/${employee.photo.replace(/^\/?flask-static\//, '')}` : null;
+
 
   return (
     <div className="employee-page">
@@ -27,7 +71,7 @@ const EmployeeDetailPage = () => {
         <h2>{employee.name}</h2>
         <h3>{employee.position}</h3>
         <p>{employee.description}</p>
-        {employee.photo && <img src={employee.photo} alt={employee.name} className="employee-photo" />}
+        {photoUrl && <img src={photoUrl} alt={employee.name} className="employee-photo" />}
       </div>
     </div>
   );

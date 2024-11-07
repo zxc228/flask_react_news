@@ -19,7 +19,11 @@ function DocumentsPage() {
               files: []
             };
           }
-          acc[doc.type].files.push({ name: doc.name, url: doc.file_path });
+          // Добавляем полную ссылку на документ, используя config.staticUrl
+          acc[doc.type].files.push({ 
+            name: doc.name, 
+            url: `${config.staticUrl}/documents/${doc.file_path}` 
+          });
           return acc;
         }, {});
         setDocuments(Object.values(groupedDocuments));
