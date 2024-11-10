@@ -47,7 +47,7 @@ def get_one_news(id):
         "title": one_news.title,
         "content": one_news.content,
         "category": one_news.category,
-        "image": news.image
+        "image": one_news.image
     }
     response = Response(
         response=json.dumps(one_news_data, ensure_ascii=False),
@@ -63,7 +63,8 @@ def get_projects():
         {
             "id": project.id,
             "name": project.name,
-            "content": project.content
+            "content": project.content,
+            "image": project.image
         }
         for project in projects_list
     ]
@@ -84,7 +85,8 @@ def get_one_project(id):
     project_data = {
         "id": project.id,
         "name": project.name,
-        "content": project.content
+        "content": project.content, 
+        "image": project.image
     }
     response = Response(
         response=json.dumps(project_data, ensure_ascii=False),
