@@ -22,7 +22,8 @@ def get_news():
             "date": news.date.strftime('%Y-%m-%d'), 
             "title": news.title,
             "content": news.content,
-            "category": news.category
+            "category": news.category,
+            "image": news.image
         }
         for news in news_list
     ]
@@ -45,7 +46,8 @@ def get_one_news(id):
         "date": one_news.date.strftime('%Y-%m-%d'), 
         "title": one_news.title,
         "content": one_news.content,
-        "category": one_news.category
+        "category": one_news.category,
+        "image": news.image
     }
     response = Response(
         response=json.dumps(one_news_data, ensure_ascii=False),

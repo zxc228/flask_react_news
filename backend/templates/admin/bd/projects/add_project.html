@@ -99,7 +99,7 @@
 </head>
 <body>
     <h1>Добавить проект</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div>
             {{ form.name.label }}
@@ -108,6 +108,10 @@
         <div>
             {{ form.content.label }}
             {{ form.content() }}
+        </div>
+        <div>
+            {{ form.image.label }}
+            {{ form.image() }}
         </div>
         <div>
             {{ form.submit() }}

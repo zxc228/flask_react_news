@@ -9,6 +9,7 @@ class AddNewsForm(FlaskForm):
     content = TextAreaField('Содержание', validators=[DataRequired()])
     # Категории с выбором значений
     category = SelectField('Категория', choices=[('Новости института', 'Новости института'), ('Новости арматурного сообщества', 'Новости арматурного сообщества'), ('Новости рынка', 'Новости рынка')], validators=[DataRequired()])
+    image = FileField('Загрузить изображение (JPG или PNG)', validators=[FileAllowed(['jpg', 'jpeg', 'png'], 'Только JPG и PNG!'), DataRequired()])
     submit = SubmitField('Добавить новость')
 
 class EditNewsForm(FlaskForm):
@@ -16,16 +17,19 @@ class EditNewsForm(FlaskForm):
     content = TextAreaField('Содержание', validators=[DataRequired()])
     # Категории с выбором значений
     category = SelectField('Категория', choices=[('Новости института', 'Новости института'), ('Новости арматурного сообщества', 'Новости арматурного сообщества'), ('Новости рынка', 'Новости рынка')], validators=[DataRequired()])
+    image = FileField('Загрузить изображение (JPG или PNG)', validators=[FileAllowed(['jpg', 'jpeg', 'png'], 'Только JPG и PNG!')])
     submit = SubmitField('Добавить новость')
 
 class AddProjectForm(FlaskForm):
     name = StringField('Название', validators=[DataRequired()])
     content = TextAreaField('Описание', validators=[DataRequired()])
+    image = FileField('Загрузить изображение (JPG или PNG)', validators=[FileAllowed(['jpg', 'jpeg', 'png'], 'Только JPG и PNG!'), DataRequired()])
     submit = SubmitField('Добавить проект')
 
 class EditProjectForm(FlaskForm):
     name = StringField('Название', validators=[DataRequired()])
     content = TextAreaField('Описание', validators=[DataRequired()])
+    image = FileField('Загрузить изображение (JPG или PNG)', validators=[FileAllowed(['jpg', 'jpeg', 'png'], 'Только JPG и PNG!')])
     submit = SubmitField('Сохранить изменения')
 
 

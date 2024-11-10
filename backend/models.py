@@ -7,6 +7,7 @@ class Post(db.Model):
     title = db.Column(db.String(255), nullable=False)
     content = db.Column(db.Text, nullable=False)
     category = db.Column(db.String(255), nullable=False)
+    image = db.Column(db.String(255), nullable=True)
 
     def __repr__(self):
         return f"<News {self.title} - {self.date.strftime('%d %B %Y')}>"
@@ -16,6 +17,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(255), nullable=True)
 
 
 class Documents(db.Model):

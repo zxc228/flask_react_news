@@ -31,28 +31,65 @@ def bd():
     return render_template('admin/bd/bd.html')
 
 
+
+
+
+def handle_image_upload(file):
+    upload_folder = os.path.join(current_app.root_path, 'static', 'news_images')
+    
+    # Создаем папку, если ее нет
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+
+    # Генерируем уникальное имя файла
+    ext = os.path.splitext(file.filename)[1]
+    unique_filename = f"{uuid.uuid4().hex}{ext}"
+    filepath = os.path.join(upload_folder, unique_filename)
+
+    # Сохраняем файл
+    file.save(filepath)
+
+    # Возвращаем только имя файла
+    return unique_filename
+
 # Показать все новости
 @admin.route('/admin/bd/news')
 def show_news():
     news = Post.query.order_by(Post.date.desc()).all()
-    return render_template('admin/bd/news/show_news.html', news=news)
+    return render_template('admin/bd/news/show_news.html', news=news, static_url=current_app.config['STATIC_URL'])
 
 # Добавить новость
 @admin.route('/admin/bd/news/add', methods=['GET', 'POST'])
 def add_news():
     form = AddNewsForm()
     if form.validate_on_submit():
+        image_file = form.image.data
+        image_filename = None
+        
+        # Сохраняем изображение, если оно загружено
+        if image_file:
+            upload_folder = os.path.join(current_app.root_path, 'static', 'news_images')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            # Генерация уникального имени файла для предотвращения конфликтов
+            image_filename = secure_filename(image_file.filename)
+            image_path = os.path.join(upload_folder, image_filename)
+            image_file.save(image_path)
+
         news_item = Post(
             title=form.title.data,
             content=form.content.data,
-            category=form.category.data,  # Выбранная категория
-            date=datetime.utcnow()
+            category=form.category.data,
+            image=image_filename  # Сохраняем имя файла изображения
         )
         db.session.add(news_item)
         db.session.commit()
         flash('Новость успешно добавлена!', 'success')
         return redirect(url_for('admin.show_news'))
+
     return render_template('admin/bd/news/add_news.html', form=form)
+
 
 # Редактирование новости
 @admin.route('/admin/bd/news/edit/<int:news_id>', methods=['GET', 'POST'])
@@ -63,22 +100,53 @@ def edit_news(news_id):
     if request.method == 'GET':
         form.title.data = news_item.title
         form.content.data = news_item.content
-        form.category.data = news_item.category  # Текущая категория
+        form.category.data = news_item.category
 
     if form.validate_on_submit():
+        image_file = form.image.data
+        print(form)
+        # Обновляем изображение, если загружен новый файл
+        if image_file:
+            upload_folder = os.path.join(current_app.root_path, 'static', 'news_images')
+            print(upload_folder)
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            # Удаляем старое изображение
+            if news_item.image:
+                old_image_path = os.path.join(upload_folder, news_item.image)
+                if os.path.exists(old_image_path):
+                    os.remove(old_image_path)
+
+            # Сохраняем новое изображение
+            image_filename = secure_filename(image_file.filename)
+            image_path = os.path.join(upload_folder, image_filename)
+            image_file.save(image_path)
+            news_item.image = image_filename  # Обновляем имя файла изображения
+
+        # Обновляем остальные данные
         news_item.title = form.title.data
         news_item.content = form.content.data
-        news_item.category = form.category.data  # Обновлённая категория
+        news_item.category = form.category.data
         db.session.commit()
         flash('Новость успешно обновлена!', 'success')
         return redirect(url_for('admin.show_news'))
     
     return render_template('admin/bd/news/edit_news.html', form=form, news_item=news_item)
 
+
 # Удаление новости
 @admin.route('/admin/bd/news/delete/<int:news_id>', methods=['POST'])
 def delete_news(news_id):
     news_item = Post.query.get_or_404(news_id)
+
+    # Удаление связанного изображения
+    if news_item.image:
+        image_path = os.path.join(current_app.root_path, 'static', 'news_images', news_item.image)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
+    # Удаление новости из базы данных
     db.session.delete(news_item)
     db.session.commit()
     flash('Новость успешно удалена!', 'success')
@@ -86,25 +154,43 @@ def delete_news(news_id):
 
 
 
+
+
 # Показать все проекты
 @admin.route('/admin/bd/projects')
 def show_projects():
     projects = Project.query.order_by(Project.name).all()
-    return render_template('admin/bd/projects/show_projects.html', projects=projects)
+    return render_template('admin/bd/projects/show_projects.html', projects=projects, static_url=current_app.config['STATIC_URL'])
 
 # Добавить проект
 @admin.route('/admin/bd/projects/add', methods=['GET', 'POST'])
 def add_project():
     form = AddProjectForm()
     if form.validate_on_submit():
+        image_file = form.image.data
+        image_filename = None
+        
+        # Сохраняем изображение, если оно загружено
+        if image_file:
+            upload_folder = os.path.join(current_app.root_path, 'static', 'project_images')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            # Генерация уникального имени файла для предотвращения конфликтов
+            image_filename = secure_filename(image_file.filename)
+            image_path = os.path.join(upload_folder, image_filename)
+            image_file.save(image_path)
+
         project = Project(
             name=form.name.data,
-            content=form.content.data
+            content=form.content.data,
+            image=image_filename  # Сохраняем имя файла изображения
         )
         db.session.add(project)
         db.session.commit()
         flash('Проект успешно добавлен!', 'success')
         return redirect(url_for('admin.show_projects'))
+
     return render_template('admin/bd/projects/add_project.html', form=form)
 
 # Редактирование проекта
@@ -118,6 +204,27 @@ def edit_project(project_id):
         form.content.data = project.content
 
     if form.validate_on_submit():
+        image_file = form.image.data
+
+        # Обновляем изображение, если загружен новый файл
+        if image_file:
+            upload_folder = os.path.join(current_app.root_path, 'static', 'project_images')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            # Удаляем старое изображение
+            if project.image:
+                old_image_path = os.path.join(upload_folder, project.image)
+                if os.path.exists(old_image_path):
+                    os.remove(old_image_path)
+
+            # Сохраняем новое изображение
+            image_filename = secure_filename(image_file.filename)
+            image_path = os.path.join(upload_folder, image_filename)
+            image_file.save(image_path)
+            project.image = image_filename  # Обновляем имя файла изображения
+
+        # Обновляем остальные данные
         project.name = form.name.data
         project.content = form.content.data
         db.session.commit()
@@ -130,17 +237,27 @@ def edit_project(project_id):
 @admin.route('/admin/bd/projects/delete/<int:project_id>', methods=['POST'])
 def delete_project(project_id):
     project = Project.query.get_or_404(project_id)
+
+    # Удаление связанного изображения
+    if project.image:
+        image_path = os.path.join(current_app.root_path, 'static', 'project_images', project.image)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
+    # Удаление проекта из базы данных
     db.session.delete(project)
     db.session.commit()
     flash('Проект успешно удален!', 'success')
     return redirect(url_for('admin.show_projects'))
 
 
+
 # Показать все документы
 @admin.route('/admin/bd/documents')
 def show_documents():
     documents = Documents.query.order_by(Documents.name).all()
-    return render_template('admin/bd/documents/show_documents.html', documents=documents)
+    static_url = current_app.config['STATIC_URL']
+    return render_template('admin/bd/documents/show_documents.html', documents=documents, static_url=static_url)
 
 # Добавить документ
 @admin.route('/admin/bd/documents/add', methods=['GET', 'POST'])

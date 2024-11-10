@@ -99,7 +99,7 @@
 </head>
 <body>
     <h1>Редактировать новость</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div>
             {{ form.title.label }}
@@ -114,9 +114,14 @@
             {{ form.category() }}
         </div>
         <div>
+            {{ form.image.label }}
+            {{ form.image() }}
+        </div>
+        <div>
             {{ form.submit() }}
         </div>
     </form>
+    
     <a href="{{ url_for('admin.bd') }}">В БД</a>
     <a href="{{ url_for('admin.index') }}">Домой</a>
 </body>

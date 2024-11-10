@@ -122,6 +122,9 @@
             <li>
                 <div>
                     <strong>{{ project.name }}</strong> - {{ project.content }}
+                    {% if project.image %}
+                        <img src="{{ static_url }}/project_images/{{ project.image }}" alt="{{ project.name }}" style="width: 100px;">
+                    {% endif %}
                 </div>
                 <div>
                     <a href="{{ url_for('admin.edit_project', project_id=project.id) }}">Редактировать</a>

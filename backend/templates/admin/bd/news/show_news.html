@@ -122,6 +122,9 @@
             <li>
                 <div>
                     <strong>{{ item.title }}</strong> ({{ item.date.strftime('%d %B %Y') }}) — {{ item.category }}
+                    {% if item.image %}
+                        <img src="{{ static_url }}/news_images/{{ item.image }}" alt="{{ item.name }}" style="width: 100px;">
+                    {% endif %}
                 </div>
                 <div>
                     <a href="{{ url_for('admin.edit_news', news_id=item.id) }}">Редактировать</a>
@@ -132,6 +135,7 @@
             </li>
         {% endfor %}
     </ul>
+    
 
     <div class="navigation-links">
         <a href="{{ url_for('admin.bd') }}">В БД</a>
