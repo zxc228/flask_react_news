@@ -53,8 +53,13 @@
 .partner-name {
   font-family: 'Inter', sans-serif;
   font-size: 1.5rem;
-  margin-bottom: 10px;
   font-weight: bold;
+  margin-bottom: 10px;
+  /* Задаем фиксированную высоту и перенос текста, чтобы заголовки были на одном уровне */
+  height: 50px; /* Установите подходящую высоту для ваших заголовков */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .partner-description {
@@ -62,6 +67,10 @@
   font-size: 1rem;
   color: #555;
   margin-bottom: 15px;
+  /* Задаем фиксированную высоту для описания */
+  height: 60px; /* Установите подходящую высоту для вашего описания */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .partner-link {

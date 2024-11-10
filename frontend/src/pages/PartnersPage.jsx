@@ -45,6 +45,11 @@ const PartnersPage = () => {
     // Функция для смены страницы
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    // Функция для обрезки текста
+    const truncateText = (text, maxLength) => {
+        return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+    };
+
     // Пока данные загружаются
     if (loading) {
         return <div>Загрузка...</div>;
@@ -72,9 +77,8 @@ const PartnersPage = () => {
                         {/* Используем staticUrl для логотипов */}
                         <img src={`${config.staticUrl}/logos/${partner.logo}`} alt={partner.name} className="partner-logo" />
 
-
-                        <h2 className="partner-name">{partner.name}</h2>
-                        <p className="partner-description">{partner.description}</p>
+                        <h2 className="partner-name">{truncateText(partner.name, 33)}</h2>
+                        <p className="partner-description">{truncateText(partner.description, 100)}</p>
                         <Link to={`/partners/${partner.id}`} className="partner-link">Подробнее</Link>
                     </div>
                 ))}
