@@ -679,6 +679,8 @@ def show_partners():
     return render_template('admin/cms/partners/partners_list.html', partners=partners)
 
 # Загрузка и сохранение изображения (логотипа) с уникальным именем
+
+
 def handle_logo(file):
     if file and file.filename:
         UPLOAD_FOLDER = os.path.join(current_app.root_path, 'static', 'logos')
@@ -686,19 +688,26 @@ def handle_logo(file):
             os.makedirs(UPLOAD_FOLDER)
 
         # Генерация уникального имени для файла
-        ext = file.filename.split('.')[-1]
-        filename = f"{uuid.uuid4().hex}.{ext}"
+        ext = os.path.splitext(file.filename)[1]
+        filename = f"{uuid.uuid4().hex}{ext}"
         filepath = os.path.join(UPLOAD_FOLDER, filename)
+        
+        # Сохраняем файл
         file.save(filepath)
-        return f"/logos/{filename}"
-    return ""  # Возвращаем пустую строку, если файл не загружен
+        
+        # Возвращаем только имя файла, без дополнительных слешей
+        return filename
+    return ""
+
 
 # Удаление файла логотипа
 def delete_logo(logo_path):
     if logo_path:
-        logo_full_path = os.path.join(current_app.root_path, logo_path.lstrip('/'))
+        # Построение полного пути с учётом директории 'static/logos'
+        logo_full_path = os.path.join(current_app.root_path, 'static', 'logos', logo_path)
         if os.path.exists(logo_full_path):
             os.remove(logo_full_path)
+
 
 # Добавить нового партнера
 @admin.route('/admin/cms/partners/add', methods=['POST'])

@@ -135,8 +135,14 @@
             <strong>{{ partner.name }}</strong><br>
             {{ partner.description }}<br>
             {% if partner.logo %}
-            <img src="{{ url_for('static', filename='logos/' + partner.logo.split('/')[-1]) }}" alt="{{ partner.name }}" style="width:100px;"><br>
+                <img src="/flask-static/logos/{{ partner.logo }}" alt="{{ partner.name }}" style="width:100px;">
             {% endif %}
+
+
+
+
+
+
             Вебсайт: {{ partner.website }}<br>
             Детали: {{ partner.details }}<br>
             Сотрудничество: {{ partner.cooperation }}<br>
