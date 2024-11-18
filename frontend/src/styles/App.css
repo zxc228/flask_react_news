@@ -77,6 +77,18 @@ h1 {
 }
 
 /* Медиазапросы */
+/* Адаптация для 1024px и ниже */
+@media (min-width: 1720px) {
+
+
+    .contact-header .header-image {
+        width: 100%;
+  height: 60vh;
+  max-height: 60vh;
+  object-position: 50% 43%; /* 50% по горизонтали, 60% по вертикали, ниже центра */
+  display: block;
+    }
+}
 @media (max-width: 768px) {
   .App-main {
     height: 70vh; /* Ограничиваем высоту для мобильных */
@@ -259,6 +271,18 @@ h1 {
   }
 }
 
+/* Адаптация для 1024px и ниже */
+@media (min-width: 1720px) {
+
+
+    .contact-header .header-image {
+        width: 100%;
+  height: 60vh;
+  max-height: 60vh;
+  object-position: 50% 43%; /* 50% по горизонтали, 60% по вертикали, ниже центра */
+  display: block;
+    }
+}
 @media (max-width: 768px) {
   .services-grid {
     grid-template-columns: 1fr;

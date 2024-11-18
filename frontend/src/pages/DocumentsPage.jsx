@@ -34,7 +34,10 @@ function DocumentsPage() {
   return (
     <div className="documents-page">
       <header className="documents-header">
-        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
+        <picture>
+  <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
+  <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
+</picture>
         <h1>Документы</h1>
         <div className="breadcrumb">
           <Link to="/" className="breadcrumb-link">

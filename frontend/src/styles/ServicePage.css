@@ -111,11 +111,10 @@
 /* Media queries for responsive design */
 @media (max-width: 1280px) {
     .header-image {
-        width: 100%;
-        height: auto;
-        max-height: 75vh; /* Увеличиваем высоту блока с изображением */
-        object-fit: cover;
-        margin-bottom: 4%; /* Добавляем больше пространства ниже изображения */
+        height: 50vh !important; /* Применяем фиксированную высоту с !important */
+        max-height: 50vh !important; /* Ограничиваем максимальную высоту */
+        object-fit: cover; /* Изображение обрезается по контейнеру */
+        width: 100%; /* На всю ширину */
     }
     .service-page-grid {
         margin-top: 1rem;
@@ -176,6 +175,18 @@
     }
 }
 
+/* Адаптация для 1024px и ниже */
+@media (min-width: 1720px) {
+
+
+    .contact-header .header-image {
+        width: 100%;
+  height: 60vh;
+  max-height: 60vh;
+  object-position: 50% 43%; /* 50% по горизонтали, 60% по вертикали, ниже центра */
+  display: block;
+    }
+}
 @media (max-width: 768px) {
     .header-image {
         max-height: 65vh; /* Увеличиваем высоту блока с изображением */

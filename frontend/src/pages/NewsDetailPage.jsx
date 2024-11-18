@@ -18,30 +18,38 @@ const NewsDetailPage = () => {
     return <p>Загрузка...</p>;
   }
 
+  // Формируем URL изображения для новости
+  const imageUrl = `${config.staticUrl}/news_images/${newsItem.image}`;
+
   return (
     <div className="news-detail-page-container">
-  <header className="news-detail-header-container">
-    <img src="/comp_atom 2.jpg" alt="Header Background" className="news-detail-header-image" />
-    <h1>Новости</h1>
-  </header>
-  
-  {/* Перемещаем крошку сюда, чтобы она оказалась над контейнером */}
-  <div className="news-details-breadcrumb">
-    <Link to="/news" className="news-details-breadcrumb-link">
-      <span className="news-details-breadcrumb-text">Все Новости</span>
-    </Link>
-  </div>
+      <header className="news-detail-header-container">
+        <picture>
+          <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
+          <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
+        </picture>
+        <h1>Новости</h1>
+      </header>
+      
+      <div className="news-details-breadcrumb">
+        <Link to="/news" className="news-details-breadcrumb-link">
+          <span className="news-details-breadcrumb-text">Все Новости</span>
+        </Link>
+      </div>
 
-  <section className="news-detail-content-container">
-    <div className="news-detail-item-container">
-      <p className="news-detail-date-container">{newsItem.date}</p>
-      <h2 className="news-detail-title-container">{newsItem.title}</h2>
-      <p className="news-detail-description-container">
-        {newsItem.content}
-      </p>
+      <section className="news-detail-content-container">
+        <div className="news-detail-item-container">
+          {/* Отображаем изображение новости */}
+          <img src={imageUrl} alt={newsItem.title} className="news-detail-image" />
+          
+          <p className="news-detail-date-container">{newsItem.date}</p>
+          <h2 className="news-detail-title-container">{newsItem.title}</h2>
+          <p className="news-detail-description-container">
+            {newsItem.content}
+          </p>
+        </div>
+      </section>
     </div>
-  </section>
-</div>
   );
 };
 

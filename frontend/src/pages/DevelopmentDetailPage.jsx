@@ -34,10 +34,16 @@ function DevelopmentDetailPage() {
     return <p>Разработка не найдена</p>;
   }
 
+  // Формируем URL изображения
+  const imageUrl = `${config.staticUrl}/project_images/${development.image}`;
+
   return (
     <div className="development-detail-page">
       <header className="development-header">
-        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
+        <picture>
+          <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
+          <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
+        </picture>
         <h1>Разработки</h1>
         <div className="breadcrumb">
           <Link to="/developments" className="breadcrumb-link">
@@ -48,6 +54,8 @@ function DevelopmentDetailPage() {
 
       <div className="development-detail-content">
         <h2>{development.name}</h2>
+        {/* Отображаем изображение разработки */}
+        <img src={imageUrl} alt={development.name} className="development-detail-image" />
         <p>{development.content}</p>
       </div>
     </div>

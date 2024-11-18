@@ -18,7 +18,7 @@ class EditNewsForm(FlaskForm):
     # Категории с выбором значений
     category = SelectField('Категория', choices=[('Новости института', 'Новости института'), ('Новости арматурного сообщества', 'Новости арматурного сообщества'), ('Новости рынка', 'Новости рынка')], validators=[DataRequired()])
     image = FileField('Загрузить изображение (JPG или PNG)', validators=[FileAllowed(['jpg', 'jpeg', 'png'], 'Только JPG и PNG!')])
-    submit = SubmitField('Добавить новость')
+    submit = SubmitField('Сохранить новость')
 
 class AddProjectForm(FlaskForm):
     name = StringField('Название', validators=[DataRequired()])

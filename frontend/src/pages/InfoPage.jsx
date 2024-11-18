@@ -46,7 +46,10 @@ const InfoPage = () => {
   return (
     <div className="info-page">
       <header className="info-header">
-        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
+        <picture>
+  <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
+  <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
+</picture>
         <h1>О нас</h1>
       </header>
       <section className="info-content">

@@ -52,16 +52,6 @@
   border-bottom: 2px solid aliceblue;
 }
 
-/* Линия внизу */
-.header::after {
-  content: "";
-  width: 100%;
-  height: 1px;
-  background-color: rgb(202, 202, 202);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
 
 /* Иконка бургер-меню */
 .burger-menu-icon {
@@ -138,6 +128,12 @@
 
 /* Показываем иконку бургер-меню только на мобильных устройствах */
 @media (max-width: 1280px) {
+  .header-image {
+    height: 50vh !important; /* Применяем фиксированную высоту с !important */
+    max-height: 50vh !important; /* Ограничиваем максимальную высоту */
+    object-fit: cover; /* Изображение обрезается по контейнеру */
+    width: 100%; /* На всю ширину */
+}
   .navigation {
     display: block; /* Скрываем навигацию для мобильных */
   }
@@ -162,6 +158,12 @@
   }
 }
 @media (max-width: 1024px) {
+  .header-image {
+    height: 25vh !important; /* Применяем фиксированную высоту с !important */
+    max-height: 25vh !important; /* Ограничиваем максимальную высоту */
+    object-fit: cover; /* Изображение обрезается по контейнеру */
+    width: 100%; /* На всю ширину */
+  }
   .navigation {
     display: block; /* Скрываем навигацию для мобильных */
   }
@@ -187,6 +189,18 @@
 }
 
 /* Для экранов меньше 768px */
+/* Адаптация для 1024px и ниже */
+@media (min-width: 1720px) {
+
+
+    .contact-header .header-image {
+        width: 100%;
+  height: 60vh;
+  max-height: 60vh;
+  object-position: 50% 43%; /* 50% по горизонтали, 60% по вертикали, ниже центра */
+  display: block;
+    }
+}
 @media (max-width: 768px) {
   .header-logo img {
     max-height: 50px; /* Уменьшаем размер логотипа */

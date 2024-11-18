@@ -58,7 +58,10 @@ const EmployeeDetailPage = () => {
   return (
     <div className="employee-page">
       <header className="employee-header-container">
-        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
+        <picture>
+  <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
+  <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
+</picture>
         <h1>Сотрудники</h1>
         <div className="breadcrumb-employee">
           <Link to="/about" className="breadcrumb-employee-link">

@@ -74,6 +74,12 @@
 
 /* Адаптация для 1024px и ниже */
 @media (max-width: 1024px) {
+  .header-image {
+    height: 25vh !important; /* Применяем фиксированную высоту с !important */
+    max-height: 25vh !important; /* Ограничиваем максимальную высоту */
+    object-fit: cover; /* Изображение обрезается по контейнеру */
+    width: 100%; /* На всю ширину */
+  }
   .documents-header h1 {
     font-size: 2.5rem; /* Уменьшаем размер шрифта */
     top:13%;
@@ -106,6 +112,18 @@
 }
 
 /* Адаптация для 768px и ниже */
+/* Адаптация для 1024px и ниже */
+@media (min-width: 1720px) {
+
+
+    .contact-header .header-image {
+        width: 100%;
+  height: 60vh;
+  max-height: 60vh;
+  object-position: 50% 43% !important; /* 50% по горизонтали, 60% по вертикали, ниже центра */
+  display: block;
+    }
+}
 @media (max-width: 768px) {
   .documents-header h1 {
     font-size: 1.8rem; /* Уменьшаем размер шрифта */

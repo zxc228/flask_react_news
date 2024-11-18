@@ -63,7 +63,10 @@ const PartnersPage = () => {
     return (
         <div className="partners-page">
             <header className="partner-page-header-container">
-                <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
+                <picture>
+  <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
+  <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
+</picture>
                 <h1>Партнеры и Заказчики</h1>
                 <div className="breadcrumb-partners">
                     <Link to="/" className="breadcrumb-partners-link">

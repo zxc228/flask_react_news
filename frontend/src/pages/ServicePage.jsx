@@ -39,7 +39,10 @@ function ServicePage() {
   return (
     <section className="service-page-section">
       <header className="service-page-header">
-        <img src="/comp_atom 2.jpg" alt="Header Background" className="header-image" />
+        <picture>
+  <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
+  <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
+</picture>
         <h1>Наши услуги</h1>
         <div className="service-breadcrumb">
           <Link to="/" className="service-breadcrumb-link">
