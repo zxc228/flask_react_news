@@ -177,7 +177,9 @@ def add_project():
                 os.makedirs(upload_folder)
 
             # Генерация уникального имени файла для предотвращения конфликтов
-            image_filename = secure_filename(image_file.filename)
+            ext = os.path.splitext(image_file.filename)[1]
+            image_filename = f"{uuid.uuid4().hex}{ext}"
+
             image_path = os.path.join(upload_folder, image_filename)
             image_file.save(image_path)
 
@@ -219,7 +221,8 @@ def edit_project(project_id):
                     os.remove(old_image_path)
 
             # Сохраняем новое изображение
-            image_filename = secure_filename(image_file.filename)
+            ext = os.path.splitext(image_file.filename)[1]
+            image_filename = f"{uuid.uuid4().hex}{ext}"
             image_path = os.path.join(upload_folder, image_filename)
             image_file.save(image_path)
             project.image = image_filename  # Обновляем имя файла изображения
