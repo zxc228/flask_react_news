@@ -44,6 +44,7 @@ const NewsDetailPage = () => {
           
           <p className="news-detail-date-container">{newsItem.date}</p>
           <h2 className="news-detail-title-container">{newsItem.title}</h2>
+          {/* Отображаем полное описание */}
           <p className="news-detail-description-container">
             {newsItem.content}
           </p>

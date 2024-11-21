@@ -48,9 +48,9 @@ const NewsPage = () => {
     <div className="news-page-container">
       <header className="news-header-container">
         <picture>
-  <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
-  <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
-</picture>
+          <source media="(max-width: 1023px)" srcSet="/comp_atom_2.jpg" />
+          <img src="/comp_atom-fin.png" alt="Header Background" className="header-image" />
+        </picture>
         <h1>Новости</h1>
       </header>
       
@@ -82,7 +82,8 @@ const NewsPage = () => {
               <Link to={`/news/${item.id}`} className="news-title-container">
                 {item.title}
               </Link>
-              <p>{item.content}</p>
+              {/* Отображаем сокращённое описание */}
+              <p>{item.content.length > 150 ? `${item.content.slice(0, 150)}...` : item.content}</p>
             </div>
             <Link to={`/news/${item.id}`} className="news-button-container">Подробнее</Link>
           </div>

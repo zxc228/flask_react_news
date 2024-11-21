@@ -2,9 +2,10 @@
 .employee-page {
   width: 100%;
   margin: 0 auto;
-  text-align: center;
-  padding-top: 0; /* Убираем верхний отступ */
+  text-align: justify; /* Выравнивание текста по ширине */
+  padding-top: 0;
 }
+
 .employee-header-container h1 {
   position: absolute;
   top: 100%;
@@ -17,11 +18,12 @@
   line-height: 28px;
   z-index: 2;
 }
+
 .employee-header-container {
   position: relative;
   width: 100%;
   height: 250px;
-  margin-bottom: 20%; /* Убираем отступ снизу */
+  margin-bottom: 20%;
 }
 
 .header-image {
@@ -43,8 +45,8 @@
 }
 
 .breadcrumb-employee {
-  margin-top: 0rem; /* Отступ сверху от предыдущего элемента */
-  margin-bottom: 0rem; /* Отступ снизу */
+  margin-top: 0rem;
+  margin-bottom: 0rem;
   margin-left: 5%;
   display: flex;
   align-items: center;
@@ -64,13 +66,15 @@
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
-  text-align: center;
+  text-align: justify; /* Выравнивание текста по ширине */
+  hyphens: none; /* Отключение переносов слов */
 }
 
 .detail-content h2 {
   font-size: 2.8rem;
   font-weight: 600;
   margin-bottom: 10px;
+  white-space: nowrap; /* Запрет переноса */
 }
 
 .detail-content h3 {
@@ -81,11 +85,13 @@
 .detail-content p {
   font-size: 1.125rem;
   line-height: 1.6;
+  text-align: justify; /* Выравнивание текста по ширине */
+  word-break: keep-all; /* Сохранение слов на одной строке */
 }
 
 .employee-photo {
   max-width: 100%;
-  height: auto;
+  max-height: auto;
   border-radius: 8px;
   margin-top: 20px;
 }
