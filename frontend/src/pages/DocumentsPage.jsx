@@ -61,7 +61,6 @@ function DocumentsPage() {
               </ul>
             </div>
             <div className="document-card-footer">
-              <Link to={`/documents/${doc.id}`} className="document-detail-link">Показать все</Link>
             </div>
           </div>
         ))}
