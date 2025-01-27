@@ -33,29 +33,56 @@ const EmployeeDetailPage = () => {
       });
   }, [id]);
 
-  // Функция преобразования текста
+  // Функция преобразования текста с учетом всех правил
   const formatDescription = (description) => {
-    const regex = /\*(.*?)\*/g; // Ищем текст между звёздочками
-    const parts = description.split('\n'); // Разделяем текст на строки
+    const lines = description.split('\n'); // Разделяем текст на строки
     const formattedParts = [];
+    let currentList = []; // Временное хранилище для пунктов списка
 
-    parts.forEach((line, index) => {
-      const matches = [...line.matchAll(regex)]; // Находим все элементы внутри звёздочек
-      if (matches.length > 0) {
-        // Если есть элементы со звёздочками
-        const listItems = matches.map((match) => match[1]); // Извлекаем текст между звёздочками
+    const pushCurrentList = () => {
+      if (currentList.length > 0) {
+        // Если есть элементы списка, добавляем их как список
         formattedParts.push(
-          <ul key={`list-${index}`}>
-            {listItems.map((item, idx) => (
+          <ul key={`list-${formattedParts.length}`}>
+            {currentList.map((item, idx) => (
               <li key={`list-item-${idx}`}>{item}</li>
             ))}
           </ul>
         );
+        currentList = []; // Очищаем список
+      }
+    };
+
+    lines.forEach((line, index) => {
+      const trimmedLine = line.trim(); // Убираем лишние пробелы
+
+      if (trimmedLine.startsWith('*') && trimmedLine.endsWith('*')) {
+        // Если строка — элемент списка
+        currentList.push(trimmedLine.slice(1, -1)); // Убираем звёздочки и добавляем в текущий список
       } else {
-        // Если это просто текст, добавляем как параграф
-        formattedParts.push(<p key={`paragraph-${index}`}>{line.trim()}</p>);
+        // Если строка не является списком
+        pushCurrentList(); // Завершаем текущий список, если он есть
+        if (trimmedLine) {
+          if (trimmedLine.endsWith(':')) {
+            // Если строка заканчивается двоеточием, считаем её заголовком секции
+            formattedParts.push(
+              <h3 key={`heading-${index}`} className="section-heading">
+                {trimmedLine}
+              </h3>
+            );
+          } else {
+            // Иначе это обычный текст абзаца
+            formattedParts.push(
+              <p key={`paragraph-${index}`} className="text-paragraph">
+                {trimmedLine}
+              </p>
+            );
+          }
+        }
       }
     });
+
+    pushCurrentList(); // Добавляем оставшийся список (если он есть)
 
     return formattedParts;
   };
